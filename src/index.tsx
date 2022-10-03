@@ -3,13 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
+
 import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
 import { config } from './config/config';
+
 import AuthRoute from './components/AuthRoute';
 
-initializeApp(config.firebaseConfig);
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+
+export const app = initializeApp(config.firebaseConfig);
+export const db = getFirestore(app);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -20,6 +26,7 @@ root.render(
       <Routes>
         <Route path='/' element={<AuthRoute><Home /></AuthRoute>} />
         <Route path='/login' element={<Login />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </BrowserRouter>
   </>
