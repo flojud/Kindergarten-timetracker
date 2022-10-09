@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from 'react-router-dom';
+import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthContextProvider } from "./contexts/AuthContextProvider";
 
@@ -30,6 +31,7 @@ const App = () => {
           />
           </Routes>
         </AuthContextProvider>
+        <Navigation />
   </>
 }
 
