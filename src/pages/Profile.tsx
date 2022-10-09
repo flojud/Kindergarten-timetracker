@@ -1,6 +1,6 @@
 import { collection, doc, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import {db} from '../index';
+import {db} from '../Firebase';
 import { IProfile } from "../interfaces/Profile";
 
 const Profile = () => {

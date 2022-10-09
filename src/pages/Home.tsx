@@ -1,15 +1,24 @@
-import React from "react";
-import { getAuth, signOut } from "firebase/auth";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../contexts/AuthContextProvider";
+
 
 const Home = () => {
-  const auth = getAuth();
+  const userAuth = useContext(UserContext);
+
+  const logout = () => {
+    userAuth.logout();
+    console.log(userAuth.user);
+  }
+  
   return(
   <>
     <div>
       <div>Home Page</div>
       <div><Link to={"/profile"} >My Profile</Link></div>
-      <div><button onClick={() => signOut(auth)}>Logout</button></div>
+      <Link to='/signup'>SignUp</Link>
+      <Link to='/login'>Login</Link>      
+      <div><button onClick={logout}>Logout</button></div>
     </div>
   </>)
 }
