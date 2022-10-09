@@ -127,4 +127,4 @@ dist
 .pnp.*
 
 
-src/config/config.tsx
+src/firebase/config.tsx

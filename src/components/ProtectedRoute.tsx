@@ -1,8 +1,7 @@
-import React, { FC, ReactChildren, ReactNode } from 'react';
+import React, { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import { UserAuth } from '../contexts/AuthContextProvider';
-
-type Props = { children: ReactNode | any }
+import { Props } from '../interfaces/Props';
 
 const ProtectedRoute: FC<Props> = ({children}) => {
   const { user } = UserAuth();

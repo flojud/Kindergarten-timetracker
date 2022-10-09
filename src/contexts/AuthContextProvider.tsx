@@ -1,4 +1,4 @@
-import { createContext, FC, ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, FC, useContext, useEffect, useState } from 'react';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -7,17 +7,10 @@ import {
   UserCredential,
 } from 'firebase/auth';
 
-import { auth } from '../Firebase';
+import { auth } from '../firebase/Firebase';
 import { IUser } from '../interfaces/User';
-
-type Props = { children: ReactNode }
-
-interface UserContextInterface {
-  createUser: (email: string, password: string) => void, 
-  user: IUser | null,
-  logout: () => void;
-  signIn: (email: string, password: string) => Promise<UserCredential>;
-}
+import { Props } from '../interfaces/Props';
+import { UserContextInterface } from '../interfaces/UserContextInterface';
 
 export const UserContext = createContext<UserContextInterface>({} as UserContextInterface);
 
