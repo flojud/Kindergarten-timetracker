@@ -1,11 +1,5 @@
 import { createContext, FC, useContext, useEffect, useState } from 'react';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  UserCredential,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, UserCredential } from 'firebase/auth';
 
 import { auth } from '../firebase/Firebase';
 import { IUser } from '../interfaces/User';
@@ -14,20 +8,20 @@ import { UserContextInterface } from '../interfaces/UserContextInterface';
 
 export const UserContext = createContext<UserContextInterface>({} as UserContextInterface);
 
-export const AuthContextProvider: FC<Props> = ({children}) => {
+export const AuthContextProvider: FC<Props> = ({ children }) => {
   const [user, setUser] = useState<IUser>({} as IUser);
 
   const createUser = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-   const signIn = (email: string, password: string) =>  {
-    return signInWithEmailAndPassword(auth, email, password)
-   }
+  const signIn = (email: string, password: string) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   const logout = () => {
-      return signOut(auth)
-  }
+    return signOut(auth);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -38,11 +32,7 @@ export const AuthContextProvider: FC<Props> = ({children}) => {
     };
   }, []);
 
-  return (
-    <UserContext.Provider value={{ createUser, user, logout, signIn }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ createUser, user, logout, signIn }}>{children}</UserContext.Provider>;
 };
 
 export const UserAuth = () => {

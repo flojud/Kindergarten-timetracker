@@ -1,11 +1,11 @@
 export interface IProfile {
-  availabletime: number,
-  workingtime: number,
-  workingdays: IWorkingdays,
-  name: string,
-  state: string,
-  surname: string,
-  uid: string,
+  availabletime: number;
+  workingtime: number;
+  workingdays: IWorkingdays;
+  name: string;
+  state: string;
+  surname: string;
+  uid: string;
 }
 
 export interface IWorkingdays {

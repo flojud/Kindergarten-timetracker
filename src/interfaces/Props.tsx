@@ -1,3 +1,3 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
-export type Props = { children: ReactNode | any }
+export type Props = { children: ReactNode | any };
