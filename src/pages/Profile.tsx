@@ -13,13 +13,14 @@ const Profile = () => {
       setProfiles(data.docs.map((doc) => ({ ...(doc.data() as IProfile) })));
     };
     getProfiles();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <div>
         {profiles.map((profile: IProfile) => {
-          return <div>{profile.surname}</div>;
+          return <div key={profile.uid}>{profile.surname}</div>;
         })}
       </div>
     </>
