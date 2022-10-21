@@ -1,14 +1,24 @@
 import React, { createContext, FC, useContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, UserCredential } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  UserCredential,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from 'firebase/auth';
 
 import { auth } from '../firebase/Firebase';
 import { IUser } from '../interfaces/User';
 import { Props } from '../interfaces/Props';
 import { UserContextInterface } from '../interfaces/UserContextInterface';
+import { useNavigate } from 'react-router-dom';
 
 export const UserContext = createContext<UserContextInterface>({} as UserContextInterface);
 
 export const AuthContextProvider: FC<Props> = ({ children }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<IUser>({} as IUser);
 
   const createUser = (email: string, password: string) => {
@@ -19,8 +29,21 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const googleSignIn = async () => {
+    signInWithPopup(auth, new GoogleAuthProvider())
+      .then((response) => {
+        console.log(response.user);
+        setUser(response.user as IUser);
+        navigate('/profile');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const logout = () => {
-    return signOut(auth);
+    signOut(auth);
+    navigate(0);
   };
 
   useEffect(() => {
@@ -32,7 +55,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
     };
   }, []);
 
-  return <UserContext.Provider value={{ createUser, user, logout, signIn }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ createUser, user, logout, signIn, googleSignIn }}>{children}</UserContext.Provider>;
 };
 
 export const UserAuth = () => {

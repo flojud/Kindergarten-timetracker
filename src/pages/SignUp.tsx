@@ -28,24 +28,42 @@ const Signup = () => {
   return (
     <>
       <MainContainer>
-        <Item>
-          <TextField required id="outlined-required" label="Email" onChange={(e) => setEmail(e.target.value)} />
-        </Item>
-        <Item>
-          <TextField required id="outlined-required" label="Passwort" type="password" onChange={(e) => setPassword(e.target.value)} />
-        </Item>
-        <Item>
-          <Button variant="contained" startIcon={<PersonAddAltIcon />} onClick={handleSubmit}>
-            Registrieren
-          </Button>
-        </Item>
-        <Item>
-          Mit der Registrierung bei KITZE stimmst du den <Link to="/legal/terms">Nutzungsbedingungen</Link> zu. Schau dir unsere{' '}
-          <Link to="/legal/policy">Datenschutz-Bestimmungen</Link> an.
-        </Item>
-        <Item>
-          Bereits Mitglied? <Link to="/login">Anmelden</Link>
-        </Item>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignSelf: 'center',
+            maxWidth: '400px',
+          }}>
+          <Item>
+            <h2>Tritt noch heute KITZE bei, es ist kostenlos.</h2>
+          </Item>
+          <Item>
+            <TextField fullWidth required id="outlined-required" label="Email" onChange={(e) => setEmail(e.target.value)} />
+          </Item>
+          <Item>
+            <TextField
+              fullWidth
+              required
+              id="outlined-required"
+              label="Passwort"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Item>
+          <Item>
+            <Button fullWidth variant="contained" startIcon={<PersonAddAltIcon />} onClick={handleSubmit}>
+              Registrieren
+            </Button>
+          </Item>
+          <Item>
+            Mit der Registrierung bei KITZE stimmst du den <Link to="/legal/terms">Nutzungsbedingungen</Link> zu. Schau dir unsere{' '}
+            <Link to="/legal/policy">Datenschutz-Bestimmungen</Link> an.
+          </Item>
+          <Item>
+            Bereits Mitglied? <Link to="/signin">Anmelden</Link>
+          </Item>
+        </Box>
       </MainContainer>
     </>
   );

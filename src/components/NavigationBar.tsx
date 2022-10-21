@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AvatarMenu from './AvatarMenu';
 import MainMenu from './MainMenu';
 import { Link } from 'react-router-dom';
@@ -11,12 +11,20 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import { Button } from '@mui/material';
+import { useState } from 'react';
 
 const NavigationBar = () => {
   const userAuth = useContext(UserContext);
-
-  const handlelogin = () => {};
-
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+  useEffect(() => {
+    if (userAuth.user) {
+      setIsAuth(true);
+      console.log(true);
+    } else {
+      setIsAuth(false);
+      console.log(false);
+    }
+  }, [userAuth.user?.uid]);
   return (
     <AppBar position="static">
       <Container maxWidth={false}>
@@ -27,7 +35,7 @@ const NavigationBar = () => {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex' },
@@ -41,10 +49,10 @@ const NavigationBar = () => {
             KITZE
           </Typography>
 
-          {userAuth.user ? (
+          {isAuth ? (
             <AvatarMenu />
           ) : (
-            <Button variant="contained" component={Link} to="/login" color="secondary">
+            <Button variant="contained" component={Link} to="/signin" color="secondary">
               Login
             </Button>
           )}

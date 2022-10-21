@@ -6,4 +6,5 @@ export interface UserContextInterface {
   user: IUser | null;
   logout: () => void;
   signIn: (email: string, password: string) => Promise<UserCredential>;
+  googleSignIn: () => void;
 }

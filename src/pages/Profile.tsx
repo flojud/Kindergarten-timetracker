@@ -1,9 +1,12 @@
 import { collection, doc, getDocs } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../contexts/AuthContextProvider';
 import { db } from '../firebase/Firebase';
 import { IProfile } from '../interfaces/Profile';
 
 const Profile = () => {
+  const userAuth = useContext(UserContext);
+
   const profilesCollectionRef = collection(db, 'profiles');
   const [profiles, setProfiles] = useState<IProfile[]>([]);
   useEffect(() => {
@@ -13,11 +16,12 @@ const Profile = () => {
       setProfiles(data.docs.map((doc) => ({ ...(doc.data() as IProfile) })));
     };
     getProfiles();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
+      <h1>Hallo {userAuth.user?.displayName}</h1>
       <div>
         {profiles.map((profile: IProfile) => {
           return <div key={profile.uid}>{profile.surname}</div>;
