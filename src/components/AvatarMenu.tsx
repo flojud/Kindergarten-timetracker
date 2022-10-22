@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../contexts/AuthContextProvider';
 
 const AvatarMenu = () => {
-  const userAuth = useContext(UserContext);
+  const { userAuth } = useContext(UserContext);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {

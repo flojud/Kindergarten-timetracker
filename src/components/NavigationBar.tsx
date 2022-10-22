@@ -14,17 +14,10 @@ import { Button } from '@mui/material';
 import { useState } from 'react';
 
 const NavigationBar = () => {
-  const userAuth = useContext(UserContext);
-  const [isAuth, setIsAuth] = useState<boolean>(false);
-  useEffect(() => {
-    if (userAuth.user) {
-      setIsAuth(true);
-      console.log(true);
-    } else {
-      setIsAuth(false);
-      console.log(false);
-    }
-  }, [userAuth.user?.uid]);
+  const { user, userAuth } = useContext(UserContext);
+
+  console.log(user);
+
   return (
     <AppBar position="static">
       <Container maxWidth={false}>
@@ -49,7 +42,7 @@ const NavigationBar = () => {
             KITZE
           </Typography>
 
-          {isAuth ? (
+          {user?.uid ? (
             <AvatarMenu />
           ) : (
             <Button variant="contained" component={Link} to="/signin" color="secondary">

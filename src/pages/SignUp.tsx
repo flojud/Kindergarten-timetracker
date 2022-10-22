@@ -10,14 +10,14 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { createUser } = UserAuth();
+  const { userAuth } = UserAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError('');
     try {
-      await createUser(email, password);
+      await userAuth.createUser(email, password);
       navigate('/');
     } catch (e: any) {
       setError(e.message);

@@ -8,15 +8,16 @@ import EmailIcon from '@mui/icons-material/Email';
 import Item from '../components/Item';
 
 const Home = () => {
-  const userAuth = useContext(UserContext);
+  const { user, userAuth } = useContext(UserContext);
 
   const handleGoogleSignup = async () => {
     userAuth.googleSignIn();
   };
 
   const checklogin = () => {
-    if (userAuth.user) {
+    if (user?.uid) {
       console.log(true);
+      console.log(user);
     } else {
       console.log(false);
     }
@@ -34,7 +35,9 @@ const Home = () => {
           }}>
           <Item>
             <h2>Die beste Zeiterfassung App für Erzieher:innen</h2>
-            <h3>{userAuth.user?.displayName}</h3>
+            <h3>name: {user?.displayName}</h3>
+            <h4>anonymous: {user?.isAnonymous}</h4>
+            <h4>uid: {user?.uid}</h4>
           </Item>
           <Item>
             <Button variant="contained" fullWidth onClick={userAuth.logout}>

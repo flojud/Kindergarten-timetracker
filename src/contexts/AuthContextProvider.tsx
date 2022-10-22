@@ -32,8 +32,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
   const googleSignIn = async () => {
     signInWithPopup(auth, new GoogleAuthProvider())
       .then((response) => {
-        console.log(response.user);
-        setUser(response.user as IUser);
+        setUser({ ...(response.user as IUser) });
         navigate('/profile');
       })
       .catch((error) => {
@@ -48,14 +47,22 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser as IUser);
+      setUser({ ...(currentUser as IUser) });
     });
     return () => {
       unsubscribe();
     };
   }, []);
 
-  return <UserContext.Provider value={{ createUser, user, logout, signIn, googleSignIn }}>{children}</UserContext.Provider>;
+  const userAuth = { createUser, logout, signIn, googleSignIn };
+  const [values, setValues] = useState<UserContextInterface>({ user, userAuth } as UserContextInterface);
+
+  useEffect(() => {
+    setValues({ user, userAuth } as UserContextInterface);
+  }, [user]);
+
+  //return <UserContext.Provider value={{ user, userAuth }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
 };
 
 export const UserAuth = () => {

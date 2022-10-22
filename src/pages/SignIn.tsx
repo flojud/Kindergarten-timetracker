@@ -13,7 +13,7 @@ import { ConstructionOutlined } from '@mui/icons-material';
 const SignIn = () => {
   const auth = getAuth();
   const navigate = useNavigate();
-  const userAuth = useContext(UserContext);
+  const { userAuth } = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
