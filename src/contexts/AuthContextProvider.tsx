@@ -58,6 +58,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     setContext({ user, authMethods: authMethods });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>;

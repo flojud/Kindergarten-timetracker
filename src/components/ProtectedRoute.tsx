@@ -6,11 +6,11 @@ import { Props } from '../interfaces/Props';
 const ProtectedRoute: FC<Props> = ({ children }) => {
   const authContext = useAuthContext();
 
-  if (!authContext || !authContext.user) {
+  if (authContext?.user?.uid) {
+    return children;
+  } else {
     return <Navigate to="/" />;
   }
-
-  return children;
 };
 
 export default ProtectedRoute;

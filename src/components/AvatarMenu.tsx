@@ -1,6 +1,5 @@
-import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography } from '@mui/material';
+import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Link, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContextProvider';
 
 const AvatarMenu = () => {
@@ -43,7 +42,7 @@ const AvatarMenu = () => {
           onClose={handleCloseUserMenu}>
           <MenuItem>
             <Typography textAlign="center">
-              <Link to={'/profile'}>Profile</Link>
+              <Link href="/profile">Profile</Link>
             </Typography>
           </MenuItem>
           <MenuItem onClick={handleLogout}>

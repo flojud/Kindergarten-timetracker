@@ -1,7 +1,7 @@
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Link, TextField } from '@mui/material';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Item from '../components/Item';
 import MainContainer from '../components/MainContainer';
 import { useAuthContext } from '../contexts/AuthContextProvider';
@@ -54,11 +54,11 @@ const Signup = () => {
             </Button>
           </Item>
           <Item>
-            Mit der Registrierung bei KITZE stimmst du den <Link to="/legal/terms">Nutzungsbedingungen</Link> zu. Schau dir unsere{' '}
-            <Link to="/legal/policy">Datenschutz-Bestimmungen</Link> an.
+            Mit der Registrierung bei KITZE stimmst du den <Link href="/legal/terms">Nutzungsbedingungen</Link> zu. Schau dir unsere{' '}
+            <Link href="/legal/policy">Datenschutz-Bestimmungen</Link> an.
           </Item>
           <Item>
-            Bereits Mitglied? <Link to="/signin">Anmelden</Link>
+            Bereits Mitglied? <Link href="/signin">Anmelden</Link>
           </Item>
         </Box>
       </MainContainer>

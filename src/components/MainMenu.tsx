@@ -1,9 +1,8 @@
-import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { Box, IconButton, Link, Menu, MenuItem, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const MainMenu = () => {
-  const pages = ['Products', 'Pricing', 'Blog'];
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -42,11 +41,16 @@ const MainMenu = () => {
           sx={{
             display: { xs: 'block' },
           }}>
-          {pages.map((page) => (
-            <MenuItem key={page} onClick={handleCloseNavMenu}>
-              <Typography textAlign="center">{page}</Typography>
-            </MenuItem>
-          ))}
+          <MenuItem onClick={handleCloseNavMenu}>
+            <Typography textAlign="center">
+              <Link href="/profile">Mein Profil</Link>
+            </Typography>
+          </MenuItem>
+          <MenuItem onClick={handleCloseNavMenu}>
+            <Typography textAlign="center">
+              <Link href="/time/add">Zeit hinzufügen</Link>
+            </Typography>
+          </MenuItem>
         </Menu>
       </Box>
     </>
