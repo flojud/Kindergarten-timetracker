@@ -1,27 +1,31 @@
-import { Box, Button, Grid } from '@mui/material';
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import MainContainer from '../components/MainContainer';
-import { UserContext } from '../contexts/AuthContextProvider';
-import GoogleIcon from '@mui/icons-material/Google';
 import EmailIcon from '@mui/icons-material/Email';
+import GoogleIcon from '@mui/icons-material/Google';
+import { Box, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import Item from '../components/Item';
+import MainContainer from '../components/MainContainer';
+import { useAuthContext } from '../contexts/AuthContextProvider';
 
 const Home = () => {
-  const { user, userAuth } = useContext(UserContext);
+  const authContext = useAuthContext();
 
   const handleGoogleSignup = async () => {
-    userAuth.googleSignIn();
+    authContext?.authMethods.googleSignIn();
   };
 
   const checklogin = () => {
-    if (user?.uid) {
-      console.log(true);
-      console.log(user);
+    if (authContext?.user?.uid) {
+      console.log(authContext.user);
     } else {
       console.log(false);
     }
   };
+
+  if (!authContext || !authContext.user) {
+    return <h1>Please login</h1>;
+  }
+
+  const { user, authMethods } = authContext;
 
   return (
     <>
@@ -35,12 +39,12 @@ const Home = () => {
           }}>
           <Item>
             <h2>Die beste Zeiterfassung App für Erzieher:innen</h2>
-            <h3>name: {user?.displayName}</h3>
-            <h4>anonymous: {user?.isAnonymous}</h4>
-            <h4>uid: {user?.uid}</h4>
+            <h3>name: {user.email}</h3>
+            <h4>anonymous: {user.isAnonymous.toString()}</h4>
+            <h4>uid: {user.uid}</h4>
           </Item>
           <Item>
-            <Button variant="contained" fullWidth onClick={userAuth.logout}>
+            <Button variant="contained" fullWidth onClick={authMethods.logout}>
               Logout
             </Button>
           </Item>

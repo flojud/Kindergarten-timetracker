@@ -1,23 +1,27 @@
-import React, { useState } from 'react';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { Box, Button, TextField } from '@mui/material';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Item from '../components/Item';
 import MainContainer from '../components/MainContainer';
-import { UserAuth } from '../contexts/AuthContextProvider';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import { useAuthContext } from '../contexts/AuthContextProvider';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { userAuth } = UserAuth();
+  const authContext = useAuthContext();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (!authContext) {
+      setError('Login not possible.');
+      return;
+    }
     setError('');
     try {
-      await userAuth.createUser(email, password);
+      await authContext.authMethods.createUser(email, password);
       navigate('/');
     } catch (e: any) {
       setError(e.message);
@@ -39,17 +43,10 @@ const Signup = () => {
             <h2>Tritt noch heute KITZE bei, es ist kostenlos.</h2>
           </Item>
           <Item>
-            <TextField fullWidth required id="outlined-required" label="Email" onChange={(e) => setEmail(e.target.value)} />
+            <TextField fullWidth required id="email" label="Email" onChange={(e) => setEmail(e.target.value)} />
           </Item>
           <Item>
-            <TextField
-              fullWidth
-              required
-              id="outlined-required"
-              label="Passwort"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <TextField fullWidth required id="password" label="Passwort" type="password" onChange={(e) => setPassword(e.target.value)} />
           </Item>
           <Item>
             <Button fullWidth variant="contained" startIcon={<PersonAddAltIcon />} onClick={handleSubmit}>

@@ -1,14 +1,15 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
-import { UserAuth } from '../contexts/AuthContextProvider';
+import { useAuthContext } from '../contexts/AuthContextProvider';
 import { Props } from '../interfaces/Props';
 
 const ProtectedRoute: FC<Props> = ({ children }) => {
-  const { user } = UserAuth();
+  const authContext = useAuthContext();
 
-  if (!user) {
+  if (!authContext || !authContext.user) {
     return <Navigate to="/" />;
   }
+
   return children;
 };
 

@@ -1,23 +1,17 @@
-import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContextProvider';
 import AvatarMenu from './AvatarMenu';
 import MainMenu from './MainMenu';
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { UserContext } from '../contexts/AuthContextProvider';
 
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Container from '@mui/material/Container';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
 const NavigationBar = () => {
-  const { user, userAuth } = useContext(UserContext);
-
-  console.log(user);
-
+  const authContext = useAuthContext();
   return (
     <AppBar position="static">
       <Container maxWidth={false}>
@@ -42,7 +36,7 @@ const NavigationBar = () => {
             KITZE
           </Typography>
 
-          {user?.uid ? (
+          {authContext?.user?.uid ? (
             <AvatarMenu />
           ) : (
             <Button variant="contained" component={Link} to="/signin" color="secondary">

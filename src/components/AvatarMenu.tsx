@@ -1,10 +1,10 @@
 import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../contexts/AuthContextProvider';
+import { useAuthContext } from '../contexts/AuthContextProvider';
 
 const AvatarMenu = () => {
-  const { userAuth } = useContext(UserContext);
+  const authContext = useAuthContext();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -16,7 +16,7 @@ const AvatarMenu = () => {
   };
 
   const handleLogout = () => {
-    userAuth.logout();
+    authContext?.authMethods.logout();
   };
   return (
     <>

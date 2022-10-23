@@ -1,12 +1,11 @@
-import { UserCredential } from 'firebase/auth';
-import { IUser } from './User';
+import { User, UserCredential } from 'firebase/auth';
 
-export interface UserContextInterface {
-  user: IUser | null;
-  userAuth: IAuth;
+export interface IUserContext {
+  user: User | null;
+  authMethods: IAuthMethods;
 }
 
-export interface IAuth {
+export interface IAuthMethods {
   createUser: (email: string, password: string) => void;
   logout: () => void;
   signIn: (email: string, password: string) => Promise<UserCredential>;

@@ -1,32 +1,37 @@
-import React, { useContext, useState } from 'react';
-import { getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithPopup } from 'firebase/auth';
-import { Link, useNavigate } from 'react-router-dom';
-import { IUser } from '../interfaces/User';
-import { UserContext } from '../contexts/AuthContextProvider';
-import MainContainer from '../components/MainContainer';
-import Item from '../components/Item';
-import { Box, Button, TextField } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
-import EmailIcon from '@mui/icons-material/Email';
-import { ConstructionOutlined } from '@mui/icons-material';
+import { Box, Button, TextField } from '@mui/material';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Item from '../components/Item';
+import MainContainer from '../components/MainContainer';
+import { useAuthContext } from '../contexts/AuthContextProvider';
 
 const SignIn = () => {
   const auth = getAuth();
   const navigate = useNavigate();
-  const { userAuth } = useContext(UserContext);
+  const authContext = useAuthContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleGoogleSignIn = async () => {
-    userAuth.googleSignIn();
+    if (!authContext) {
+      setError('Sign in not possible');
+      return;
+    }
+    authContext.authMethods.googleSignIn();
   };
 
   const handlsignInWithEmail = async (e: any) => {
     e.preventDefault();
+    if (!authContext) {
+      setError('Sign in not possible');
+      return;
+    }
     setError('');
     try {
-      await userAuth.signIn(email, password);
+      await authContext.authMethods.signIn(email, password);
       navigate('/profile');
     } catch (e: any) {
       setError(e.message);
@@ -60,17 +65,10 @@ const SignIn = () => {
           </Item>
           <Item>oder mit deiner E-Mail-Adresse</Item>
           <Item>
-            <TextField required fullWidth id="outlined-required" label="Email" onChange={(e) => setEmail(e.target.value)} />
+            <TextField required fullWidth id="email" label="Email" onChange={(e) => setEmail(e.target.value)} />
           </Item>
           <Item>
-            <TextField
-              required
-              fullWidth
-              id="outlined-required"
-              label="Passwort"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <TextField required fullWidth id="password" label="Passwort" type="password" onChange={(e) => setPassword(e.target.value)} />
           </Item>
           <Item>
             <Button variant="contained" fullWidth onClick={handlsignInWithEmail}>
