@@ -13,20 +13,6 @@ const Home = () => {
     authContext?.authMethods.googleSignIn();
   };
 
-  const checklogin = () => {
-    if (authContext?.user?.uid) {
-      console.log(authContext.user);
-    } else {
-      console.log(false);
-    }
-  };
-
-  if (!authContext || !authContext.user) {
-    return <h1>Please login</h1>;
-  }
-
-  const { user, authMethods } = authContext;
-
   return (
     <>
       <MainContainer>
@@ -39,19 +25,6 @@ const Home = () => {
           }}>
           <Item>
             <h2>Die beste Zeiterfassung App für Erzieher:innen</h2>
-            <h3>name: {user.email}</h3>
-            <h4>anonymous: {user.isAnonymous.toString()}</h4>
-            <h4>uid: {user.uid}</h4>
-          </Item>
-          <Item>
-            <Button variant="contained" fullWidth onClick={authMethods.logout}>
-              Logout
-            </Button>
-          </Item>
-          <Item>
-            <Button variant="contained" fullWidth onClick={checklogin}>
-              Am I logged in?
-            </Button>
           </Item>
           <Item>
             <Button variant="contained" fullWidth startIcon={<GoogleIcon />} onClick={handleGoogleSignup}>
