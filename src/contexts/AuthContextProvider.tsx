@@ -54,16 +54,5 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 
   const authMethods = { createUser, logout, signIn, googleSignIn };
 
-  const [context, setContext] = useState<IAuthContext>({ user, authMethods });
-
-  useEffect(() => {
-    setContext({ user, authMethods: authMethods });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>;
-};
-
-export const useAuthContext = () => {
-  return useContext(AuthContext);
+  return <AuthContext.Provider value={{ user, authMethods: authMethods }}>{children}</AuthContext.Provider>;
 };

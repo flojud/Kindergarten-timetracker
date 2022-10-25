@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAuthContext } from '../contexts/AuthContextProvider';
+import { AuthContext } from '../contexts/AuthContextProvider';
 import AvatarMenu from './AvatarMenu';
 import MainMenu from './MainMenu';
 
@@ -9,9 +9,10 @@ import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { useContext } from 'react';
 
 const NavigationBar = () => {
-  const authContext = useAuthContext();
+  const authContext = useContext(AuthContext);
   return (
     <AppBar position="static">
       <Container maxWidth={false}>
@@ -36,7 +37,7 @@ const NavigationBar = () => {
             KITZE
           </Typography>
 
-          {authContext?.user?.uid ? (
+          {authContext !== null && authContext.user !== null && authContext?.user?.uid ? (
             <AvatarMenu />
           ) : (
             <Button variant="contained" component={Link} to="/signin" color="secondary">

@@ -1,16 +1,16 @@
 import GoogleIcon from '@mui/icons-material/Google';
 import { Box, Button, TextField } from '@mui/material';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Item from '../components/Item';
 import MainContainer from '../components/MainContainer';
-import { useAuthContext } from '../contexts/AuthContextProvider';
+import { AuthContext } from '../contexts/AuthContextProvider';
 
 const SignIn = () => {
   const auth = getAuth();
   const navigate = useNavigate();
-  const authContext = useAuthContext();
+  const authContext = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

@@ -1,13 +1,14 @@
 import { Avatar, Card, CardContent, CardHeader, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { User } from 'firebase/auth';
 import { collection, getDocs } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-import { useAuthContext } from '../contexts/AuthContextProvider';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../contexts/AuthContextProvider';
 import { db } from '../firebase/Firebase';
 import { IProfile } from '../interfaces/Profile';
 
 const Profile = () => {
-  const authContext = useAuthContext();
+  const authContext = useContext(AuthContext);
+
   const user = authContext!.user as User;
 
   const profilesCollectionRef = collection(db, 'profiles');

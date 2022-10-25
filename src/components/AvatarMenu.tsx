@@ -1,9 +1,9 @@
 import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Link, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import { useAuthContext } from '../contexts/AuthContextProvider';
+import { AuthContext } from '../contexts/AuthContextProvider';
 
 const AvatarMenu = () => {
-  const authContext = useAuthContext();
+  const authContext = useContext(AuthContext);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {

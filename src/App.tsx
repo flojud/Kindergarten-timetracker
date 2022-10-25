@@ -12,7 +12,7 @@ import Add from './pages/time/Add';
 
 const App = () => {
   return (
-    <AuthContextProvider>
+    <>
       <NavigationBar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -20,6 +20,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/legal/terms" element={<Terms />} />
         <Route path="/legal/policy" element={<Policy />} />
+        <Route path="/test" element={<ProtectedRoute>OKAYYYY</ProtectedRoute>} />
 
         <Route
           path="/time/add"
@@ -29,7 +30,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/profile"
           element={
@@ -39,7 +39,7 @@ const App = () => {
           }
         />
       </Routes>
-    </AuthContextProvider>
+    </>
   );
 };
 

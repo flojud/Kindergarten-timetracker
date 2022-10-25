@@ -3,11 +3,14 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { Box, Button, Link } from '@mui/material';
 import Item from '../components/Item';
 import MainContainer from '../components/MainContainer';
-import { useAuthContext } from '../contexts/AuthContextProvider';
+import { AuthContext } from '../contexts/AuthContextProvider';
 import { Link as RouterLink } from 'react-router-dom';
+import { useContext } from 'react';
 
 const Home = () => {
-  const authContext = useAuthContext();
+  const authContext = useContext(AuthContext);
+
+  console.log(authContext);
 
   const handleGoogleSignup = async () => {
     authContext?.authMethods.googleSignIn();
