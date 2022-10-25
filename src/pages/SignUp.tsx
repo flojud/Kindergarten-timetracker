@@ -6,7 +6,7 @@ import Item from '../components/Item';
 import MainContainer from '../components/MainContainer';
 import { AuthContext } from '../contexts/AuthContextProvider';
 
-const Signup = () => {
+const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -66,4 +66,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;

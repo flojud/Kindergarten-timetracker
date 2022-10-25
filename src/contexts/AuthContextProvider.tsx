@@ -39,8 +39,15 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
   };
 
   const logout = () => {
-    signOut(auth);
-    navigate(0);
+    signOut(auth)
+      .then((response) => {
+        console.log(response);
+        setUser({} as User);
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
