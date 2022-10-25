@@ -18,6 +18,7 @@ export const AuthContext = createContext<IAuthContext | null>(null);
 export const AuthContextProvider: FC<Props> = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   const createUser = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -51,6 +52,14 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
+    if (user?.uid) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser({ ...currentUser });
@@ -61,5 +70,5 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 
   const authMethods = { createUser, logout, signIn, googleSignIn };
 
-  return <AuthContext.Provider value={{ user, authMethods: authMethods }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, loggedIn, authMethods: authMethods }}>{children}</AuthContext.Provider>;
 };

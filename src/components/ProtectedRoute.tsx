@@ -6,8 +6,8 @@ import { Props } from '../interfaces/Props';
 const ProtectedRoute: FC<Props> = ({ children }) => {
   const authContext = useContext(AuthContext);
 
-  if (authContext !== null && authContext.user !== null) {
-    if (authContext?.user?.uid) {
+  if (authContext !== null) {
+    if (authContext.loggedIn) {
       return children;
     } else {
       return <Navigate to="/" />;

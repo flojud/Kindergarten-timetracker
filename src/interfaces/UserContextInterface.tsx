@@ -2,6 +2,7 @@ import { User, UserCredential } from 'firebase/auth';
 
 export interface IUserContext {
   user: User | null;
+  loggedIn: boolean;
   authMethods: IAuthMethods;
 }
 
