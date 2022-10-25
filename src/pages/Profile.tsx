@@ -11,6 +11,7 @@ const Profile = () => {
 
   const user = authContext!.user as User;
 
+  /*
   const profilesCollectionRef = collection(db, 'profiles');
   const [profiles, setProfiles] = useState<IProfile[]>([]);
   useEffect(() => {
@@ -22,6 +23,7 @@ const Profile = () => {
     getProfiles();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  */
 
   return (
     <>
