@@ -1,20 +1,15 @@
-import { Box } from '@mui/material';
-import React from 'react';
 import MainContainer from '../../components/MainContainer';
+import DateRangePicker from '../../components/DateRangePicker';
+import { IDateRange } from '../../interfaces/Data';
 
 const Add = () => {
+  const handleDateRangePicker = (dateRange: IDateRange) => {
+    console.log(dateRange);
+  };
   return (
     <>
       <MainContainer>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignSelf: 'center',
-            maxWidth: '400px',
-          }}>
-          Add
-        </Box>
+        <DateRangePicker onChange={handleDateRangePicker} />
       </MainContainer>
     </>
   );
