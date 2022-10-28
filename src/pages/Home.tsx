@@ -10,8 +10,6 @@ import { useContext } from 'react';
 const Home = () => {
   const authContext = useContext(AuthContext);
 
-  console.log(authContext);
-
   const handleGoogleSignup = async () => {
     authContext?.authMethods.googleSignIn();
   };

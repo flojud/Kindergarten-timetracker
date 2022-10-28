@@ -1,19 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect } from 'react';
 import { Box } from '@mui/material';
 
 import { Dayjs } from 'dayjs';
 import * as dayjs from 'dayjs';
 import locale from 'dayjs/locale/de';
-import weekday from 'dayjs/plugin/weekday';
 
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { IDateRange } from '../interfaces/Data';
 
 interface DateRangePickerProps {
-  onChange: (dateRange: IDateRange) => void;
+  onChange: (dateRange: Dayjs[]) => void;
 }
 const DateRangePicker: FC<DateRangePickerProps> = ({ onChange }: DateRangePickerProps) => {
   const startOfWeek = dayjs
@@ -27,18 +26,23 @@ const DateRangePicker: FC<DateRangePickerProps> = ({ onChange }: DateRangePicker
   });
   const [from, setFrom] = React.useState<Dayjs | null>(startOfWeek);
   const [to, setTo] = React.useState<Dayjs | null>(today);
-  const [days, setDays] = React.useState<number | null>(0);
+  const [days, setDays] = React.useState<Dayjs[]>([]);
 
   useEffect(() => {
-    if (to !== null && from !== null) {
-      setDays(Math.ceil(to.diff(from, 'day', true)));
-      dateRangePickerChange();
+    if (to && from) {
+      setDays([]);
+      const d = Math.ceil(to.diff(from, 'day', true));
+      for (let i = 0; i < d; i++) {
+        const nextDay = from.add(i, 'day');
+        setDays((prevState) => [...prevState, nextDay]);
+      }
     }
   }, [from, to]);
 
-  const dateRangePickerChange = () => {
-    onChange({ from, to, days });
-  };
+  useEffect(() => {
+    onChange(days);
+  }, [days]);
+
   return (
     <>
       <Box
@@ -68,7 +72,6 @@ const DateRangePicker: FC<DateRangePickerProps> = ({ onChange }: DateRangePicker
           />
         </LocalizationProvider>
       </Box>
-      {days}
     </>
   );
 };
