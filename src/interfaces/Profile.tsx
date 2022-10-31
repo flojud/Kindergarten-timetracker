@@ -2,6 +2,7 @@ export interface IProfile {
   availabletime: number;
   workingtime: number;
   workingdays: IWorkingdays;
+  holidays: number;
   name: string;
   state: string;
   surname: string;
