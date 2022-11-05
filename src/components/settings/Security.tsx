@@ -1,4 +1,4 @@
-import { Card, CardHeader, Avatar, CardContent, Box, TextField, Button, CardActions } from '@mui/material';
+import { Card, CardHeader, CardContent, Box, TextField, Button, CardActions } from '@mui/material';
 import KeyIcon from '@mui/icons-material/Key';
 const Security = () => {
   return (

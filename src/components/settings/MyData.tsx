@@ -2,7 +2,6 @@ import {
   Card,
   CardHeader,
   CardContent,
-  FormGroup,
   FormControlLabel,
   Switch,
   TextField,
@@ -19,7 +18,6 @@ import {
 } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContextProvider';
-import useNotification from '../../hooks/useNotification';
 import { IProfile, IWorkingdays } from '../../interfaces/Profile';
 
 function valuetext(value: number) {

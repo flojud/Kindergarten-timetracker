@@ -1,5 +1,5 @@
 import { AlertColor } from '@mui/material';
-import React, { useState, useCallback, ReactNode, FC, createContext, useEffect } from 'react';
+import React, { useState, useCallback, ReactNode, FC, createContext } from 'react';
 import { INotificationContext, INotification } from '../interfaces/Notification';
 
 type Props = { children: ReactNode };

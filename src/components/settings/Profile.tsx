@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, CardContent, CardHeader, List, ListItem, ListItemText, TextField } from '@mui/material';
+import { Avatar, Box, Card, CardContent, CardHeader, TextField } from '@mui/material';
 import { User } from 'firebase/auth';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContextProvider';
