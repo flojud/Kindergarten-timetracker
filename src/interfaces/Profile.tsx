@@ -3,10 +3,7 @@ export interface IProfile {
   workingtime: number;
   workingdays: IWorkingdays;
   holidays: number;
-  name: string;
   state: string;
-  surname: string;
-  uid: string;
 }
 
 export interface IWorkingdays {

@@ -7,15 +7,19 @@ import {
   signOut,
   User,
 } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase/Firebase';
+import { auth, db } from '../firebase/Firebase';
+import useNotification from '../hooks/useNotification';
+import { IProfile } from '../interfaces/Profile';
 import { Props } from '../interfaces/Props';
 import { IUserContext as IAuthContext } from '../interfaces/UserContextInterface';
 
 export const AuthContext = createContext<IAuthContext | null>(null);
 
 export const AuthContextProvider: FC<Props> = ({ children }) => {
+  const { notifyContext } = useNotification();
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -36,6 +40,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
       })
       .catch((error) => {
         console.log(error);
+        notifyContext.addNotification('Fehler beim Anmelden mit Google', 'error');
       });
   };
 
@@ -48,11 +53,56 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
       })
       .catch((error) => {
         console.log(error);
+        notifyContext.addNotification('Fehler beim Logout', 'error');
       });
+  };
+
+  const [profile, setProfile] = useState<IProfile | null>(null);
+  const loadProfile = async () => {
+    if (user?.uid) {
+      const docRef = doc(db, `profiles/${user.uid}`);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setProfile(docSnap.data() as IProfile);
+      } else {
+        notifyContext.addNotification('Fehler beim Laden deines Profiles', 'error');
+      }
+    }
+  };
+
+  const updateProfile = (profile: IProfile) => {
+    if (user?.uid) {
+      setDoc(doc(db, `profiles/${user.uid}`), {
+        availabletime: profile.availabletime,
+        workingtime: profile.workingtime,
+        workingdays: {
+          monday: profile.workingdays.monday,
+          tuesday: profile.workingdays.tuesday,
+          wednesday: profile.workingdays.wednesday,
+          thursday: profile.workingdays.thursday,
+          friday: profile.workingdays.friday,
+          saturday: profile.workingdays.saturday,
+          sunday: profile.workingdays.sunday,
+        },
+        holidays: profile.holidays as number,
+        state: profile.state,
+      })
+        .then(() => {
+          notifyContext.addNotification('Einstellungen erfoglreich gespeichert', 'success');
+        })
+        .catch((error) => {
+          console.log(error);
+          notifyContext.addNotification('Fehler beim Speichern deines Profils', 'error');
+        })
+        .finally(() => {
+          loadProfile();
+        });
+    }
   };
 
   useEffect(() => {
     if (user?.uid) {
+      loadProfile();
       setLoggedIn(true);
     } else {
       setLoggedIn(false);
@@ -70,5 +120,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 
   const authMethods = { createUser, logout, signIn, googleSignIn };
 
-  return <AuthContext.Provider value={{ user, loggedIn, authMethods: authMethods }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, profile, updateProfile, loggedIn, authMethods: authMethods }}>{children}</AuthContext.Provider>
+  );
 };
