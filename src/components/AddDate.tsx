@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Dayjs } from 'dayjs';
-import { Card, CardContent, CardHeader, Stack, TextField } from '@mui/material';
+import { Card, CardContent, CardHeader, Stack, TextField, Typography } from '@mui/material';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import { IProfile } from '../interfaces/Profile';
 import TimeUtils from '../utils/TimeUtils';
+import HolidayUtils from '../utils/HolidayUtils';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 
 interface AddDateProps {
   day: Dayjs;
@@ -12,24 +14,42 @@ const AddDate = ({ day }: AddDateProps) => {
   const authContext = useContext(AuthContext);
   const profile = authContext!.profile as IProfile;
 
-  const [workingTime, setWorkingTime] = useState<string | null>(null);
-  const [availableTime, setAvailableTime] = useState<string | null>(null);
-  const [availableTimeNote, setAvailableTimeNote] = useState<string | null>(null);
+  const [workingTime, setWorkingTime] = useState<string>('');
+  const [availableTime, setAvailableTime] = useState<string>('');
+  const [availableTimeNote, setAvailableTimeNote] = useState<string>('');
 
   const [isWorkday, setIsWorkday] = useState<boolean>(true);
+  const checkIsWorkday = () => {
+    const workday = TimeUtils.checkWorkday(day, profile.workingdays);
+    const holiday = HolidayUtils.isHoliday(day, profile.state);
+    if (holiday) return false;
+    if (workday) return true;
+    return false;
+  };
 
   useEffect(() => {
     setWorkingTime(TimeUtils.minutesToTime(profile.workingtime));
     setAvailableTime(TimeUtils.minutesToTime(profile.availabletime));
-    setIsWorkday(TimeUtils.checkWorkday(day, profile.workingdays));
+    setIsWorkday(checkIsWorkday());
   }, []);
 
   return (
     <>
-      <Card sx={{}}>
-        <CardHeader title={day.format('dddd, D. MMMM')} />
+      <Card>
         <CardContent>
           <Stack spacing={2}>
+            <Stack spacing={2} direction="row">
+              <Typography variant="subtitle1">{day.format('dddd, D. MMMM')}</Typography>
+              {!isWorkday && (
+                <>
+                  <BeachAccessIcon color="secondary" />
+                  <Typography variant="subtitle1" color="text.secondary">
+                    Kein Arbeitstag
+                  </Typography>
+                </>
+              )}
+            </Stack>
+
             <Stack spacing={2} direction="row">
               <TextField
                 type="time"
