@@ -4,6 +4,7 @@ export interface IProfile {
   workingdays: IWorkingdays;
   holidays: number;
   state: string;
+  numWorkday: number;
 }
 
 export interface IWorkingdays {

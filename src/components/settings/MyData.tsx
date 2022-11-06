@@ -5,8 +5,6 @@ import {
   FormControlLabel,
   Switch,
   TextField,
-  Slider,
-  Typography,
   FormControl,
   InputLabel,
   MenuItem,
@@ -14,11 +12,11 @@ import {
   FormHelperText,
   Button,
   CardActions,
-  Checkbox,
 } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import { IProfile, IWorkingdays } from '../../interfaces/Profile';
+import TimeUtils from '../../utils/TimeUtils';
 
 function valuetext(value: number) {
   return `${value}%`;
@@ -38,8 +36,6 @@ const MyData = () => {
   const [saturday, setSaturday] = useState<boolean>(false);
   const [sunday, setSunday] = useState<boolean>(false);
   const [holidaysPerYear, setHolidaysPerYear] = useState<number>(0);
-  const [weeklyWorkingHours, setWeeklyWorkingHours] = useState<number>(0);
-  const [sliderValue, setSliderValue] = useState<number>(0);
   const [state, setState] = useState('');
   const germanStates = [
     'Baden-Württemberg',
@@ -59,10 +55,12 @@ const MyData = () => {
     'Schleswig-Holstein',
     'Thüringen',
   ];
+  const [workingTimePerDay, setWorkingTimePerDay] = useState<string | null>(null);
+  const [availableTimePerDay, setAvailableTimePerDay] = useState<string | null>(null);
+  const [numWorkday, setNumWorkday] = useState<number | null>(null);
 
   // loads firebase firestore profile data
   useEffect(() => {
-    console.log(profile);
     setMonday(profile.workingdays.monday as boolean);
     setTuesday(profile.workingdays.tuesday as boolean);
     setWednesday(profile.workingdays.wednesday as boolean);
@@ -72,8 +70,9 @@ const MyData = () => {
     setSunday(profile.workingdays.sunday as boolean);
     setState(profile.state as string);
     setHolidaysPerYear(profile.holidays as number);
-    setWeeklyWorkingHours((profile.workingtime + profile.availabletime) as number);
-    setSliderValue(((profile.workingtime / (profile.workingtime + profile.availabletime)) * 100) as number);
+    setWorkingTimePerDay(TimeUtils.minutesToTime(profile.workingtime));
+    setAvailableTimePerDay(TimeUtils.minutesToTime(profile.availabletime));
+    setNumWorkday(profile.numWorkday);
   }, [profile]);
 
   const save = () => {
@@ -91,12 +90,9 @@ const MyData = () => {
     newProfile.state = state;
     newProfile.holidays = holidaysPerYear;
 
-    if (sliderValue > 0) {
-      const workingtime = weeklyWorkingHours * (sliderValue / 100);
-      const availabletime = weeklyWorkingHours * ((100 - sliderValue) / 100);
-      newProfile.workingtime = workingtime;
-      newProfile.availabletime = availabletime;
-    }
+    if (workingTimePerDay) newProfile.workingtime = TimeUtils.minutesFromTime(workingTimePerDay);
+    if (availableTimePerDay) newProfile.availabletime = TimeUtils.minutesFromTime(availableTimePerDay);
+    if (numWorkday) newProfile.numWorkday = TimeUtils.numWorkdays(wd);
 
     authContext?.updateProfile(newProfile);
   };
@@ -142,25 +138,24 @@ const MyData = () => {
             helperText="Wie viel Tage Urlaub im Jahr hast du?"
           />
           <TextField
-            type="number"
-            label="Wochenarbeitszeiten"
-            value={weeklyWorkingHours}
-            onChange={(e) => setWeeklyWorkingHours(e.target.value as unknown as number)}
+            type="time"
+            label="Arbeitszeit am Kind / Tag"
+            value={workingTimePerDay}
+            onChange={(e) => setWorkingTimePerDay(e.target.value)}
             sx={{ width: '100%' }}
-            helperText="Wie viel Stunden arbeitest du in der Woche?"
+            helperText="Wie viel Stunden arbeitest du pro Arbeitstag am Kind?"
           />
-          <Typography id="input-slider" component={'span'} gutterBottom>
-            Arbeitszeit am Kind / Verfügungszeit
-          </Typography>
-          <Slider
-            aria-label="Always visible"
-            value={sliderValue}
-            onChange={(e: Event, newValue: number | number[]) => setSliderValue(newValue as number)}
-            step={10}
-            getAriaValueText={valuetext}
-            valueLabelDisplay="on"
+          <TextField
+            type="time"
+            label="Verfügungszeit / Tag"
+            value={availableTimePerDay}
+            onChange={(e) => setAvailableTimePerDay(e.target.value)}
+            sx={{ width: '100%' }}
+            helperText="Wie viel Verfügungszeit hast du pro Tag?"
           />
-          <FormHelperText>In welchem %-Verhältnis ist deine Arbeitszeit am Kind zur Verfügungszeit?</FormHelperText>
+          <FormHelperText>
+            Arbeitszeit {workingTimePerDay}h Verfügungszeit {availableTimePerDay}h
+          </FormHelperText>
         </CardContent>
         <CardActions
           sx={{
