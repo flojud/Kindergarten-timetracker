@@ -1,6 +1,16 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { IHoliday } from '../interfaces/Holiday';
+import { IWorkingdays } from '../interfaces/Profile';
 import holidaysJson from './Holidays.json';
+import TimeUtils from './TimeUtils';
+
+export const checkIsWorkday = (workingdays: IWorkingdays, day: Dayjs, state: string) => {
+  const workday = TimeUtils.checkWorkday(day, workingdays);
+  const holiday = isHoliday(day, state);
+  if (holiday) return false;
+  if (workday) return true;
+  return false;
+};
 
 export const isHolidayOrWeekend = (day: Dayjs): boolean => {
   if (day.format('dddd') == 'Samstag' || day.format('dddd') == 'Sonntag') return true;
@@ -44,4 +54,4 @@ const stateMapper = (state: string): string => {
   if (state == 'Thüringen') return 'th';
   return 'unknown';
 };
-export default { isHoliday };
+export default { isHoliday, checkIsWorkday };

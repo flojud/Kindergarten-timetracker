@@ -1,37 +1,48 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Dayjs } from 'dayjs';
-import { Card, CardContent, CardHeader, Stack, TextField, Typography } from '@mui/material';
+import { Card, CardContent, Stack, TextField, Typography } from '@mui/material';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import { IProfile } from '../interfaces/Profile';
 import TimeUtils from '../utils/TimeUtils';
 import HolidayUtils from '../utils/HolidayUtils';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import { ITime } from '../interfaces/Data';
 
 interface AddDateProps {
   day: Dayjs;
+  onChange: (time: ITime) => void;
 }
-const AddDate = ({ day }: AddDateProps) => {
+const AddDate = ({ day, onChange }: AddDateProps) => {
   const authContext = useContext(AuthContext);
   const profile = authContext!.profile as IProfile;
 
   const [workingTime, setWorkingTime] = useState<string>('');
   const [availableTime, setAvailableTime] = useState<string>('');
   const [availableTimeNote, setAvailableTimeNote] = useState<string>('');
-
   const [isWorkday, setIsWorkday] = useState<boolean>(true);
-  const checkIsWorkday = () => {
-    const workday = TimeUtils.checkWorkday(day, profile.workingdays);
-    const holiday = HolidayUtils.isHoliday(day, profile.state);
-    if (holiday) return false;
-    if (workday) return true;
-    return false;
-  };
 
   useEffect(() => {
-    setWorkingTime(TimeUtils.minutesToTime(profile.workingtime));
-    setAvailableTime(TimeUtils.minutesToTime(profile.availabletime));
-    setIsWorkday(checkIsWorkday());
+    if (HolidayUtils.checkIsWorkday(profile.workingdays, day, profile.state)) {
+      setIsWorkday(true);
+      setWorkingTime(TimeUtils.minutesToTime(profile.workingtime));
+      setAvailableTime(TimeUtils.minutesToTime(profile.availabletime));
+    } else {
+      setIsWorkday(false);
+      setWorkingTime('00:00');
+      setAvailableTime('00:00');
+    }
   }, []);
+
+  useEffect(() => {
+    const time: ITime = {} as ITime;
+    time.day = day.format('YYYY-MM-DD');
+    time.workingTime = TimeUtils.minutesFromTime(workingTime);
+    time.availableTime = TimeUtils.minutesFromTime(availableTime);
+    time.notes = availableTimeNote;
+    if (time.workingTime > 0 || time.availableTime > 0 || time.notes.length > 0) {
+      onChange(time);
+    }
+  }, [workingTime, availableTime, availableTimeNote]);
 
   return (
     <>

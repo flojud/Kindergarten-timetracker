@@ -153,9 +153,6 @@ const MyData = () => {
             sx={{ width: '100%' }}
             helperText="Wie viel Verfügungszeit hast du pro Tag?"
           />
-          <FormHelperText>
-            Arbeitszeit {workingTimePerDay}h Verfügungszeit {availableTimePerDay}h
-          </FormHelperText>
         </CardContent>
         <CardActions
           sx={{
