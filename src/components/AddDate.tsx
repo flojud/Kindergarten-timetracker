@@ -31,9 +31,15 @@ const AddDate = ({ day, onChange }: AddDateProps) => {
       setWorkingTime('00:00');
       setAvailableTime('00:00');
     }
+    // todo do I need it here?
+    //collectData();
   }, []);
 
   useEffect(() => {
+    collectData();
+  }, [workingTime, availableTime, availableTimeNote]);
+
+  const collectData = () => {
     const time: ITime = {} as ITime;
     time.day = day.format('YYYY-MM-DD');
     time.workingTime = TimeUtils.minutesFromTime(workingTime);
@@ -42,7 +48,7 @@ const AddDate = ({ day, onChange }: AddDateProps) => {
     if (time.workingTime > 0 || time.availableTime > 0 || time.notes.length > 0) {
       onChange(time);
     }
-  }, [workingTime, availableTime, availableTimeNote]);
+  };
 
   return (
     <>
@@ -64,11 +70,11 @@ const AddDate = ({ day, onChange }: AddDateProps) => {
             <Stack spacing={2} direction="row">
               <TextField
                 type="time"
-                label="Arbeitszeit am Kind"
+                label="Arbeitszeit"
                 value={workingTime}
                 onChange={(e) => setWorkingTime(e.target.value)}
                 sx={{ width: '100%' }}
-                helperText={`Wieviel Stunden hast du am ${day.format('dddd')} am Kind gearbeitet?`}
+                //helperText={`Wieviel Stunden hast du am ${day.format('dddd')} am Kind gearbeitet?`}
               />
               <TextField
                 type="time"
@@ -76,7 +82,7 @@ const AddDate = ({ day, onChange }: AddDateProps) => {
                 value={availableTime}
                 onChange={(e) => setAvailableTime(e.target.value)}
                 sx={{ width: '100%' }}
-                helperText={`Wieviel Verfügungszeit hast du am ${day.format('dddd')} genutzt?`}
+                //helperText={`Wieviel Verfügungszeit hast du am ${day.format('dddd')} genutzt?`}
               />
             </Stack>
             <Stack spacing={2} direction="row">
@@ -86,7 +92,7 @@ const AddDate = ({ day, onChange }: AddDateProps) => {
                 value={availableTimeNote}
                 onChange={(e) => setAvailableTimeNote(e.target.value)}
                 sx={{ width: '100%' }}
-                helperText="Optional: Schreibe eine kleine Notiz zu Art der Tätigkeit"
+                //helperText="Optional: Schreibe eine kleine Notiz zu Art der Tätigkeit"
               />
             </Stack>
           </Stack>

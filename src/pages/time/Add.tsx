@@ -12,6 +12,14 @@ const Add = () => {
 
   const handleDateRangePicker = (dateRange: Dayjs[]) => {
     setDays(dateRange);
+    const tmpTimes: ITime[] = [];
+    console.log(dateRange);
+    dateRange.map((day) => {
+      const t = times.filter((t) => t.day == day.format('YYYY-MM-DD'));
+      tmpTimes.concat(t);
+    });
+    console.log(tmpTimes);
+    setTimes(tmpTimes);
   };
 
   const save = () => {
@@ -19,8 +27,11 @@ const Add = () => {
   };
 
   const timeHandler = (time: ITime) => {
-    // todo: how to update an existing ITime?
-    setTimes([time]);
+    // delete the day of the list if exists
+    const tmpTimes = times.filter((t) => t.day !== time.day);
+    // push the update object to the list
+    tmpTimes.push(time);
+    setTimes(tmpTimes);
   };
 
   useEffect(() => {
