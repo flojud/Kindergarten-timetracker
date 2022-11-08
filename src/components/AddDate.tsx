@@ -21,6 +21,11 @@ const AddDate = ({ day, onChange }: AddDateProps) => {
   const [availableTimeNote, setAvailableTimeNote] = useState<string>('');
   const [isWorkday, setIsWorkday] = useState<boolean>(true);
 
+  /*
+  Based on the user's working days, which he has set in the profile and the
+  federal state and the associated public holidays, we decide whether it is a working day.
+  Since it is theoretically possible to work on non-working days, we only display an information symbol in the input mask.
+  */
   useEffect(() => {
     if (HolidayUtils.checkIsWorkday(profile.workingdays, day, profile.state)) {
       setIsWorkday(true);
@@ -31,14 +36,20 @@ const AddDate = ({ day, onChange }: AddDateProps) => {
       setWorkingTime('00:00');
       setAvailableTime('00:00');
     }
-    // todo do I need it here?
-    //collectData();
   }, []);
 
+  /*
+  We react to all user entries in the input fields and compile an updated time object at any point in time.
+  */
   useEffect(() => {
-    collectData();
+    if (workingTime.length > 0 && availableTime.length > 0) {
+      collectData();
+    }
   }, [workingTime, availableTime, availableTimeNote]);
 
+  /*
+  The assembled Time object is passed to the parent component (onChange).
+  */
   const collectData = () => {
     const time: ITime = {} as ITime;
     time.day = day.format('YYYY-MM-DD');

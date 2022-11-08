@@ -28,6 +28,10 @@ const DateRangePicker: FC<DateRangePickerProps> = ({ onChange }: DateRangePicker
   const [to, setTo] = React.useState<Dayjs | null>(today);
   const [days, setDays] = React.useState<Dayjs[]>([]);
 
+  /*
+   Based on user interactions, the state is updated, representing the range a user has selected.
+   It is always rounded to the full day.
+  */
   useEffect(() => {
     if (to && from) {
       setDays([]);
@@ -39,6 +43,9 @@ const DateRangePicker: FC<DateRangePickerProps> = ({ onChange }: DateRangePicker
     }
   }, [from, to]);
 
+  /*
+  If the Date Range list changes, the changes are passed to the parent component.
+  */
   useEffect(() => {
     onChange(days);
   }, [days]);
