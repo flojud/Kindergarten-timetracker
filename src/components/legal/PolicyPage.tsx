@@ -1,9 +1,8 @@
-import { Box } from '@mui/material';
 import React from 'react';
 import Item from '../common/Item';
 import MainContainer from '../common/MainContainer';
 
-const Policy = () => {
+const TermsPage = () => {
   return (
     <>
       <MainContainer>
@@ -212,4 +211,4 @@ const Policy = () => {
   );
 };
 
-export default Policy;
+export default TermsPage;

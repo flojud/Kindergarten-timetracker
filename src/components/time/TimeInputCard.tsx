@@ -4,14 +4,14 @@ import dayjs from 'dayjs';
 import { Card, CardContent, Stack, TextField, Typography } from '@mui/material';
 import TimeUtils from '../../utils/TimeUtils';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import { ITime } from '../../interfaces/Data';
+import { ITime } from '../../interfaces/Types';
 import locale from 'dayjs/locale/de';
 
-interface AddDateProps {
+interface TimeInputCardProps {
   data: ITime;
   onChange: (time: ITime) => void;
 }
-const AddDate = ({ data, onChange }: AddDateProps) => {
+const TimeInputCard = ({ data, onChange }: TimeInputCardProps) => {
   const [workingTime, setWorkingTime] = useState<string>('');
   const [availableTime, setAvailableTime] = useState<string>('');
   const [availableTimeNote, setAvailableTimeNote] = useState<string>('');
@@ -96,4 +96,4 @@ const AddDate = ({ data, onChange }: AddDateProps) => {
   );
 };
 
-export default AddDate;
+export default TimeInputCard;

@@ -7,7 +7,7 @@ import { AuthContext } from '../contexts/AuthContextProvider';
 import { Link as RouterLink } from 'react-router-dom';
 import { useContext } from 'react';
 
-const Home = () => {
+const HomePage = () => {
   const authContext = useContext(AuthContext);
 
   const handleGoogleSignup = async () => {
@@ -50,4 +50,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

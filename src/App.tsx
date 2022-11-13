@@ -1,31 +1,31 @@
 import { Route, Routes } from 'react-router-dom';
 import NavigationDrawer from './components/menu/NavigationDrawer';
 import ProtectedRoute from './components/common/ProtectedRoute';
-import Home from './components/Home';
-import Policy from './components/legal/Policy';
-import Terms from './components/legal/Terms';
-import Profile from './components/settings/Profile';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import Add from './components/time/Add';
-import View from './components/time/Views';
+import HomePage from './components/HomePage';
+import PolicyPage from './components/legal/PolicyPage';
+import TermsPage from './components/legal/TermsPage';
+import ProfilePage from './components/settings/ProfilePage';
+import SignInPage from './components/SignInPage';
+import SignUpPage from './components/SignUpPage';
+import TimeInputPage from './components/time/TimeInputPage';
+import TimeHistoryPage from './components/time/TimeHistoryPage';
 
 const App = () => {
   return (
     <>
       <NavigationDrawer>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/legal/terms" element={<Terms />} />
-          <Route path="/legal/policy" element={<Policy />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/legal/terms" element={<TermsPage />} />
+          <Route path="/legal/policy" element={<PolicyPage />} />
 
           <Route
             path="/time/view"
             element={
               <ProtectedRoute>
-                <View />
+                <TimeHistoryPage />
               </ProtectedRoute>
             }
           />
@@ -33,7 +33,7 @@ const App = () => {
             path="/time/add"
             element={
               <ProtectedRoute>
-                <Add />
+                <TimeInputPage />
               </ProtectedRoute>
             }
           />
@@ -41,7 +41,7 @@ const App = () => {
             path="/profile"
             element={
               <ProtectedRoute>
-                <Profile />
+                <ProfilePage />
               </ProtectedRoute>
             }
           />

@@ -3,9 +3,9 @@ import { Stack } from '@mui/material';
 import { Dayjs } from 'dayjs';
 import DateRangePicker from '../common/DateRangePicker';
 import MainContainer from '../common/MainContainer';
-import ViewDate from './ViewDate';
+import ViewDate from './TimeHistoryCard';
 
-const View = () => {
+const TimeHistoryPage = () => {
   const [days, setDays] = useState<Dayjs[]>([]);
 
   const handleDateRangePicker = (dateRange: Dayjs[]) => {
@@ -24,4 +24,4 @@ const View = () => {
   );
 };
 
-export default View;
+export default TimeHistoryPage;

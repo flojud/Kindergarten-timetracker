@@ -4,15 +4,14 @@ import DateRangePicker from '../common/DateRangePicker';
 import { useContext, useEffect, useState } from 'react';
 import { Dayjs } from 'dayjs';
 import locale from 'dayjs/locale/de';
-import AddDate from './AddDate';
+import TimeInputCard from './TimeInputCard';
 import { Button, Stack } from '@mui/material';
-import { ITime } from '../../interfaces/Data';
+import { ITime, IProfile } from '../../interfaces/Types';
 import useStore from '../../hooks/useStore';
 import { AuthContext } from '../../contexts/AuthContextProvider';
-import { IProfile } from '../../interfaces/Profile';
 import TimeUtils from '../../utils/TimeUtils';
 
-const Add = () => {
+const TimeInputPage = () => {
   const authContext = useContext(AuthContext);
   const profile = authContext!.profile as IProfile;
   const { getTimes, saveTimes } = useStore();
@@ -96,7 +95,7 @@ const Add = () => {
         <Stack spacing={2}>
           <DateRangePicker onChange={handleDateRangePicker} />
           {data.map((item) => (
-            <AddDate key={item.day} data={item} onChange={handleAddDate} />
+            <TimeInputCard key={item.day} data={item} onChange={handleAddDate} />
           ))}
           <Button variant="contained" onClick={save}>
             Speichern
@@ -107,4 +106,4 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default TimeInputPage;

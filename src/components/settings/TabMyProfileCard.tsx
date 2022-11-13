@@ -3,7 +3,7 @@ import { User } from 'firebase/auth';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 
-const MyProfile = () => {
+const TabMyProfileCard = () => {
   const authContext = useContext(AuthContext);
 
   const user = authContext!.user as User;
@@ -60,4 +60,4 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+export default TabMyProfileCard;

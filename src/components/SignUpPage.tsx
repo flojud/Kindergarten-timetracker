@@ -2,11 +2,11 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { Box, Button, Link, TextField } from '@mui/material';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Item from '../components/common/Item';
-import MainContainer from '../components/common/MainContainer';
+import Item from './common/Item';
+import MainContainer from './common/MainContainer';
 import { AuthContext } from '../contexts/AuthContextProvider';
 
-const SignUp = () => {
+const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -66,4 +66,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;

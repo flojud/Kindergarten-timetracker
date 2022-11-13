@@ -1,6 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { IHoliday } from '../interfaces/Holiday';
-import { IWorkingdays } from '../interfaces/Profile';
+import { IHoliday, IWorkingdays } from '../interfaces/Types';
 import holidaysJson from './Holidays.json';
 import TimeUtils from './TimeUtils';
 

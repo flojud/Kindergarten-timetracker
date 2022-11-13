@@ -3,9 +3,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import MyProfile from './MyProfile';
-import Security from './Security';
-import MyData from './MyData';
+import TabMyProfileCard from './TabMyProfileCard';
+import TabSecurityCard from './TabSecurityCard';
+import TabMyDataCard from './TabMyDataCard';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -34,7 +34,7 @@ function a11yProps(index: number) {
   };
 }
 
-const Settings = () => {
+const ProfileSettingsTabs = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -51,16 +51,16 @@ const Settings = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <MyProfile />
+        <TabMyProfileCard />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <MyData />
+        <TabMyDataCard />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Security />
+        <TabSecurityCard />
       </TabPanel>
     </Box>
   );
 };
 
-export default Settings;
+export default ProfileSettingsTabs;

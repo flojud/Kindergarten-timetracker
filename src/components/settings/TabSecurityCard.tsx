@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardContent, Box, TextField, Button, CardActions } from '@mui/material';
 import KeyIcon from '@mui/icons-material/Key';
-const Security = () => {
+const TabSecurityCard = () => {
   return (
     <>
       <Card>
@@ -31,4 +31,4 @@ const Security = () => {
   );
 };
 
-export default Security;
+export default TabSecurityCard;

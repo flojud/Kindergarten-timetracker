@@ -4,7 +4,7 @@ import { collection, doc, getDocs, query, where, writeBatch } from 'firebase/fir
 import { NotificationContext } from '../contexts/NotificationContextProvider';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import { User } from 'firebase/auth';
-import { ITime } from '../interfaces/Data';
+import { ITime } from '../interfaces/Types';
 import TimeUtils from '../utils/TimeUtils';
 
 function useStore() {

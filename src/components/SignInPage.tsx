@@ -7,7 +7,7 @@ import Item from './common/Item';
 import MainContainer from './common/MainContainer';
 import { AuthContext } from '../contexts/AuthContextProvider';
 
-const SignIn = () => {
+const SignInPage = () => {
   const auth = getAuth();
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
@@ -86,4 +86,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInPage;

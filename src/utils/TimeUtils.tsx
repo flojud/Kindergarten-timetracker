@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { IProfile, IWorkingdays } from '../interfaces/Profile';
-import { ITime } from '../interfaces/Data';
+import { IProfile, IWorkingdays } from '../interfaces/Types';
+import { ITime } from '../interfaces/Types';
 import HolidayUtils from './HolidayUtils';
 
 export const numWorkdays = (workingdays: IWorkingdays): number => {

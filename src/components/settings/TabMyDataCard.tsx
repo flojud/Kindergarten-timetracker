@@ -15,14 +15,14 @@ import {
 } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContextProvider';
-import { IProfile, IWorkingdays } from '../../interfaces/Profile';
+import { IProfile, IWorkingdays } from '../../interfaces/Types';
 import TimeUtils from '../../utils/TimeUtils';
 
 function valuetext(value: number) {
   return `${value}%`;
 }
 
-const MyData = () => {
+const TabMyDataCard = () => {
   const authContext = useContext(AuthContext);
   // firestore profile object
   const profile = authContext!.profile as IProfile;
@@ -168,4 +168,4 @@ const MyData = () => {
   );
 };
 
-export default MyData;
+export default TabMyDataCard;

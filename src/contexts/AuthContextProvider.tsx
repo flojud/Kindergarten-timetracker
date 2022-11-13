@@ -12,9 +12,7 @@ import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase/Firebase';
 import useNotification from '../hooks/useNotification';
-import { IProfile } from '../interfaces/Profile';
-import { Props } from '../interfaces/Props';
-import { IUserContext as IAuthContext } from '../interfaces/UserContextInterface';
+import { Props, IProfile, IUserContext as IAuthContext } from '../interfaces/Types';
 
 export const AuthContext = createContext<IAuthContext | null>(null);
 
