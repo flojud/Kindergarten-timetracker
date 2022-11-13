@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Add from './pages/time/Add';
+import View from './pages/time/Views';
 
 const App = () => {
   return (
@@ -17,9 +18,17 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-
           <Route path="/legal/terms" element={<Terms />} />
           <Route path="/legal/policy" element={<Policy />} />
+
+          <Route
+            path="/time/view"
+            element={
+              <ProtectedRoute>
+                <View />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/time/add"
             element={

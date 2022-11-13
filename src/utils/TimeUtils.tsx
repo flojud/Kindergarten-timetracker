@@ -1,5 +1,7 @@
-import { Dayjs } from 'dayjs';
-import { IWorkingdays } from '../interfaces/Profile';
+import dayjs, { Dayjs } from 'dayjs';
+import { IProfile, IWorkingdays } from '../interfaces/Profile';
+import { ITime } from '../interfaces/Data';
+import HolidayUtils from './HolidayUtils';
 
 export const numWorkdays = (workingdays: IWorkingdays): number => {
   let num = 0;
@@ -14,6 +16,7 @@ export const numWorkdays = (workingdays: IWorkingdays): number => {
 };
 
 export const checkWorkday = (day: Dayjs, workingdays: IWorkingdays): boolean => {
+  //console.log(day.format('dddd'));
   if (day.format('dddd') == 'Montag' && workingdays.monday) return true;
   if (day.format('dddd') == 'Dienstag' && workingdays.tuesday) return true;
   if (day.format('dddd') == 'Mittwoch' && workingdays.wednesday) return true;
@@ -30,10 +33,39 @@ export const minutesFromTime = (time: string): number => {
 };
 
 export const minutesToTime = (minutes: number): string => {
-  return [minutes / 60, minutes % 60]
-    .join(':')
-    .replace(/\b(\d)\b/g, '0$1')
-    .replace(/^00:/, '');
+  let res = '';
+  if (minutes == 0) {
+    res = '00:00';
+  } else {
+    res = [Math.floor(minutes / 60), minutes % 60]
+      .join(':')
+      .replace(/\b(\d)\b/g, '0$1')
+      .replace(/^00:/, '');
+  }
+  //console.log("input: " +  minutes + " result: " res);
+  return res;
 };
 
-export default { numWorkdays, checkWorkday, minutesFromTime, minutesToTime };
+/* Unixtimestamp GMT */
+export const dateStringToTimestamp = (date: string): number => {
+  return dayjs(date).unix();
+};
+
+export const defaultTime = (day: Dayjs, profile: IProfile): ITime => {
+  const time: ITime = {} as ITime;
+  time.day = day.format('YYYY-MM-DD');
+  time.notes = '';
+
+  if (HolidayUtils.checkIsWorkday(profile.workingdays, day, profile.state)) {
+    time.workingTime = profile.workingtime;
+    time.availableTime = profile.availabletime;
+    time.workday = true;
+  } else {
+    time.workingTime = 0;
+    time.availableTime = 0;
+    time.workday = false;
+  }
+
+  return time;
+};
+export default { numWorkdays, checkWorkday, minutesFromTime, minutesToTime, dateStringToTimestamp, defaultTime };

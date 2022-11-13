@@ -11,4 +11,6 @@ export interface ITime {
   workingTime: number;
   availableTime: number;
   notes: string;
+  timestamp: number;
+  workday: boolean;
 }

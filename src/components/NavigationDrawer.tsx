@@ -22,6 +22,7 @@ import { FC, useState } from 'react';
 
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AddIcon from '@mui/icons-material/Add';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
@@ -162,34 +163,25 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
               <ListItemText primary="Profile" />
             </ListItemButton>
           </ListItem>
-
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/time/view">
+              <ListItemIcon>
+                <AccessTimeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Zeiten" />
+            </ListItemButton>
+          </ListItem>
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/time/add">
               <ListItemIcon>
                 <AddIcon />
               </ListItemIcon>
-              <ListItemText primary="Add" />
+              <ListItemText primary="Eintragen" />
             </ListItemButton>
           </ListItem>
         </List>
         <Divider />
         <List>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/legal/policy">
-              <ListItemIcon>
-                <PolicyIcon />
-              </ListItemIcon>
-              <ListItemText primary="Policy" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/legal/terms">
-              <ListItemIcon>
-                <GavelIcon />
-              </ListItemIcon>
-              <ListItemText primary="Terms" />
-            </ListItemButton>
-          </ListItem>
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/signup">
               <ListItemIcon>
@@ -212,6 +204,25 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                 <LogoutIcon />
               </ListItemIcon>
               <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/legal/policy">
+              <ListItemIcon>
+                <PolicyIcon />
+              </ListItemIcon>
+              <ListItemText primary="Policy" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/legal/terms">
+              <ListItemIcon>
+                <GavelIcon />
+              </ListItemIcon>
+              <ListItemText primary="Terms" />
             </ListItemButton>
           </ListItem>
         </List>

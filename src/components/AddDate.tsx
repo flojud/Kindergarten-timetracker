@@ -1,25 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { Card, CardContent, Stack, TextField, Typography } from '@mui/material';
-import { AuthContext } from '../contexts/AuthContextProvider';
-import { IProfile } from '../interfaces/Profile';
 import TimeUtils from '../utils/TimeUtils';
-import HolidayUtils from '../utils/HolidayUtils';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import { ITime } from '../interfaces/Data';
+import locale from 'dayjs/locale/de';
 
 interface AddDateProps {
-  day: Dayjs;
+  data: ITime;
   onChange: (time: ITime) => void;
 }
-const AddDate = ({ day, onChange }: AddDateProps) => {
-  const authContext = useContext(AuthContext);
-  const profile = authContext!.profile as IProfile;
-
+const AddDate = ({ data, onChange }: AddDateProps) => {
   const [workingTime, setWorkingTime] = useState<string>('');
   const [availableTime, setAvailableTime] = useState<string>('');
   const [availableTimeNote, setAvailableTimeNote] = useState<string>('');
-  const [isWorkday, setIsWorkday] = useState<boolean>(true);
+  const title = dayjs(data.day)
+    .locale({
+      ...locale,
+    })
+    .format('dddd, DD.MMMM');
 
   /*
   Based on the user's working days, which he has set in the profile and the
@@ -27,39 +26,22 @@ const AddDate = ({ day, onChange }: AddDateProps) => {
   Since it is theoretically possible to work on non-working days, we only display an information symbol in the input mask.
   */
   useEffect(() => {
-    if (HolidayUtils.checkIsWorkday(profile.workingdays, day, profile.state)) {
-      setIsWorkday(true);
-      setWorkingTime(TimeUtils.minutesToTime(profile.workingtime));
-      setAvailableTime(TimeUtils.minutesToTime(profile.availabletime));
-    } else {
-      setIsWorkday(false);
-      setWorkingTime('00:00');
-      setAvailableTime('00:00');
-    }
+    setWorkingTime(TimeUtils.minutesToTime(data.workingTime));
+    setAvailableTime(TimeUtils.minutesToTime(data.availableTime));
+    setAvailableTimeNote(data.notes);
   }, []);
 
   /*
   We react to all user entries in the input fields and compile an updated time object at any point in time.
   */
   useEffect(() => {
-    if (workingTime.length > 0 && availableTime.length > 0) {
-      collectData();
-    }
-  }, [workingTime, availableTime, availableTimeNote]);
-
-  /*
-  The assembled Time object is passed to the parent component (onChange).
-  */
-  const collectData = () => {
-    const time: ITime = {} as ITime;
-    time.day = day.format('YYYY-MM-DD');
+    const time: ITime = data as ITime;
+    time.day = data.day;
     time.workingTime = TimeUtils.minutesFromTime(workingTime);
     time.availableTime = TimeUtils.minutesFromTime(availableTime);
     time.notes = availableTimeNote;
-    if (time.workingTime > 0 || time.availableTime > 0 || time.notes.length > 0) {
-      onChange(time);
-    }
-  };
+    onChange(time);
+  }, [workingTime, availableTime, availableTimeNote]);
 
   return (
     <>
@@ -67,8 +49,8 @@ const AddDate = ({ day, onChange }: AddDateProps) => {
         <CardContent>
           <Stack spacing={2}>
             <Stack spacing={2} direction="row">
-              <Typography variant="subtitle1">{day.format('dddd, D. MMMM')}</Typography>
-              {!isWorkday && (
+              <Typography variant="subtitle1">{title}</Typography>
+              {!data.workday && (
                 <>
                   <BeachAccessIcon color="secondary" />
                   <Typography variant="subtitle1" color="text.secondary">
