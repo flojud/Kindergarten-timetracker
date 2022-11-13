@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Stack } from '@mui/material';
 import { Dayjs } from 'dayjs';
-import DateRangePicker from '../../components/DateRangePicker';
-import MainContainer from '../../components/MainContainer';
-import ViewDate from '../../components/ViewDate';
+import DateRangePicker from '../common/DateRangePicker';
+import MainContainer from '../common/MainContainer';
+import ViewDate from './ViewDate';
 
 const View = () => {
   const [days, setDays] = useState<Dayjs[]>([]);

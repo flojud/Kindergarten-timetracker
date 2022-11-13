@@ -3,7 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Profile from './Profile';
+import MyProfile from './MyProfile';
 import Security from './Security';
 import MyData from './MyData';
 
@@ -51,7 +51,7 @@ const Settings = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Profile />
+        <MyProfile />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <MyData />

@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import Item from '../../components/Item';
-import MainContainer from '../../components/MainContainer';
+import Item from '../common/Item';
+import MainContainer from '../common/MainContainer';
 
 const Policy = () => {
   return (

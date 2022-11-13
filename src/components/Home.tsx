@@ -1,8 +1,8 @@
 import EmailIcon from '@mui/icons-material/Email';
 import GoogleIcon from '@mui/icons-material/Google';
 import { Box, Button, Link } from '@mui/material';
-import Item from '../components/Item';
-import MainContainer from '../components/MainContainer';
+import Item from './common/Item';
+import MainContainer from './common/MainContainer';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import { Link as RouterLink } from 'react-router-dom';
 import { useContext } from 'react';

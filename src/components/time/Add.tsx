@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import MainContainer from '../../components/MainContainer';
-import DateRangePicker from '../../components/DateRangePicker';
+import MainContainer from '../common/MainContainer';
+import DateRangePicker from '../common/DateRangePicker';
 import { useContext, useEffect, useState } from 'react';
 import { Dayjs } from 'dayjs';
 import locale from 'dayjs/locale/de';
-import AddDate from '../../components/AddDate';
+import AddDate from './AddDate';
 import { Button, Stack } from '@mui/material';
 import { ITime } from '../../interfaces/Data';
 import useStore from '../../hooks/useStore';

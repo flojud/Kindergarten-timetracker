@@ -2,8 +2,8 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { Box, Button, Link, TextField } from '@mui/material';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Item from '../components/Item';
-import MainContainer from '../components/MainContainer';
+import Item from '../components/common/Item';
+import MainContainer from '../components/common/MainContainer';
 import { AuthContext } from '../contexts/AuthContextProvider';
 
 const SignUp = () => {

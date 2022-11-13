@@ -17,7 +17,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Props } from '../interfaces/Props';
+import { Props } from '../../interfaces/Props';
 import { FC, useState } from 'react';
 
 import HomeIcon from '@mui/icons-material/Home';
@@ -30,7 +30,7 @@ import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import GavelIcon from '@mui/icons-material/Gavel';
 import PolicyIcon from '@mui/icons-material/Policy';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContextProvider';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 
 const drawerWidth = 240;
 

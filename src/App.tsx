@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-import NavigationDrawer from './components/NavigationDrawer';
-import ProtectedRoute from './components/ProtectedRoute';
-import Home from './pages/Home';
-import Policy from './pages/legal/Policy';
-import Terms from './pages/legal/Terms';
-import Profile from './pages/Profile';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Add from './pages/time/Add';
-import View from './pages/time/Views';
+import NavigationDrawer from './components/menu/NavigationDrawer';
+import ProtectedRoute from './components/common/ProtectedRoute';
+import Home from './components/Home';
+import Policy from './components/legal/Policy';
+import Terms from './components/legal/Terms';
+import Profile from './components/settings/Profile';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
+import Add from './components/time/Add';
+import View from './components/time/Views';
 
 const App = () => {
   return (

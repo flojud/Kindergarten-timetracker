@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { Card, CardContent, Stack, TextField, Typography } from '@mui/material';
-import TimeUtils from '../utils/TimeUtils';
+import TimeUtils from '../../utils/TimeUtils';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import { ITime } from '../interfaces/Data';
+import { ITime } from '../../interfaces/Data';
 import locale from 'dayjs/locale/de';
 
 interface AddDateProps {
