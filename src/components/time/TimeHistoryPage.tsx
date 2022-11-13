@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Stack } from '@mui/material';
-import { Dayjs } from 'dayjs';
-import DateRangePicker from '../common/DateRangePicker';
+import { Stack, TextField } from '@mui/material';
+import dayjs, { Dayjs } from 'dayjs';
+import MonthPicker from '../common/MonthPicker';
 import MainContainer from '../common/MainContainer';
 import ViewDate from './TimeHistoryCard';
 
 const TimeHistoryPage = () => {
   const [days, setDays] = useState<Dayjs[]>([]);
 
-  const handleDateRangePicker = (dateRange: Dayjs[]) => {
-    setDays(dateRange);
+  const handleDateRangePicker = (dates: Dayjs[]) => {
+    setDays(dates);
   };
 
   return (
     <>
       <MainContainer>
         <Stack spacing={2}>
-          <DateRangePicker onChange={handleDateRangePicker} />
+          <MonthPicker onChange={handleDateRangePicker} />
           {days && days.map((day) => <ViewDate key={day.toISOString()} day={day} />)}
         </Stack>
       </MainContainer>
