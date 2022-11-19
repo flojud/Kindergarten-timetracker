@@ -12,14 +12,8 @@ interface MonthPickerProps {
 }
 const MonthPicker = ({ onChange }: MonthPickerProps) => {
   const { firstTimeDate } = useStore();
-  const startOfMonth = dayjs
-    .default()
-    .locale({ ...locale })
-    .startOf('month');
-  const endOfMonth = dayjs
-    .default()
-    .locale({ ...locale })
-    .endOf('month');
+  const startOfMonth = dayjs.default().startOf('month');
+  const endOfMonth = dayjs.default().endOf('month');
   const [firstTime, setFirstTime] = React.useState<Dayjs>(startOfMonth);
   const [pickedMonth, setPickedMonth] = React.useState<Dayjs | null>();
   const [days, setDays] = React.useState<Dayjs[]>([]);
@@ -43,7 +37,7 @@ const MonthPicker = ({ onChange }: MonthPickerProps) => {
   */
   useEffect(() => {
     if (pickedMonth) {
-      calcDays(pickedMonth.startOf('month'), pickedMonth.endOf('month'));
+      calcDays(pickedMonth.locale({ ...locale }).startOf('month'), pickedMonth.endOf('month'));
     }
   }, [pickedMonth]);
 

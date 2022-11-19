@@ -26,6 +26,19 @@ function useStore() {
     return result;
   };
 
+  const getTime = async (timestamp: number) => {
+    const ref = collection(db, user.uid);
+    const q = query(ref, where('timestamp', '==', timestamp));
+    const response = await getDocs(q);
+    if (response.docs !== undefined) {
+      if (response.docs.length == 1) {
+        return response.docs[0].data() as ITime;
+      }
+    }
+
+    return null;
+  };
+
   const getTimes = async (from: number, to: number) => {
     const result: ITime[] = [];
 
@@ -65,7 +78,7 @@ function useStore() {
       });
   };
 
-  return { saveTimes, getTimes, firstTimeDate };
+  return { saveTimes, getTime, getTimes, firstTimeDate };
 }
 
 export default useStore;
