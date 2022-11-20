@@ -9,6 +9,7 @@ import HolidayUtils from '../../utils/HolidayUtils';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import { IProfile } from '../../interfaces/Types';
 import MainContainer from '../common/MainContainer';
+import NewAbsence from './NewAbsence';
 
 type HighlightedDay = {
   date: Dayjs;
@@ -19,6 +20,7 @@ const AbsencesYearPage = () => {
   const [value, setValue] = useState<Dayjs | null>(null);
   const [month, setMonth] = useState<Dayjs | null>(null);
   const [days, setDays] = useState<Dayjs[]>([]);
+  const [showAbsenceButton, setShowAbsenceButton] = useState<boolean>(true);
   const [highlightedDays, setHighlightedDays] = useState<HighlightedDay[]>([]);
   const authContext = useContext(AuthContext);
   const profile = authContext!.profile as IProfile;
@@ -117,9 +119,13 @@ const AbsencesYearPage = () => {
               </LocalizationProvider>
             </CardContent>
           </Card>
-          <Button variant="contained" fullWidth>
-            Neue Abwesenheit
-          </Button>
+          {showAbsenceButton ? (
+            <Button variant="contained" fullWidth onClick={() => setShowAbsenceButton(false)}>
+              Neue Abwesenheit
+            </Button>
+          ) : (
+            <NewAbsence />
+          )}
         </Stack>
       </MainContainer>
     </>
