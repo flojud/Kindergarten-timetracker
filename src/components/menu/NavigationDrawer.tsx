@@ -13,6 +13,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -177,6 +178,14 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                 <AddIcon />
               </ListItemIcon>
               <ListItemText primary="Eintragen" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/absences/view">
+              <ListItemIcon>
+                <BeachAccessIcon />
+              </ListItemIcon>
+              <ListItemText primary="Abwesenheit" />
             </ListItemButton>
           </ListItem>
         </List>

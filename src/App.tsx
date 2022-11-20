@@ -9,6 +9,7 @@ import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import TimeInputPage from './components/time/TimeInputPage';
 import TimeHistoryPage from './components/time/TimeHistoryPage';
+import AbsencesYearPage from './components/absences/AbsencesYearPage';
 
 const App = () => {
   return (
@@ -20,7 +21,6 @@ const App = () => {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/legal/terms" element={<TermsPage />} />
           <Route path="/legal/policy" element={<PolicyPage />} />
-
           <Route
             path="/time/view"
             element={
@@ -29,6 +29,15 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/absences/view"
+            element={
+              <ProtectedRoute>
+                <AbsencesYearPage />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/time/add"
             element={
