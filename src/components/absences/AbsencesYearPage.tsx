@@ -1,4 +1,17 @@
-import { Button, Card, CardContent, Stack, TextField } from '@mui/material';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+  Button,
+  Card,
+  CardContent,
+  Link,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+  TextField,
+} from '@mui/material';
 import { LocalizationProvider, PickersDay, pickersDayClasses, PickersDayProps, StaticDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
@@ -10,6 +23,8 @@ import { AuthContext } from '../../contexts/AuthContextProvider';
 import { IProfile } from '../../interfaces/Types';
 import MainContainer from '../common/MainContainer';
 import NewAbsence from './NewAbsence';
+import useStore from '../../hooks/useStore';
+import CircleIcon from '@mui/icons-material/Circle';
 
 type HighlightedDay = {
   date: Dayjs;
@@ -24,6 +39,7 @@ const AbsencesYearPage = () => {
   const [highlightedDays, setHighlightedDays] = useState<HighlightedDay[]>([]);
   const authContext = useContext(AuthContext);
   const profile = authContext!.profile as IProfile;
+  const { getAbsence } = useStore();
 
   /*
   Everytime the date range changes it checks for workdays,
@@ -32,11 +48,21 @@ const AbsencesYearPage = () => {
   useEffect(() => {
     setHighlightedDays([]);
     days.forEach((day) => {
-      // check if it is a holiday
-
       // check if it is a workday
       const isWorkday = HolidayUtils.checkIsWorkday(profile.workingdays, day.locale({ ...locale }), profile.state);
       if (!isWorkday) setHighlightedDays((prevState) => [...prevState, { date: day, styles: { backgroundColor: '#f5f5f5' } }]);
+
+      // check if it is a holiday
+      getAbsence(day.unix())
+        .then((absence) => {
+          if (absence && absence.absencetype) {
+            setHighlightedDays((prevState) => [
+              ...prevState,
+              { date: day, styles: { backgroundColor: HolidayUtils.absenceCalendarColor(absence.absencetype) } },
+            ]);
+          }
+        })
+        .finally(() => {});
     });
   }, [days]);
 
@@ -102,21 +128,56 @@ const AbsencesYearPage = () => {
         <Stack spacing={2}>
           <Card>
             <CardContent>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <StaticDatePicker
-                  displayStaticWrapperAs="desktop"
-                  openTo="day"
-                  value={value}
-                  onMonthChange={(newMonth) => {
-                    setMonth(newMonth);
-                  }}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                  renderDay={renderWeekPickerDay}
-                />
-              </LocalizationProvider>
+              <Stack direction="row" justifyContent="flex-start" alignItems="flex-start" spacing={2}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <StaticDatePicker
+                    displayStaticWrapperAs="desktop"
+                    openTo="day"
+                    value={value}
+                    onMonthChange={(newMonth) => {
+                      setMonth(newMonth);
+                    }}
+                    onChange={(newValue) => {
+                      setValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                    renderDay={renderWeekPickerDay}
+                  />
+                </LocalizationProvider>
+
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemIcon>
+                      <CircleIcon sx={{ color: '#35a6a6' }} />
+                    </ListItemIcon>
+                    <ListItemText primary="Urlaub" />
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemIcon>
+                      <CircleIcon sx={{ color: '#b5dfe0' }} />
+                    </ListItemIcon>
+                    <ListItemText primary="Gleittag" />
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemIcon>
+                      <CircleIcon sx={{ color: '#e5524f' }} />
+                    </ListItemIcon>
+                    <ListItemText primary="Krankheit" />
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemIcon>
+                      <CircleIcon sx={{ color: '#d5e64b' }} />
+                    </ListItemIcon>
+                    <ListItemText primary="weitere" />
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemIcon>
+                      <CircleIcon sx={{ color: '#f5f5f5' }} />
+                    </ListItemIcon>
+                    <ListItemText primary="kein Arbeitstag" />
+                  </ListItem>
+                </List>
+              </Stack>
             </CardContent>
           </Card>
           {showAbsenceButton ? (

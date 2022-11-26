@@ -53,4 +53,21 @@ const stateMapper = (state: string): string => {
   if (state == 'Thüringen') return 'th';
   return 'unknown';
 };
-export default { isHoliday, checkIsWorkday };
+
+const absenceCalendarColor = (absencetype: string): string => {
+  if (absencetype == 'Urlaub') return '#35a6a6';
+  if (absencetype == 'Krankheit') return '#e5524f';
+  if (absencetype == 'Gleittag') return '#b5dfe0';
+  if (absencetype == 'Unbezahlter Urlaub') return '#d5e64b';
+  if (absencetype == 'Eigene Eheschließung') return '#d5e64b';
+  if (absencetype == 'Niederkunft Ehefrau') return '#d5e64b';
+  if (absencetype == 'Eheschließung Kind') return '#d5e64b';
+  if (absencetype == 'Tod Familienagehöriger') return '#d5e64b';
+  if (absencetype == 'Golde Hochzeit Eltern') return '#d5e64b';
+  if (absencetype == 'Umzug') return '#d5e64b';
+  if (absencetype == 'Schulung') return '#d5e64b';
+
+  return '';
+};
+
+export default { isHoliday, checkIsWorkday, absenceCalendarColor };

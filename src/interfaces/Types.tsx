@@ -3,6 +3,26 @@ import { Dayjs } from 'dayjs';
 import { AlertColor } from '@mui/material';
 import { User, UserCredential } from 'firebase/auth';
 
+export const absenceTypes = [
+  'Urlaub',
+  'Unbezahlter Urlaub',
+  'Eigene Eheschließung',
+  'Niederkunft Ehefrau',
+  'Eheschließung Kind',
+  'Tod Familienagehöriger',
+  'Golde Hochzeit Eltern',
+  'Umzug',
+  'Schulung',
+  'Gleittag',
+  'Krankheit',
+];
+
+export interface IAbsence {
+  day: string;
+  timestamp: number;
+  absencetype: string;
+}
+
 export interface IDateRange {
   from: Dayjs | null;
   to: Dayjs | null;

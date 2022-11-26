@@ -4,7 +4,7 @@ import { collection, doc, getDocs, limit, orderBy, query, where, writeBatch } fr
 import { NotificationContext } from '../contexts/NotificationContextProvider';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import { User } from 'firebase/auth';
-import { ITime } from '../interfaces/Types';
+import { IAbsence, ITime } from '../interfaces/Types';
 import TimeUtils from '../utils/TimeUtils';
 import dayjs, { Dayjs } from 'dayjs';
 
@@ -78,7 +78,56 @@ function useStore() {
       });
   };
 
-  return { saveTimes, getTime, getTimes, firstTimeDate };
+  const getAbsence = async (timestamp: number) => {
+    const ref = collection(db, `absences-${user.uid}`);
+    const q = query(ref, where('timestamp', '==', timestamp));
+    const response = await getDocs(q);
+    if (response.docs !== undefined) {
+      if (response.docs.length == 1) {
+        return response.docs[0].data() as IAbsence;
+      }
+    }
+
+    return null;
+  };
+
+  const getAbsences = async (from: number, to: number) => {
+    const result: IAbsence[] = [];
+
+    const ref = collection(db, `absences-${user.uid}`);
+    const q = query(ref, where('timestamp', '>', from), where('timestamp', '<', to));
+    const response = await getDocs(q);
+    if (response.docs !== undefined) {
+      response.docs.forEach((item) => {
+        result.push(item.data() as IAbsence);
+      });
+    }
+
+    return result;
+  };
+
+  const saveAbsence = (absences: IAbsence[]) => {
+    const batch = writeBatch(db);
+    absences.forEach((absence) => {
+      batch.set(doc(db, `absences-${user.uid}/${absence.day}`), {
+        day: absence.day,
+        timestamp: TimeUtils.dateStringToTimestamp(absence.day),
+        absencetype: absence.absencetype,
+      });
+    });
+
+    batch
+      .commit()
+      .then(() => {
+        notifyContext.addNotification('Erfoglreich gespeichert', 'success');
+      })
+      .catch((error) => {
+        console.log(error);
+        notifyContext.addNotification('Fehler beim Speichern', 'error');
+      });
+  };
+
+  return { saveTimes, getTime, getTimes, firstTimeDate, getAbsence, getAbsences, saveAbsence };
 }
 
 export default useStore;
