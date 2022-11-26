@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardContent, Box, TextField, Button, CardActions } from '@mui/material';
+import { Card, CardHeader, CardContent, Box, TextField, Button, CardActions, Typography } from '@mui/material';
 import KeyIcon from '@mui/icons-material/Key';
 const TabSecurityCard = () => {
   return (
@@ -23,7 +23,9 @@ const TabSecurityCard = () => {
             gap: 2,
           }}>
           <Button variant="contained" startIcon={<KeyIcon />}>
-            Speichern
+            <Typography variant="button" display="block">
+              Speichern
+            </Typography>
           </Button>
         </CardActions>
       </Card>

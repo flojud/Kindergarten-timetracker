@@ -11,6 +11,7 @@ import {
   ListItemText,
   Stack,
   TextField,
+  Typography,
 } from '@mui/material';
 import { LocalizationProvider, PickersDay, pickersDayClasses, PickersDayProps, StaticDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -182,7 +183,9 @@ const AbsencesYearPage = () => {
           </Card>
           {showAbsenceButton ? (
             <Button variant="contained" fullWidth onClick={() => setShowAbsenceButton(false)}>
-              Neue Abwesenheit
+              <Typography variant="button" display="block">
+                Neue Abwesenheit
+              </Typography>
             </Button>
           ) : (
             <NewAbsence />

@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Dayjs } from 'dayjs';
 import locale from 'dayjs/locale/de';
 import TimeInputCard from './TimeInputCard';
-import { Button, Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { ITime, IProfile } from '../../interfaces/Types';
 import useStore from '../../hooks/useStore';
 import { AuthContext } from '../../contexts/AuthContextProvider';
@@ -98,7 +98,9 @@ const TimeInputPage = () => {
             <TimeInputCard key={item.day} data={item} onChange={handleAddDate} />
           ))}
           <Button variant="contained" onClick={save}>
-            Speichern
+            <Typography variant="button" display="block">
+              Speichern
+            </Typography>
           </Button>
         </Stack>
       </MainContainer>

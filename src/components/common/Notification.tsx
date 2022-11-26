@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { NotificationContext } from '../../contexts/NotificationContextProvider';
 
@@ -22,7 +22,7 @@ const Notification = () => {
       {notifyContext.notification && notifyContext.notification.severity && (
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity={notifyContext.notification.severity} sx={{ width: '100%' }}>
-            {notifyContext.notification.message}
+            <Typography variant="body2">{notifyContext.notification.message}</Typography>
           </Alert>
         </Snackbar>
       )}

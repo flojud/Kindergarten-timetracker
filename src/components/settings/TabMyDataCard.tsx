@@ -12,6 +12,7 @@ import {
   FormHelperText,
   Button,
   CardActions,
+  Typography,
 } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContextProvider';
@@ -160,7 +161,9 @@ const TabMyDataCard = () => {
             gap: 2,
           }}>
           <Button variant="contained" onClick={save}>
-            Speichern
+            <Typography variant="button" display="block">
+              Speichern
+            </Typography>
           </Button>
         </CardActions>
       </Card>

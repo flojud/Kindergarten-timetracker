@@ -1,9 +1,10 @@
+import { Typography } from '@mui/material';
 import ProfileSettingsTabs from './ProfileSettingsTabs';
 
 const ProfilePage = () => {
   return (
     <>
-      <h1>Settings</h1>
+      <Typography variant="h4">Settings</Typography>
       <ProfileSettingsTabs />
     </>
   );

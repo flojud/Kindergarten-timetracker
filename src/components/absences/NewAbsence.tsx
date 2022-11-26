@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack } from '@mui/material';
+import { Button, Card, CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
 import { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 import useNotification from '../../hooks/useNotification';
@@ -54,7 +54,9 @@ const NewAbsence = () => {
               </Select>
             </FormControl>
             <Button variant="contained" onClick={requestAbsence}>
-              Beantragen
+              <Typography variant="button" display="block">
+                Beantragen
+              </Typography>
             </Button>
           </Stack>
         </CardContent>
