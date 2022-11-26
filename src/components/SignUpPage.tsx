@@ -1,5 +1,5 @@
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-import { Box, Button, Link, TextField } from '@mui/material';
+import { Box, Button, Link, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Item from './common/Item';
@@ -40,7 +40,7 @@ const SignUpPage = () => {
             maxWidth: '400px',
           }}>
           <Item>
-            <h2>Tritt noch heute KITZE bei, es ist kostenlos.</h2>
+            <Typography variant="h2">Tritt noch heute KITZE bei, es ist kostenlos.</Typography>
           </Item>
           <Item>
             <TextField fullWidth required id="email" label="Email" onChange={(e) => setEmail(e.target.value)} />
@@ -50,15 +50,21 @@ const SignUpPage = () => {
           </Item>
           <Item>
             <Button fullWidth variant="contained" startIcon={<PersonAddAltIcon />} onClick={handleSubmit}>
-              Registrieren
+              <Typography variant="button" display="block">
+                Registrieren
+              </Typography>
             </Button>
           </Item>
           <Item>
-            Mit der Registrierung bei KITZE stimmst du den <Link href="/legal/terms">Nutzungsbedingungen</Link> zu. Schau dir unsere{' '}
-            <Link href="/legal/policy">Datenschutz-Bestimmungen</Link> an.
+            <Typography variant="body1">
+              Mit der Registrierung bei KITZE stimmst du den <Link href="/legal/terms">Nutzungsbedingungen</Link> zu. Schau dir unsere{' '}
+              <Link href="/legal/policy">Datenschutz-Bestimmungen</Link> an.
+            </Typography>
           </Item>
           <Item>
-            Bereits Mitglied? <Link href="/signin">Anmelden</Link>
+            <Typography variant="body1">
+              Bereits Mitglied? <Link href="/signin">Anmelden</Link>
+            </Typography>
           </Item>
         </Box>
       </MainContainer>

@@ -1,0 +1,59 @@
+import { Box, Button, Link, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import Item from './common/Item';
+import EmailIcon from '@mui/icons-material/Email';
+import GoogleIcon from '@mui/icons-material/Google';
+import { AuthContext } from '../contexts/AuthContextProvider';
+import { useContext } from 'react';
+
+const UnautheticatedHomePage = () => {
+  const authContext = useContext(AuthContext);
+
+  const handleGoogleSignup = async () => {
+    authContext?.authMethods.googleSignIn();
+  };
+  return (
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignSelf: 'center',
+          maxWidth: '400px',
+        }}>
+        <Item>
+          <Typography variant="h2" gutterBottom>
+            Die beste Zeiterfassung App für Erzieher:innen
+          </Typography>
+        </Item>
+        <Item>
+          <Button variant="contained" fullWidth startIcon={<GoogleIcon />} onClick={handleGoogleSignup}>
+            <Typography variant="button" display="block">
+              Mit Google registrieren
+            </Typography>
+          </Button>
+        </Item>
+        <Item>
+          <Button variant="contained" fullWidth startIcon={<EmailIcon />} component={RouterLink} to="/signup">
+            <Typography variant="button" display="block">
+              Meine Email verwenden
+            </Typography>
+          </Button>
+        </Item>
+        <Item>
+          <Typography variant="body1" gutterBottom>
+            Mit der Registrierung bei KITZE stimmst du den <Link href="/legal/terms">Nutzungsbedingungen</Link> zu. Schau dir unsere{' '}
+            <Link href="/legal/policy">Datenschutz-Bestimmungen</Link> an.
+          </Typography>
+        </Item>
+        <Item>
+          <Typography variant="body1" gutterBottom>
+            Bereits Mitglied? <Link href="/signin">Anmelden</Link>
+          </Typography>
+        </Item>
+      </Box>
+    </>
+  );
+};
+
+export default UnautheticatedHomePage;

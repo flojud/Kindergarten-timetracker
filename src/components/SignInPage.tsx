@@ -1,5 +1,5 @@
 import GoogleIcon from '@mui/icons-material/Google';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -56,14 +56,20 @@ const SignInPage = () => {
             maxWidth: '400px',
           }}>
           <Item>
-            <h2>Anmelden</h2>
+            <Typography variant="h2" gutterBottom>
+              Anmelden
+            </Typography>
           </Item>
           <Item>
             <Button variant="contained" fullWidth startIcon={<GoogleIcon />} onClick={handleGoogleSignIn}>
-              Melde dich mit Google an
+              <Typography variant="button" display="block">
+                Melde dich mit Google an
+              </Typography>
             </Button>
           </Item>
-          <Item>oder mit deiner E-Mail-Adresse</Item>
+          <Item>
+            <Typography variant="body1">oder mit deiner E-Mail-Adresse</Typography>
+          </Item>
           <Item>
             <TextField required fullWidth id="email" label="Email" onChange={(e) => setEmail(e.target.value)} />
           </Item>
@@ -72,12 +78,16 @@ const SignInPage = () => {
           </Item>
           <Item>
             <Button variant="contained" fullWidth onClick={handlsignInWithEmail}>
-              Anmelden
+              <Typography variant="button" display="block">
+                Anmelden
+              </Typography>
             </Button>
           </Item>
           <Item>
             <Button fullWidth onClick={handlePasswordResetEmail}>
-              Kennwort vergessen?
+              <Typography variant="button" display="block">
+                Kennwort vergessen?
+              </Typography>
             </Button>
           </Item>
         </Box>
