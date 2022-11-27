@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   CardContent,
+  Grid,
   Link,
   List,
   ListItem,
@@ -129,7 +130,7 @@ const AbsencesYearPage = () => {
         <Stack spacing={2}>
           <Card>
             <CardContent>
-              <Stack direction="row" justifyContent="flex-start" alignItems="flex-start" spacing={2}>
+              <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start" gap={2}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <StaticDatePicker
                     displayStaticWrapperAs="desktop"
@@ -178,7 +179,7 @@ const AbsencesYearPage = () => {
                     <ListItemText primary="kein Arbeitstag" />
                   </ListItem>
                 </List>
-              </Stack>
+              </Grid>
             </CardContent>
           </Card>
           {showAbsenceButton ? (
