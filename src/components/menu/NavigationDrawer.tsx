@@ -32,6 +32,8 @@ import GavelIcon from '@mui/icons-material/Gavel';
 import PolicyIcon from '@mui/icons-material/Policy';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContextProvider';
+import ToggleColorMode from '../common/ToggleColorMode';
+import { ThemeContext } from '../../contexts/ThemeContextProvider';
 
 const drawerWidth = 240;
 
@@ -85,6 +87,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const NavigationDrawer: FC<Props> = ({ children }) => {
+  const themeContext = React.useContext(ThemeContext);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const authContext = React.useContext(AuthContext);
@@ -233,6 +236,12 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
               </ListItemIcon>
               <ListItemText primary="Terms" />
             </ListItemButton>
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem disablePadding>
+            <ToggleColorMode light={themeContext.light} toggle={() => themeContext.toggleTheme()} />
           </ListItem>
         </List>
       </Drawer>

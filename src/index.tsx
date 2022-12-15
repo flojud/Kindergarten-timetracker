@@ -6,17 +6,20 @@ import { AuthContextProvider } from './contexts/AuthContextProvider';
 import Notification from './components/common/Notification';
 import './index.css';
 import { NotificationContextProvider } from './contexts/NotificationContextProvider';
+import { ThemeContextProvider } from './contexts/ThemeContextProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <>
     <BrowserRouter>
-      <NotificationContextProvider>
-        <AuthContextProvider>
-          <App />
-          <Notification />
-        </AuthContextProvider>
-      </NotificationContextProvider>
+      <ThemeContextProvider>
+        <NotificationContextProvider>
+          <AuthContextProvider>
+            <App />
+            <Notification />
+          </AuthContextProvider>
+        </NotificationContextProvider>
+      </ThemeContextProvider>
     </BrowserRouter>
   </>
 );

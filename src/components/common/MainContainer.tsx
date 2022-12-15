@@ -3,12 +3,6 @@ import React, { ReactNode } from 'react';
 type Props = { children: ReactNode };
 
 const MainContainer = ({ children }: Props) => {
-  /*
-            backgroundImage: `url(${'/images/pexels-roger-brown-5656552.jpeg'})`,
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-  */
   return (
     <>
       <Box

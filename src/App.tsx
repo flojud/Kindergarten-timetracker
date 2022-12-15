@@ -10,52 +10,76 @@ import SignUpPage from './components/SignUpPage';
 import TimeInputPage from './components/time/TimeInputPage';
 import TimeHistoryPage from './components/time/TimeHistoryPage';
 import AbsencesYearPage from './components/absences/AbsencesYearPage';
+import { useContext } from 'react';
+import { ThemeContext } from './contexts/ThemeContextProvider';
+import { ThemeProvider } from '@emotion/react';
+import { createMuiTheme, createTheme, CssBaseline } from '@mui/material';
 
 const App = () => {
+  const themeContext = useContext(ThemeContext);
+
+  const lightTheme = createTheme({
+    palette: {
+      mode: 'light',
+    },
+  });
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
+
+  const appliedTheme = createTheme(themeContext.light ? lightTheme : darkTheme);
+
   return (
     <>
-      <NavigationDrawer>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/signin" element={<SignInPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/legal/terms" element={<TermsPage />} />
-          <Route path="/legal/policy" element={<PolicyPage />} />
-          <Route
-            path="/time/view"
-            element={
-              <ProtectedRoute>
-                <TimeHistoryPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/absences/view"
-            element={
-              <ProtectedRoute>
-                <AbsencesYearPage />
-              </ProtectedRoute>
-            }
-          />
+      <ThemeProvider theme={appliedTheme}>
+        <CssBaseline />
 
-          <Route
-            path="/time/add"
-            element={
-              <ProtectedRoute>
-                <TimeInputPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </NavigationDrawer>
+        <NavigationDrawer>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/signin" element={<SignInPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/legal/terms" element={<TermsPage />} />
+            <Route path="/legal/policy" element={<PolicyPage />} />
+            <Route
+              path="/time/view"
+              element={
+                <ProtectedRoute>
+                  <TimeHistoryPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/absences/view"
+              element={
+                <ProtectedRoute>
+                  <AbsencesYearPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/time/add"
+              element={
+                <ProtectedRoute>
+                  <TimeInputPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </NavigationDrawer>
+      </ThemeProvider>
     </>
   );
 };
