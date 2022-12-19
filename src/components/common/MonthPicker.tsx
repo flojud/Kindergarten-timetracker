@@ -64,6 +64,7 @@ const MonthPicker = ({ onChange }: MonthPickerProps) => {
           display: 'flex',
           flexDirection: 'row',
           gap: 2,
+          width: '100%',
         }}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
@@ -75,7 +76,7 @@ const MonthPicker = ({ onChange }: MonthPickerProps) => {
             onChange={(value) => {
               setPickedMonth(value);
             }}
-            renderInput={(params) => <TextField {...params} />}
+            renderInput={(params) => <TextField {...params} sx={{ width: '100%' }} />}
           />
         </LocalizationProvider>
       </Box>

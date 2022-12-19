@@ -1,4 +1,4 @@
-import { Divider, Grid, Typography } from '@mui/material';
+import { Divider, Grid, Stack, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import dayjs, { Dayjs } from 'dayjs';
@@ -11,6 +11,7 @@ import PsychologyAltOutlinedIcon from '@mui/icons-material/PsychologyAltOutlined
 import SickOutlinedIcon from '@mui/icons-material/SickOutlined';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 import UserHomePageInfoCard from './UserHomePageInfoCard';
+import { ReactComponent as HomeSvg } from '../svg/home.svg';
 
 const UserHomePage = () => {
   const authContext = useContext(AuthContext);
@@ -43,34 +44,38 @@ const UserHomePage = () => {
 
   return (
     <>
-      <Typography variant="h4" gutterBottom>
-        Dashboard
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        Willkommen zuück, {authContext?.user?.displayName}! Wir haben dich vermisst. 👋
-      </Typography>
-      <Divider sx={{ my: 4 }} />
-      <Grid direction="row" justifyContent="flex-start" alignItems="flex-start" gap={4} container>
-        <UserHomePageInfoCard
-          title={'Freie Urlaubstage'}
-          value={`${noHolidays} Tg.`}
-          subtitle={'In diesem Jahr'}
-          SvgIcon={AirplanemodeActiveIcon}
-        />
-        <UserHomePageInfoCard
-          title={'Arbeitszeit am Kind Saldo'}
-          value={'+ 28 h'}
-          subtitle={'Seit Start der Erfassung'}
-          SvgIcon={AccessTimeOutlinedIcon}
-        />
-        <UserHomePageInfoCard
-          title={'Verfügungszeit Saldo'}
-          value={'- 11 h'}
-          subtitle={'Im aktuellen Monat'}
-          SvgIcon={PsychologyAltOutlinedIcon}
-        />
-        <UserHomePageInfoCard title={'Krankheitstage'} value={'1 Tag'} subtitle={'In diesem Jahr'} SvgIcon={SickOutlinedIcon} />
-      </Grid>
+      <Stack direction="column" alignItems="center" spacing={0}>
+        <HomeSvg width="150px" height="150px" />
+
+        <Typography variant="h4" gutterBottom>
+          Dashboard
+        </Typography>
+        <Typography variant="body1" align="center" gutterBottom>
+          Willkommen zuück, {authContext?.user?.displayName}! Wir haben dich vermisst. 👋
+        </Typography>
+        <Divider sx={{ my: 2 }} />
+        <Grid direction="row" justifyContent="center" alignItems="center" gap={4} container>
+          <UserHomePageInfoCard
+            title={'Freie Urlaubstage'}
+            value={`${noHolidays} Tg.`}
+            subtitle={'In diesem Jahr'}
+            SvgIcon={AirplanemodeActiveIcon}
+          />
+          <UserHomePageInfoCard
+            title={'Arbeitszeit am Kind Saldo'}
+            value={'+ 28 h'}
+            subtitle={'Seit Start der Erfassung'}
+            SvgIcon={AccessTimeOutlinedIcon}
+          />
+          <UserHomePageInfoCard
+            title={'Verfügungszeit Saldo'}
+            value={'- 11 h'}
+            subtitle={'Im aktuellen Monat'}
+            SvgIcon={PsychologyAltOutlinedIcon}
+          />
+          <UserHomePageInfoCard title={'Krankheitstage'} value={'1 Tag'} subtitle={'In diesem Jahr'} SvgIcon={SickOutlinedIcon} />
+        </Grid>
+      </Stack>
     </>
   );
 };

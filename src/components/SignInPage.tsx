@@ -1,11 +1,12 @@
 import GoogleIcon from '@mui/icons-material/Google';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, Stack, SvgIcon, TextField, Typography } from '@mui/material';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Item from './common/Item';
 import MainContainer from './common/MainContainer';
 import { AuthContext } from '../contexts/AuthContextProvider';
+import { ReactComponent as LoginSvg } from '../svg/login.svg';
 
 const SignInPage = () => {
   const auth = getAuth();
@@ -48,49 +49,52 @@ const SignInPage = () => {
   return (
     <>
       <MainContainer>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignSelf: 'center',
-            maxWidth: '400px',
-          }}>
-          <Item>
-            <Typography variant="h2" gutterBottom>
-              Anmelden
-            </Typography>
-          </Item>
-          <Item>
-            <Button variant="contained" fullWidth startIcon={<GoogleIcon />} onClick={handleGoogleSignIn}>
-              <Typography variant="button" display="block">
-                Melde dich mit Google an
-              </Typography>
-            </Button>
-          </Item>
-          <Item>
-            <Typography variant="body1">oder mit deiner E-Mail-Adresse</Typography>
-          </Item>
-          <Item>
-            <TextField required fullWidth id="email" label="Email" onChange={(e) => setEmail(e.target.value)} />
-          </Item>
-          <Item>
-            <TextField required fullWidth id="password" label="Passwort" type="password" onChange={(e) => setPassword(e.target.value)} />
-          </Item>
-          <Item>
-            <Button variant="contained" fullWidth onClick={handlsignInWithEmail}>
-              <Typography variant="button" display="block">
+        <Stack direction="column" alignItems="center" spacing={0}>
+          <LoginSvg width="150px" height="150px" />
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignSelf: 'center',
+              maxWidth: '400px',
+            }}>
+            <Item alignSelf={'center'}>
+              <Typography variant="h2" gutterBottom>
                 Anmelden
               </Typography>
-            </Button>
-          </Item>
-          <Item>
-            <Button fullWidth onClick={handlePasswordResetEmail}>
-              <Typography variant="button" display="block">
-                Kennwort vergessen?
-              </Typography>
-            </Button>
-          </Item>
-        </Box>
+            </Item>
+            <Item>
+              <Button variant="contained" fullWidth startIcon={<GoogleIcon sx={{ color: 'text.primary' }} />} onClick={handleGoogleSignIn}>
+                <Typography variant="button" display="block" color={'text.secondary'}>
+                  Melde dich mit Google an
+                </Typography>
+              </Button>
+            </Item>
+            <Item alignSelf={'center'}>
+              <Typography variant="body1">oder mit deiner E-Mail-Adresse</Typography>
+            </Item>
+            <Item>
+              <TextField required fullWidth id="email" label="Email" onChange={(e) => setEmail(e.target.value)} />
+            </Item>
+            <Item>
+              <TextField required fullWidth id="password" label="Passwort" type="password" onChange={(e) => setPassword(e.target.value)} />
+            </Item>
+            <Item>
+              <Button variant="contained" fullWidth onClick={handlsignInWithEmail} color="secondary">
+                <Typography variant="button" display="block" color={'text.primary'}>
+                  Anmelden
+                </Typography>
+              </Button>
+            </Item>
+            <Item>
+              <Button fullWidth onClick={handlePasswordResetEmail} color="secondary">
+                <Typography variant="button" display="block" color={'text.primary'}>
+                  Kennwort vergessen?
+                </Typography>
+              </Button>
+            </Item>
+          </Box>
+        </Stack>
       </MainContainer>
     </>
   );

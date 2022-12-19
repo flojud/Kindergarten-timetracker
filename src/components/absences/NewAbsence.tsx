@@ -53,8 +53,8 @@ const NewAbsence = () => {
                 ))}
               </Select>
             </FormControl>
-            <Button variant="contained" onClick={requestAbsence}>
-              <Typography variant="button" display="block">
+            <Button variant="contained" onClick={requestAbsence} color="secondary">
+              <Typography variant="button" display="block" color={'text.primary'}>
                 Beantragen
               </Typography>
             </Button>

@@ -46,15 +46,15 @@ const TimeInputCard = ({ data, onChange }: TimeInputCardProps) => {
 
   return (
     <>
-      <Card>
+      <Card sx={{ width: '100%' }}>
         <CardContent>
           <Stack spacing={2}>
-            <Stack spacing={2} direction="row">
+            <Stack spacing={2} direction="row" alignItems={'center'}>
               <Typography variant="subtitle1">{title}</Typography>
               {!data.workday && (
                 <>
                   <BeachAccessIcon color="secondary" />
-                  <Typography variant="subtitle1" color="text.secondary">
+                  <Typography variant="caption" color="text.secondary">
                     Kein Arbeitstag
                   </Typography>
                 </>

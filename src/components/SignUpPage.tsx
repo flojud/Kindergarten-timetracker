@@ -49,8 +49,13 @@ const SignUpPage = () => {
             <TextField fullWidth required id="password" label="Passwort" type="password" onChange={(e) => setPassword(e.target.value)} />
           </Item>
           <Item>
-            <Button fullWidth variant="contained" startIcon={<PersonAddAltIcon />} onClick={handleSubmit}>
-              <Typography variant="button" display="block">
+            <Button
+              fullWidth
+              variant="contained"
+              startIcon={<PersonAddAltIcon sx={{ color: 'text.primary' }} />}
+              onClick={handleSubmit}
+              color="secondary">
+              <Typography variant="button" display="block" color={'text.primary'}>
                 Registrieren
               </Typography>
             </Button>

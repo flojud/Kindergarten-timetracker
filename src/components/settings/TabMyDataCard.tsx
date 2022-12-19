@@ -13,11 +13,13 @@ import {
   Button,
   CardActions,
   Typography,
+  Stack,
 } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import { IProfile, IWorkingdays } from '../../interfaces/Types';
 import TimeUtils from '../../utils/TimeUtils';
+import { ReactComponent as MyDataSvg } from '../../svg/mydata.svg';
 
 function valuetext(value: number) {
   return `${value}%`;
@@ -100,73 +102,76 @@ const TabMyDataCard = () => {
 
   return (
     <>
-      <Card>
-        <CardHeader title="Deine persönlichen Daten"></CardHeader>
-        <CardContent
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignSelf: 'center',
-            padding: 2,
-            gap: 2,
-          }}>
-          <FormControlLabel control={<Switch checked={monday} onChange={(e) => setMonday(e.target.checked)} />} label="Montag" />
-          <FormControlLabel control={<Switch checked={tuesday} onChange={(e) => setTuesday(e.target.checked)} />} label="Dienstag" />
-          <FormControlLabel control={<Switch checked={wednesday} onChange={(e) => setWednesday(e.target.checked)} />} label="Mittwoch" />
-          <FormControlLabel control={<Switch checked={thursday} onChange={(e) => setThursday(e.target.checked)} />} label="Donnerstag" />
-          <FormControlLabel control={<Switch checked={friday} onChange={(e) => setFriday(e.target.checked)} />} label="Freitag" />
-          <FormControlLabel control={<Switch checked={saturday} onChange={(e) => setSaturday(e.target.checked)} />} label="Samstag" />
-          <FormControlLabel control={<Switch checked={sunday} onChange={(e) => setSunday(e.target.checked)} />} label="Sonntag" />
-          <FormHelperText>An welchen Tagen arbeitest du?</FormHelperText>
+      <Stack direction="column" alignItems="center" spacing={0}>
+        <MyDataSvg width="150px" height="150px" />
+        <Card sx={{ width: '100%' }}>
+          <CardHeader title="Deine persönlichen Daten"></CardHeader>
+          <CardContent
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignSelf: 'center',
+              padding: 2,
+              gap: 2,
+            }}>
+            <FormControlLabel control={<Switch checked={monday} onChange={(e) => setMonday(e.target.checked)} />} label="Montag" />
+            <FormControlLabel control={<Switch checked={tuesday} onChange={(e) => setTuesday(e.target.checked)} />} label="Dienstag" />
+            <FormControlLabel control={<Switch checked={wednesday} onChange={(e) => setWednesday(e.target.checked)} />} label="Mittwoch" />
+            <FormControlLabel control={<Switch checked={thursday} onChange={(e) => setThursday(e.target.checked)} />} label="Donnerstag" />
+            <FormControlLabel control={<Switch checked={friday} onChange={(e) => setFriday(e.target.checked)} />} label="Freitag" />
+            <FormControlLabel control={<Switch checked={saturday} onChange={(e) => setSaturday(e.target.checked)} />} label="Samstag" />
+            <FormControlLabel control={<Switch checked={sunday} onChange={(e) => setSunday(e.target.checked)} />} label="Sonntag" />
+            <FormHelperText>An welchen Tagen arbeitest du?</FormHelperText>
 
-          <FormControl fullWidth>
-            <InputLabel>Bundesland</InputLabel>
-            <Select value={state} label="Bundesland" onChange={(e) => setState(e.target.value as string)}>
-              {germanStates.flatMap((item) => (
-                <MenuItem key={item} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>Aus welchem Bundesland kommst du?</FormHelperText>
-          </FormControl>
-          <TextField
-            type="number"
-            label="Urlaubstage pro Jahr"
-            value={holidaysPerYear}
-            onChange={(e) => setHolidaysPerYear(e.target.value as unknown as number)}
-            sx={{ width: '100%' }}
-            helperText="Wie viel Tage Urlaub im Jahr hast du?"
-          />
-          <TextField
-            type="time"
-            label="Arbeitszeit am Kind / Tag"
-            value={workingTimePerDay}
-            onChange={(e) => setWorkingTimePerDay(e.target.value)}
-            sx={{ width: '100%' }}
-            helperText="Wie viel Stunden arbeitest du pro Arbeitstag am Kind?"
-          />
-          <TextField
-            type="time"
-            label="Verfügungszeit / Tag"
-            value={availableTimePerDay}
-            onChange={(e) => setAvailableTimePerDay(e.target.value)}
-            sx={{ width: '100%' }}
-            helperText="Wie viel Verfügungszeit hast du pro Tag?"
-          />
-        </CardContent>
-        <CardActions
-          sx={{
-            padding: 2,
-            gap: 2,
-          }}>
-          <Button variant="contained" onClick={save}>
-            <Typography variant="button" display="block">
-              Speichern
-            </Typography>
-          </Button>
-        </CardActions>
-      </Card>
+            <FormControl fullWidth>
+              <InputLabel>Bundesland</InputLabel>
+              <Select value={state} label="Bundesland" onChange={(e) => setState(e.target.value as string)}>
+                {germanStates.flatMap((item) => (
+                  <MenuItem key={item} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+              <FormHelperText>Aus welchem Bundesland kommst du?</FormHelperText>
+            </FormControl>
+            <TextField
+              type="number"
+              label="Urlaubstage pro Jahr"
+              value={holidaysPerYear}
+              onChange={(e) => setHolidaysPerYear(e.target.value as unknown as number)}
+              sx={{ width: '100%' }}
+              helperText="Wie viel Tage Urlaub im Jahr hast du?"
+            />
+            <TextField
+              type="time"
+              label="Arbeitszeit am Kind / Tag"
+              value={workingTimePerDay}
+              onChange={(e) => setWorkingTimePerDay(e.target.value)}
+              sx={{ width: '100%' }}
+              helperText="Wie viel Stunden arbeitest du pro Arbeitstag am Kind?"
+            />
+            <TextField
+              type="time"
+              label="Verfügungszeit / Tag"
+              value={availableTimePerDay}
+              onChange={(e) => setAvailableTimePerDay(e.target.value)}
+              sx={{ width: '100%' }}
+              helperText="Wie viel Verfügungszeit hast du pro Tag?"
+            />
+          </CardContent>
+          <CardActions
+            sx={{
+              padding: 2,
+              gap: 2,
+            }}>
+            <Button variant="contained" onClick={save} color="secondary">
+              <Typography variant="button" display="block" color={'text.primary'}>
+                Speichern
+              </Typography>
+            </Button>
+          </CardActions>
+        </Card>
+      </Stack>
     </>
   );
 };

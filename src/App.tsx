@@ -14,22 +14,12 @@ import { useContext } from 'react';
 import { ThemeContext } from './contexts/ThemeContextProvider';
 import { ThemeProvider } from '@emotion/react';
 import { createMuiTheme, createTheme, CssBaseline } from '@mui/material';
+import { darkThemeOptions, lightThemeOptions } from './utils/MyThemeOptions';
 
 const App = () => {
   const themeContext = useContext(ThemeContext);
-
-  const lightTheme = createTheme({
-    palette: {
-      mode: 'light',
-    },
-  });
-
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  });
-
+  const lightTheme = createTheme(lightThemeOptions);
+  const darkTheme = createTheme(darkThemeOptions);
   const appliedTheme = createTheme(themeContext.light ? lightTheme : darkTheme);
 
   return (

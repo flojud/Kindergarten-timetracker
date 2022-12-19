@@ -10,6 +10,7 @@ import { ITime, IProfile } from '../../interfaces/Types';
 import useStore from '../../hooks/useStore';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import TimeUtils from '../../utils/TimeUtils';
+import { ReactComponent as TimeSvg } from '../../svg/time.svg';
 
 const TimeInputPage = () => {
   const authContext = useContext(AuthContext);
@@ -92,13 +93,14 @@ const TimeInputPage = () => {
   return (
     <>
       <MainContainer>
-        <Stack spacing={2}>
+        <Stack direction="column" alignItems="center" spacing={2}>
+          <TimeSvg width="150px" height="150px" />
           <DateRangePicker onChange={handleDateRangePicker} />
           {data.map((item) => (
             <TimeInputCard key={item.day} data={item} onChange={handleAddDate} />
           ))}
-          <Button variant="contained" onClick={save}>
-            <Typography variant="button" display="block">
+          <Button variant="contained" onClick={save} color="secondary">
+            <Typography variant="button" display="block" color={'text.primary'}>
               Speichern
             </Typography>
           </Button>

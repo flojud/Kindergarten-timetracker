@@ -19,7 +19,7 @@ function TabPanel(props: TabPanelProps) {
   return (
     <div role="tabpanel" hidden={value !== index} id={`tabpanel-${index}`} aria-labelledby={`tab-${index}`} {...other}>
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 0 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -45,16 +45,16 @@ const ProfileSettingsTabs = () => {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Konto" {...a11yProps(0)} />
-          <Tab label="Meine Daten" {...a11yProps(1)} />
+          <Tab label="Meine Daten" {...a11yProps(0)} />
+          <Tab label="Konto" {...a11yProps(1)} />
           <Tab label="Security" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <TabMyProfileCard />
+        <TabMyDataCard />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TabMyDataCard />
+        <TabMyProfileCard />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <TabSecurityCard />

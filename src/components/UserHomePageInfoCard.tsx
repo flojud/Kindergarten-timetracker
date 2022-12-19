@@ -18,7 +18,7 @@ const UserHomePageInfoCard = ({ title, value, subtitle, SvgIcon }: UserHomePageI
               <Typography variant="body1" color={'text.secondary'}>
                 {title}
               </Typography>
-              <SvgIcon color={'primary'} />
+              <SvgIcon color={'secondary'} />
             </Stack>
 
             <Typography variant="h4" color={'text.primary'}>

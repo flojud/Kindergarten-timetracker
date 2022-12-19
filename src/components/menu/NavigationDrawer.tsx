@@ -34,6 +34,8 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import ToggleColorMode from '../common/ToggleColorMode';
 import { ThemeContext } from '../../contexts/ThemeContextProvider';
+import HolidayUtils from '../../utils/HolidayUtils';
+import { Grid, Stack, Link as Link2 } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -41,7 +43,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
 }>(({ theme, open }) => ({
   flexGrow: 1,
-  padding: theme.spacing(3),
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -101,155 +102,168 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}>
-            <MenuIcon />
-          </IconButton>
+    <>
+      <Box sx={{ display: 'flex', p: 2 }}>
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: 'none' }) }}>
+              <MenuIcon />
+            </IconButton>
 
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}>
-            KITZE
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: 'flex' },
+                flexGrow: 1,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}>
+              Kindergarten Tracker
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          sx={{
             width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>{theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
-        </DrawerHeader>
-        <Divider />
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>{theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
+          </DrawerHeader>
+          <Divider />
 
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/">
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/profile">
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/time/view">
-              <ListItemIcon>
-                <AccessTimeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Zeiten" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/time/add">
-              <ListItemIcon>
-                <AddIcon />
-              </ListItemIcon>
-              <ListItemText primary="Eintragen" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/absences/view">
-              <ListItemIcon>
-                <BeachAccessIcon />
-              </ListItemIcon>
-              <ListItemText primary="Abwesenheit" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/signup">
-              <ListItemIcon>
-                <SubscriptionsIcon />
-              </ListItemIcon>
-              <ListItemText primary="SignUp" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/signin">
-              <ListItemIcon>
-                <LoginIcon />
-              </ListItemIcon>
-              <ListItemText primary="Login" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => authContext?.authMethods.logout()}>
-              <ListItemIcon>
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText primary="Logout" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/legal/policy">
-              <ListItemIcon>
-                <PolicyIcon />
-              </ListItemIcon>
-              <ListItemText primary="Policy" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/legal/terms">
-              <ListItemIcon>
-                <GavelIcon />
-              </ListItemIcon>
-              <ListItemText primary="Terms" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem disablePadding>
-            <ToggleColorMode light={themeContext.light} toggle={() => themeContext.toggleTheme()} />
-          </ListItem>
-        </List>
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        {children}
-      </Main>
-    </Box>
+          {authContext?.loggedIn && (
+            <>
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton component={Link} to="/">
+                    <ListItemIcon>
+                      <HomeIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Home" />
+                  </ListItemButton>
+                </ListItem>
+
+                <ListItem disablePadding>
+                  <ListItemButton component={Link} to="/profile">
+                    <ListItemIcon>
+                      <PersonIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Profile" />
+                  </ListItemButton>
+                </ListItem>
+
+                <ListItem disablePadding>
+                  <ListItemButton component={Link} to="/time/view">
+                    <ListItemIcon>
+                      <AccessTimeIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Zeiten" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton component={Link} to="/time/add">
+                    <ListItemIcon>
+                      <AddIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Eintragen" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton component={Link} to="/absences/view">
+                    <ListItemIcon>
+                      <BeachAccessIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Abwesenheit" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+              <Divider />
+            </>
+          )}
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/signup">
+                <ListItemIcon>
+                  <SubscriptionsIcon />
+                </ListItemIcon>
+                <ListItemText primary="SignUp" />
+              </ListItemButton>
+            </ListItem>
+            {authContext?.loggedIn ? (
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => authContext?.authMethods.logout()}>
+                  <ListItemIcon>
+                    <LogoutIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItemButton>
+              </ListItem>
+            ) : (
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="/signin">
+                  <ListItemIcon>
+                    <LoginIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Login" />
+                </ListItemButton>
+              </ListItem>
+            )}
+          </List>
+          <Divider />
+          <List>
+            <ListItem disablePadding>
+              <ToggleColorMode light={themeContext.light} toggle={() => themeContext.toggleTheme()} />
+            </ListItem>
+          </List>
+        </Drawer>
+        <Main open={open}>
+          <DrawerHeader />
+          {children}
+        </Main>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'primary.dark',
+          p: 2,
+          mt: 2,
+          width: '100%',
+        }}>
+        <Stack spacing={2} direction="row" alignItems={'flex-start'}>
+          <Typography variant="caption" color={'primary'}>
+            <Link2 href="/legal/terms" color={'inherit'}>
+              Privacy Policy
+            </Link2>
+          </Typography>
+          <Divider orientation="vertical" flexItem />
+          <Typography variant="caption" color={'primary'}>
+            <Link2 href="/legal/terms" color={'inherit'}>
+              Terms & Conditions
+            </Link2>
+          </Typography>
+        </Stack>
+      </Box>
+    </>
   );
 };
 

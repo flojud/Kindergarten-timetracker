@@ -1,25 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  Link,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { LocalizationProvider, PickersDay, pickersDayClasses, PickersDayProps, StaticDatePicker } from '@mui/x-date-pickers';
+import { Button, Card, CardContent, Grid, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography } from '@mui/material';
+import { LocalizationProvider, PickersDay, PickersDayProps, StaticDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useContext, useEffect, useState } from 'react';
 import locale from 'dayjs/locale/de';
-import { profile } from 'console';
 import HolidayUtils from '../../utils/HolidayUtils';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import { IProfile } from '../../interfaces/Types';
@@ -27,6 +12,7 @@ import MainContainer from '../common/MainContainer';
 import NewAbsence from './NewAbsence';
 import useStore from '../../hooks/useStore';
 import CircleIcon from '@mui/icons-material/Circle';
+import { ReactComponent as AirportSvg } from '../../svg/airport.svg';
 
 type HighlightedDay = {
   date: Dayjs;
@@ -52,7 +38,11 @@ const AbsencesYearPage = () => {
     days.forEach((day) => {
       // check if it is a workday
       const isWorkday = HolidayUtils.checkIsWorkday(profile.workingdays, day.locale({ ...locale }), profile.state);
-      if (!isWorkday) setHighlightedDays((prevState) => [...prevState, { date: day, styles: { backgroundColor: '#f5f5f5' } }]);
+      if (!isWorkday)
+        setHighlightedDays((prevState) => [
+          ...prevState,
+          { date: day, styles: { backgroundColor: HolidayUtils.absenceColors.keinArbeitstag } },
+        ]);
 
       // check if it is a holiday
       getAbsence(day.unix())
@@ -127,10 +117,11 @@ const AbsencesYearPage = () => {
   return (
     <>
       <MainContainer>
-        <Stack spacing={2}>
+        <Stack direction="column" alignItems="center" spacing={2}>
+          <AirportSvg width="150px" height="150px" />
           <Card>
-            <CardContent>
-              <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start" gap={2}>
+            <CardContent sx={{ width: '100%', p: 0 }}>
+              <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start" gap={0}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <StaticDatePicker
                     displayStaticWrapperAs="desktop"
@@ -147,44 +138,64 @@ const AbsencesYearPage = () => {
                   />
                 </LocalizationProvider>
 
-                <List>
+                <List sx={{ px: 4 }}>
                   <ListItem disablePadding>
                     <ListItemIcon>
-                      <CircleIcon sx={{ color: '#35a6a6' }} />
+                      <CircleIcon sx={{ color: HolidayUtils.absenceColors.urlaub }} />
                     </ListItemIcon>
-                    <ListItemText primary="Urlaub" />
+                    <ListItemText disableTypography>
+                      <Typography variant="caption" color="text.secondary">
+                        Urlaub
+                      </Typography>
+                    </ListItemText>
                   </ListItem>
                   <ListItem disablePadding>
                     <ListItemIcon>
-                      <CircleIcon sx={{ color: '#b5dfe0' }} />
+                      <CircleIcon sx={{ color: HolidayUtils.absenceColors.gleittag }} />
                     </ListItemIcon>
-                    <ListItemText primary="Gleittag" />
+                    <ListItemText disableTypography>
+                      <Typography variant="caption" color="text.primary">
+                        Gleittag
+                      </Typography>
+                    </ListItemText>
                   </ListItem>
                   <ListItem disablePadding>
                     <ListItemIcon>
-                      <CircleIcon sx={{ color: '#e5524f' }} />
+                      <CircleIcon sx={{ color: HolidayUtils.absenceColors.krankheit }} />
                     </ListItemIcon>
-                    <ListItemText primary="Krankheit" />
+                    <ListItemText disableTypography>
+                      <Typography variant="caption" color="text.secondary">
+                        Krankheit
+                      </Typography>
+                    </ListItemText>
                   </ListItem>
                   <ListItem disablePadding>
                     <ListItemIcon>
-                      <CircleIcon sx={{ color: '#d5e64b' }} />
+                      <CircleIcon sx={{ color: HolidayUtils.absenceColors.weitere }} />
                     </ListItemIcon>
-                    <ListItemText primary="weitere" />
+                    <ListItemText disableTypography>
+                      <Typography variant="caption" color="text.secondary">
+                        weitere
+                      </Typography>
+                    </ListItemText>
                   </ListItem>
                   <ListItem disablePadding>
                     <ListItemIcon>
-                      <CircleIcon sx={{ color: '#f5f5f5' }} />
+                      <CircleIcon sx={{ color: HolidayUtils.absenceColors.keinArbeitstag }} />
                     </ListItemIcon>
-                    <ListItemText primary="kein Arbeitstag" />
+                    <ListItemText disableTypography>
+                      <Typography variant="caption" color="text.secondary">
+                        kein Arbeitstag
+                      </Typography>
+                    </ListItemText>
                   </ListItem>
                 </List>
               </Grid>
             </CardContent>
           </Card>
           {showAbsenceButton ? (
-            <Button variant="contained" fullWidth onClick={() => setShowAbsenceButton(false)}>
-              <Typography variant="button" display="block">
+            <Button variant="contained" fullWidth onClick={() => setShowAbsenceButton(false)} color="secondary">
+              <Typography variant="button" display="block" color={'text.primary'}>
                 Neue Abwesenheit
               </Typography>
             </Button>

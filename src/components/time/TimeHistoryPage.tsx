@@ -7,6 +7,7 @@ import ViewDate from './TimeHistoryCard';
 import useStore from '../../hooks/useStore';
 import { ITime } from '../../interfaces/Types';
 import TimeUtils from '../../utils/TimeUtils';
+import { ReactComponent as TimesSvg } from '../../svg/times.svg';
 
 const TimeHistoryPage = () => {
   const { getTimes } = useStore();
@@ -55,10 +56,11 @@ const TimeHistoryPage = () => {
   return (
     <>
       <MainContainer>
-        <Stack spacing={2}>
+        <Stack direction="column" alignItems="center" spacing={2}>
+          <TimesSvg width="150px" height="150px" />
           <MonthPicker onChange={handleDateRangePicker} />
           {workingTimeGlz && availableTimeGlz && (
-            <Paper elevation={0}>
+            <Paper elevation={1} sx={{ p: 2, width: '100%' }}>
               <Stack direction="row" spacing={1} alignItems="center">
                 <Typography variant="body2">GLZ Saldo</Typography>
                 <Typography variant="subtitle1">{workingTimeGlz} h</Typography>

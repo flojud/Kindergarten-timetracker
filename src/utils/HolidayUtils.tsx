@@ -54,20 +54,28 @@ const stateMapper = (state: string): string => {
   return 'unknown';
 };
 
+const absenceColors = {
+  urlaub: '#56E7FA',
+  krankheit: '#FD939D',
+  gleittag: '#7EFABC',
+  weitere: '#B9FD92',
+  keinArbeitstag: '#DEEBE8',
+};
+
 const absenceCalendarColor = (absencetype: string): string => {
-  if (absencetype == 'Urlaub') return '#35a6a6';
-  if (absencetype == 'Krankheit') return '#e5524f';
-  if (absencetype == 'Gleittag') return '#b5dfe0';
-  if (absencetype == 'Unbezahlter Urlaub') return '#d5e64b';
-  if (absencetype == 'Eigene Eheschließung') return '#d5e64b';
-  if (absencetype == 'Niederkunft Ehefrau') return '#d5e64b';
-  if (absencetype == 'Eheschließung Kind') return '#d5e64b';
-  if (absencetype == 'Tod Familienagehöriger') return '#d5e64b';
-  if (absencetype == 'Golde Hochzeit Eltern') return '#d5e64b';
-  if (absencetype == 'Umzug') return '#d5e64b';
-  if (absencetype == 'Schulung') return '#d5e64b';
+  if (absencetype == 'Urlaub') return absenceColors.urlaub;
+  if (absencetype == 'Krankheit') return absenceColors.krankheit;
+  if (absencetype == 'Gleittag') return absenceColors.gleittag;
+  if (absencetype == 'Unbezahlter Urlaub') return absenceColors.weitere;
+  if (absencetype == 'Eigene Eheschließung') return absenceColors.weitere;
+  if (absencetype == 'Niederkunft Ehefrau') return absenceColors.weitere;
+  if (absencetype == 'Eheschließung Kind') return absenceColors.weitere;
+  if (absencetype == 'Tod Familienagehöriger') return absenceColors.weitere;
+  if (absencetype == 'Golde Hochzeit Eltern') return absenceColors.weitere;
+  if (absencetype == 'Umzug') return absenceColors.weitere;
+  if (absencetype == 'Schulung') return absenceColors.weitere;
 
   return '';
 };
 
-export default { isHoliday, checkIsWorkday, absenceCalendarColor };
+export default { isHoliday, checkIsWorkday, absenceCalendarColor, absenceColors };

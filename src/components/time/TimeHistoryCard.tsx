@@ -40,7 +40,7 @@ const TimeHistoryCard = ({ day }: TimeHistoryCardProps) => {
       })
       .finally(() => {
         const isWorkday = HolidayUtils.checkIsWorkday(profile.workingdays, day.locale({ ...locale }), profile.state);
-        if (isWorkday == false) setCardBgColor('#f5f5f5');
+        if (isWorkday == false) setCardBgColor('#C7C7C7');
         setWorkday(isWorkday);
       });
   }, []);
@@ -54,13 +54,13 @@ const TimeHistoryCard = ({ day }: TimeHistoryCardProps) => {
   useEffect(() => {
     if (workday == true && day.isBefore(dayjs(), 'day') && workingTime == null) {
       setAbsenteeism(true);
-      setCardBgColor('warning.light');
+      setCardBgColor('primary.main');
     }
   }, [workday, workingTime]);
 
   return (
     <>
-      <Card sx={{ bgcolor: `${cardBgColor}` }}>
+      <Card sx={{ bgcolor: `${cardBgColor}`, width: '100%' }}>
         <CardContent>
           <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
             <Typography variant="subtitle1">{title}</Typography>

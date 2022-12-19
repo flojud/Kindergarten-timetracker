@@ -1,6 +1,6 @@
 {
-  "short_name": "KITZE",
-  "name": "Kindergarten Timetracker",
+  "short_name": "KAT",
+  "name": "Kindergarten Arbeitszeit Timetracker",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
