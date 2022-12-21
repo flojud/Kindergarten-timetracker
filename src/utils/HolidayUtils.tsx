@@ -67,14 +67,7 @@ const absenceCalendarColor = (absencetype: string): string => {
   if (absencetype == 'Krankheit') return absenceColors.krankheit;
   if (absencetype == 'Gleittag') return absenceColors.gleittag;
   if (absencetype == 'Unbezahlter Urlaub') return absenceColors.weitere;
-  if (absencetype == 'Eigene Eheschließung') return absenceColors.weitere;
-  if (absencetype == 'Niederkunft Ehefrau') return absenceColors.weitere;
-  if (absencetype == 'Eheschließung Kind') return absenceColors.weitere;
-  if (absencetype == 'Tod Familienagehöriger') return absenceColors.weitere;
-  if (absencetype == 'Golde Hochzeit Eltern') return absenceColors.weitere;
-  if (absencetype == 'Umzug') return absenceColors.weitere;
-  if (absencetype == 'Schulung') return absenceColors.weitere;
-
+  if (absencetype == 'Sonderurlaub') return absenceColors.weitere;
   return '';
 };
 
