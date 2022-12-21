@@ -6,6 +6,7 @@ import { ThemeContext } from './contexts/ThemeContextProvider';
 import { ThemeProvider } from '@emotion/react';
 import { createMuiTheme, createTheme, CssBaseline, LinearProgress } from '@mui/material';
 import { darkThemeOptions, lightThemeOptions } from './utils/MyThemeOptions';
+import TimeEditPage from './components/time/TimeEditPage';
 
 const App = () => {
   const themeContext = useContext(ThemeContext);
@@ -97,6 +98,16 @@ const App = () => {
                 <ProtectedRoute>
                   <Suspense fallback={<LinearProgress color="secondary" />}>
                     <TimeInputPage />
+                  </Suspense>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/time/edit/:day"
+              element={
+                <ProtectedRoute>
+                  <Suspense fallback={<LinearProgress color="secondary" />}>
+                    <TimeEditPage />
                   </Suspense>
                 </ProtectedRoute>
               }

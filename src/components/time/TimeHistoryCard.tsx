@@ -7,6 +7,7 @@ import locale from 'dayjs/locale/de';
 import TimeUtils from '../../utils/TimeUtils';
 import HolidayUtils from '../../utils/HolidayUtils';
 import { AuthContext } from '../../contexts/AuthContextProvider';
+import { Link } from 'react-router-dom';
 
 interface TimeHistoryCardProps {
   day: Dayjs;
@@ -59,7 +60,10 @@ const TimeHistoryCard = ({ day }: TimeHistoryCardProps) => {
 
   return (
     <>
-      <Card sx={{ bgcolor: `${cardBgColor}`, width: '100%' }}>
+      <Card
+        sx={{ bgcolor: `${cardBgColor}`, width: '100%' }}
+        component={Link}
+        to={`/time/edit/${day.locale({ ...locale }).format('YYYY-MM-DD')}`}>
         <CardContent>
           <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
             <Typography variant="subtitle1">{title}</Typography>
