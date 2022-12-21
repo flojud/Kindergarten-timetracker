@@ -1,9 +1,11 @@
 import {
   createUserWithEmailAndPassword,
+  getRedirectResult,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
   signOut,
   User,
 } from 'firebase/auth';
@@ -31,6 +33,33 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
   };
 
   const googleSignIn = async () => {
+    signInWithRedirect(auth, new GoogleAuthProvider());
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result) {
+          // This gives you a Google Access Token. You can use it to access Google APIs.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          if (credential) {
+            const token = credential.accessToken;
+            // The signed-in user info.
+            setUser({ ...result.user });
+            navigate('/profile');
+            notifyContext.addNotification('Mit Google angemeldet', 'success');
+          }
+        }
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        notifyContext.addNotification('(' + errorCode + ') ' + errorMessage, 'error');
+        console.log('errorCode: ' + errorCode + ', errorMessage: ' + errorMessage + ', email:' + email + ', credential:' + credential);
+      });
+    /*
     signInWithPopup(auth, new GoogleAuthProvider())
       .then((response) => {
         setUser({ ...response.user });
@@ -39,7 +68,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
       .catch((error) => {
         console.log(error);
         notifyContext.addNotification('Fehler beim Anmelden mit Google', 'error');
-      });
+      });*/
   };
 
   const logout = () => {
