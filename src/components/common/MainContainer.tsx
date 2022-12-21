@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
-import React, { ReactNode } from 'react';
-import HolidayUtils from '../../utils/HolidayUtils';
+import { ReactNode } from 'react';
 type Props = { children: ReactNode };
 
 const MainContainer = ({ children }: Props) => {

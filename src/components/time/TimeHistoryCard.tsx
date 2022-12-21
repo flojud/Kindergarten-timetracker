@@ -1,13 +1,12 @@
 import { Card, CardContent, Stack, Typography } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useStore from '../../hooks/useStore';
-import { IProfile, ITime } from '../../interfaces/Types';
+import { IProfile } from '../../interfaces/Types';
 import locale from 'dayjs/locale/de';
 import TimeUtils from '../../utils/TimeUtils';
 import HolidayUtils from '../../utils/HolidayUtils';
 import { AuthContext } from '../../contexts/AuthContextProvider';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 
 interface TimeHistoryCardProps {
   day: Dayjs;

@@ -1,5 +1,5 @@
 import GoogleIcon from '@mui/icons-material/Google';
-import { Box, Button, Stack, SvgIcon, TextField, Typography } from '@mui/material';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

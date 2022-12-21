@@ -8,7 +8,7 @@ import {
   User,
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { createContext, FC, useContext, useEffect, useState } from 'react';
+import { createContext, FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase/Firebase';
 import useNotification from '../hooks/useNotification';

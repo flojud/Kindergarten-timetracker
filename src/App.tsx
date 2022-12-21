@@ -1,19 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import NavigationDrawer from './components/menu/NavigationDrawer';
 import ProtectedRoute from './components/common/ProtectedRoute';
-import HomePage from './components/HomePage';
-import PolicyPage from './components/legal/PolicyPage';
-import TermsPage from './components/legal/TermsPage';
-import ProfilePage from './components/settings/ProfilePage';
-import SignInPage from './components/SignInPage';
-import SignUpPage from './components/SignUpPage';
-import TimeInputPage from './components/time/TimeInputPage';
-import TimeHistoryPage from './components/time/TimeHistoryPage';
-import AbsencesYearPage from './components/absences/AbsencesYearPage';
-import { useContext } from 'react';
+import { lazy, Suspense, useContext } from 'react';
 import { ThemeContext } from './contexts/ThemeContextProvider';
 import { ThemeProvider } from '@emotion/react';
-import { createMuiTheme, createTheme, CssBaseline } from '@mui/material';
+import { createMuiTheme, createTheme, CssBaseline, LinearProgress } from '@mui/material';
 import { darkThemeOptions, lightThemeOptions } from './utils/MyThemeOptions';
 
 const App = () => {
@@ -22,6 +13,16 @@ const App = () => {
   const darkTheme = createTheme(darkThemeOptions);
   const appliedTheme = createTheme(themeContext.light ? lightTheme : darkTheme);
 
+  const HomePage = lazy(() => import('./components/HomePage'));
+  const PolicyPage = lazy(() => import('./components/legal/PolicyPage'));
+  const TermsPage = lazy(() => import('./components/legal/TermsPage'));
+  const ProfilePage = lazy(() => import('./components/settings/ProfilePage'));
+  const SignInPage = lazy(() => import('./components/SignInPage'));
+  const SignUpPage = lazy(() => import('./components/SignUpPage'));
+  const TimeInputPage = lazy(() => import('./components/time/TimeInputPage'));
+  const TimeHistoryPage = lazy(() => import('./components/time/TimeHistoryPage'));
+  const AbsencesYearPage = lazy(() => import('./components/absences/AbsencesYearPage'));
+
   return (
     <>
       <ThemeProvider theme={appliedTheme}>
@@ -29,16 +30,53 @@ const App = () => {
 
         <NavigationDrawer>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/signin" element={<SignInPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/legal/terms" element={<TermsPage />} />
-            <Route path="/legal/policy" element={<PolicyPage />} />
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<LinearProgress color="secondary" />}>
+                  <HomePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/signin"
+              element={
+                <Suspense fallback={<LinearProgress color="secondary" />}>
+                  <SignInPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <Suspense fallback={<LinearProgress color="secondary" />}>
+                  <SignUpPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/legal/terms"
+              element={
+                <Suspense fallback={<LinearProgress color="secondary" />}>
+                  <TermsPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/legal/policy"
+              element={
+                <Suspense fallback={<LinearProgress color="secondary" />}>
+                  <PolicyPage />
+                </Suspense>
+              }
+            />
             <Route
               path="/time/view"
               element={
                 <ProtectedRoute>
-                  <TimeHistoryPage />
+                  <Suspense fallback={<LinearProgress color="secondary" />}>
+                    <TimeHistoryPage />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -46,7 +84,9 @@ const App = () => {
               path="/absences/view"
               element={
                 <ProtectedRoute>
-                  <AbsencesYearPage />
+                  <Suspense fallback={<LinearProgress color="secondary" />}>
+                    <AbsencesYearPage />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -55,7 +95,9 @@ const App = () => {
               path="/time/add"
               element={
                 <ProtectedRoute>
-                  <TimeInputPage />
+                  <Suspense fallback={<LinearProgress color="secondary" />}>
+                    <TimeInputPage />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -63,7 +105,9 @@ const App = () => {
               path="/profile"
               element={
                 <ProtectedRoute>
-                  <ProfilePage />
+                  <Suspense fallback={<LinearProgress color="secondary" />}>
+                    <ProfilePage />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />

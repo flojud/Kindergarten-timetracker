@@ -1,11 +1,6 @@
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import TabMyProfileCard from './TabMyProfileCard';
-import TabSecurityCard from './TabSecurityCard';
-import TabMyDataCard from './TabMyDataCard';
+import { Box, Typography, Tabs, Tab, LinearProgress } from '@mui/material';
+import React, { Suspense } from 'react';
+import { lazy } from 'react';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -35,6 +30,10 @@ function a11yProps(index: number) {
 }
 
 const ProfileSettingsTabs = () => {
+  const TabMyProfileCard = lazy(() => import('./TabMyProfileCard'));
+  const TabSecurityCard = lazy(() => import('./TabSecurityCard'));
+  const TabMyDataCard = lazy(() => import('./TabMyDataCard'));
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -51,13 +50,19 @@ const ProfileSettingsTabs = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <TabMyDataCard />
+        <Suspense fallback={<LinearProgress color="secondary" />}>
+          <TabMyDataCard />
+        </Suspense>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TabMyProfileCard />
+        <Suspense fallback={<LinearProgress color="secondary" />}>
+          <TabMyProfileCard />
+        </Suspense>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <TabSecurityCard />
+        <Suspense fallback={<LinearProgress color="secondary" />}>
+          <TabSecurityCard />
+        </Suspense>
       </TabPanel>
     </Box>
   );

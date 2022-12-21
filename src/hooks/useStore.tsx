@@ -106,6 +106,21 @@ function useStore() {
     return result;
   };
 
+  const getSickDays = async (from: number, to: number) => {
+    const result: IAbsence[] = [];
+
+    const ref = collection(db, `absences-${user.uid}`);
+    const q = query(ref, where('timestamp', '>', from), where('timestamp', '<', to), where('absencetype', '==', 'Krankheit'));
+    const response = await getDocs(q);
+    if (response.docs !== undefined) {
+      response.docs.forEach((item) => {
+        result.push(item.data() as IAbsence);
+      });
+    }
+
+    return result;
+  };
+
   const getAbsences = async (from: number, to: number) => {
     const result: IAbsence[] = [];
 
@@ -142,7 +157,7 @@ function useStore() {
       });
   };
 
-  return { saveTimes, getTime, getTimes, firstTimeDate, getAbsence, getAbsences, saveAbsence, getHolidays };
+  return { saveTimes, getTime, getTimes, firstTimeDate, getAbsence, getAbsences, saveAbsence, getHolidays, getSickDays };
 }
 
 export default useStore;

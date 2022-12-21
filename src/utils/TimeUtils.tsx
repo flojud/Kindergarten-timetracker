@@ -46,6 +46,17 @@ export const minutesToTime = (minutes: number): string => {
   return res;
 };
 
+export const negativeMinutesToTime = (min: number): string => {
+  let isNegative = false;
+  if (min.toString().includes('-')) {
+    isNegative = true;
+    const m = min * -1;
+    return '-' + minutesToTime(m);
+  } else {
+    return minutesToTime(min);
+  }
+};
+
 /* Unixtimestamp GMT */
 export const dateStringToTimestamp = (date: string): number => {
   return dayjs(date).unix();
@@ -68,4 +79,4 @@ export const defaultTime = (day: Dayjs, profile: IProfile): ITime => {
 
   return time;
 };
-export default { numWorkdays, checkWorkday, minutesFromTime, minutesToTime, dateStringToTimestamp, defaultTime };
+export default { numWorkdays, checkWorkday, minutesFromTime, minutesToTime, dateStringToTimestamp, defaultTime, negativeMinutesToTime };

@@ -1,41 +1,40 @@
-import * as React from 'react';
+import {
+  Box,
+  Drawer,
+  Toolbar,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  Divider,
+  IconButton,
+  Stack,
+  Link as Link2,
+  CssBaseline,
+} from '@mui/material';
+import {
+  BeachAccess,
+  Menu,
+  ChevronLeft,
+  ChevronRight,
+  Home,
+  Person,
+  AccessTime,
+  Add,
+  Logout,
+  Login,
+  Subscriptions,
+} from '@mui/icons-material';
 import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Props } from '../../interfaces/Types';
-import { FC, useState } from 'react';
-
-import HomeIcon from '@mui/icons-material/Home';
-import PersonIcon from '@mui/icons-material/Person';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import AddIcon from '@mui/icons-material/Add';
-import LogoutIcon from '@mui/icons-material/Logout';
-import LoginIcon from '@mui/icons-material/Login';
-import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
-import GavelIcon from '@mui/icons-material/Gavel';
-import PolicyIcon from '@mui/icons-material/Policy';
+import { FC, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import ToggleColorMode from '../common/ToggleColorMode';
 import { ThemeContext } from '../../contexts/ThemeContextProvider';
-import HolidayUtils from '../../utils/HolidayUtils';
-import { Grid, Stack, Link as Link2 } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -88,10 +87,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const NavigationDrawer: FC<Props> = ({ children }) => {
-  const themeContext = React.useContext(ThemeContext);
+  const themeContext = useContext(ThemeContext);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const authContext = React.useContext(AuthContext);
+  const authContext = useContext(AuthContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -113,7 +112,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
               onClick={handleDrawerOpen}
               edge="start"
               sx={{ mr: 2, ...(open && { display: 'none' }) }}>
-              <MenuIcon />
+              <Menu />
             </IconButton>
 
             <Typography
@@ -146,7 +145,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
           anchor="left"
           open={open}>
           <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>{theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
+            <IconButton onClick={handleDrawerClose}>{theme.direction === 'ltr' ? <ChevronLeft /> : <ChevronRight />}</IconButton>
           </DrawerHeader>
           <Divider />
 
@@ -156,7 +155,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                 <ListItem disablePadding>
                   <ListItemButton component={Link} to="/">
                     <ListItemIcon>
-                      <HomeIcon />
+                      <Home />
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                   </ListItemButton>
@@ -165,7 +164,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                 <ListItem disablePadding>
                   <ListItemButton component={Link} to="/profile">
                     <ListItemIcon>
-                      <PersonIcon />
+                      <Person />
                     </ListItemIcon>
                     <ListItemText primary="Profile" />
                   </ListItemButton>
@@ -174,7 +173,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                 <ListItem disablePadding>
                   <ListItemButton component={Link} to="/time/view">
                     <ListItemIcon>
-                      <AccessTimeIcon />
+                      <AccessTime />
                     </ListItemIcon>
                     <ListItemText primary="Zeiten" />
                   </ListItemButton>
@@ -182,7 +181,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                 <ListItem disablePadding>
                   <ListItemButton component={Link} to="/time/add">
                     <ListItemIcon>
-                      <AddIcon />
+                      <Add />
                     </ListItemIcon>
                     <ListItemText primary="Eintragen" />
                   </ListItemButton>
@@ -190,7 +189,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                 <ListItem disablePadding>
                   <ListItemButton component={Link} to="/absences/view">
                     <ListItemIcon>
-                      <BeachAccessIcon />
+                      <BeachAccess />
                     </ListItemIcon>
                     <ListItemText primary="Abwesenheit" />
                   </ListItemButton>
@@ -203,7 +202,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
             <ListItem disablePadding>
               <ListItemButton component={Link} to="/signup">
                 <ListItemIcon>
-                  <SubscriptionsIcon />
+                  <Subscriptions />
                 </ListItemIcon>
                 <ListItemText primary="SignUp" />
               </ListItemButton>
@@ -212,7 +211,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
               <ListItem disablePadding>
                 <ListItemButton onClick={() => authContext?.authMethods.logout()}>
                   <ListItemIcon>
-                    <LogoutIcon />
+                    <Logout />
                   </ListItemIcon>
                   <ListItemText primary="Logout" />
                 </ListItemButton>
@@ -221,7 +220,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
               <ListItem disablePadding>
                 <ListItemButton component={Link} to="/signin">
                   <ListItemIcon>
-                    <LoginIcon />
+                    <Login />
                   </ListItemIcon>
                   <ListItemText primary="Login" />
                 </ListItemButton>

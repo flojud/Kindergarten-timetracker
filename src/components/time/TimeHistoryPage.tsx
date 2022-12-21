@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Paper, Stack, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Button, Paper, Stack, Typography } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
 import MonthPicker from '../common/MonthPicker';
 import MainContainer from '../common/MainContainer';
@@ -8,6 +8,8 @@ import useStore from '../../hooks/useStore';
 import { ITime } from '../../interfaces/Types';
 import TimeUtils from '../../utils/TimeUtils';
 import { ReactComponent as TimesSvg } from '../../svg/times.svg';
+import { CSVLink } from 'react-csv';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const TimeHistoryPage = () => {
   const { getTimes } = useStore();
@@ -21,7 +23,7 @@ const TimeHistoryPage = () => {
   };
 
   /*
-  Simply sumup all wokring and available times reveived
+  Simply sumup all working and available times reveived
   from Firestore DB and convert from a number to time string.
   */
   useEffect(() => {
@@ -51,7 +53,17 @@ const TimeHistoryPage = () => {
         setTimes(res);
       });
     }
-  }, []);
+  }, [days]);
+
+  const headers = [
+    { label: 'Datum', key: 'day' },
+    { label: 'Arbeitszeit', key: 'workingTime' },
+    { label: 'Verfügungszeit', key: 'availableTime' },
+    { label: 'Notizen', key: 'notes' },
+    { label: 'Zeitstempel', key: 'timestamp' },
+    { label: 'Arbeitstag', key: 'workday' },
+  ];
+  const handleDownload = () => {};
 
   return (
     <>
@@ -74,6 +86,13 @@ const TimeHistoryPage = () => {
             </Paper>
           )}
           {days && days.map((day) => <ViewDate key={day.toISOString()} day={day} />)}
+          {times && (
+            <Button variant="contained" endIcon={<DownloadIcon />}>
+              <CSVLink data={times} headers={headers} filename={'Arbeitszeiten.csv'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                Download
+              </CSVLink>
+            </Button>
+          )}
         </Stack>
       </MainContainer>
     </>
