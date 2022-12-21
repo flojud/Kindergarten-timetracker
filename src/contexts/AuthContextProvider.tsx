@@ -92,8 +92,36 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
       if (docSnap.exists()) {
         setProfile(docSnap.data() as IProfile);
       } else {
-        notifyContext.addNotification('Fehler beim Laden deines Profiles', 'error');
+        createInitialProfile();
+        loadProfile();
       }
+    }
+  };
+
+  const createInitialProfile = () => {
+    if (user?.uid) {
+      setDoc(doc(db, `profiles/${user.uid}`), {
+        availabletime: 480,
+        workingtime: 1920,
+        workingdays: {
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+          saturday: false,
+          sunday: false,
+        },
+        holidays: 24,
+        state: 'Baden-Württemberg',
+      })
+        .then(() => {
+          notifyContext.addNotification('Profil erfoglreich erstellt', 'success');
+        })
+        .catch((error) => {
+          console.log(error);
+          notifyContext.addNotification('Fehler beim Erstellen deines Profils', 'error');
+        });
     }
   };
 

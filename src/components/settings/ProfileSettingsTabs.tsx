@@ -46,7 +46,7 @@ const ProfileSettingsTabs = () => {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Meine Daten" {...a11yProps(0)} />
           <Tab label="Konto" {...a11yProps(1)} />
-          <Tab label="Security" {...a11yProps(2)} />
+          <Tab label="Security" {...a11yProps(2)} disabled />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>

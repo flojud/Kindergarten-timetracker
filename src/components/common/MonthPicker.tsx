@@ -6,6 +6,7 @@ import { Dayjs } from 'dayjs';
 import * as dayjs from 'dayjs';
 import locale from 'dayjs/locale/de';
 import useStore from '../../hooks/useStore';
+import 'dayjs/locale/de';
 
 interface MonthPickerProps {
   onChange: (dates: Dayjs[]) => void;
@@ -66,7 +67,7 @@ const MonthPicker = ({ onChange }: MonthPickerProps) => {
           gap: 2,
           width: '100%',
         }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'de'}>
           <DatePicker
             views={['year', 'month']}
             label="Monat"

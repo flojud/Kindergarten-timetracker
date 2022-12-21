@@ -6,8 +6,8 @@ import * as dayjs from 'dayjs';
 import locale from 'dayjs/locale/de';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers/';
+import 'dayjs/locale/de';
 
 interface DateRangePickerProps {
   onChange: (dateRange: Dayjs[]) => void;
@@ -56,7 +56,7 @@ const DateRangePicker: FC<DateRangePickerProps> = ({ onChange }: DateRangePicker
           flexDirection: 'row',
           gap: 2,
         }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'de'}>
           <DatePicker
             label="Von"
             value={from}
@@ -66,7 +66,7 @@ const DateRangePicker: FC<DateRangePickerProps> = ({ onChange }: DateRangePicker
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'de'}>
           <DatePicker
             label="Bis"
             value={to}

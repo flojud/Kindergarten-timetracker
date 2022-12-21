@@ -153,7 +153,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
             <>
               <List>
                 <ListItem disablePadding>
-                  <ListItemButton component={Link} to="/">
+                  <ListItemButton component={Link} to="/" onClick={handleDrawerClose}>
                     <ListItemIcon>
                       <Home />
                     </ListItemIcon>
@@ -162,7 +162,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                 </ListItem>
 
                 <ListItem disablePadding>
-                  <ListItemButton component={Link} to="/profile">
+                  <ListItemButton component={Link} to="/profile" onClick={handleDrawerClose}>
                     <ListItemIcon>
                       <Person />
                     </ListItemIcon>
@@ -171,7 +171,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                 </ListItem>
 
                 <ListItem disablePadding>
-                  <ListItemButton component={Link} to="/time/view">
+                  <ListItemButton component={Link} to="/time/view" onClick={handleDrawerClose}>
                     <ListItemIcon>
                       <AccessTime />
                     </ListItemIcon>
@@ -179,7 +179,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton component={Link} to="/time/add">
+                  <ListItemButton component={Link} to="/time/add" onClick={handleDrawerClose}>
                     <ListItemIcon>
                       <Add />
                     </ListItemIcon>
@@ -187,7 +187,7 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton component={Link} to="/absences/view">
+                  <ListItemButton component={Link} to="/absences/view" onClick={handleDrawerClose}>
                     <ListItemIcon>
                       <BeachAccess />
                     </ListItemIcon>
@@ -199,17 +199,13 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
             </>
           )}
           <List>
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to="/signup">
-                <ListItemIcon>
-                  <Subscriptions />
-                </ListItemIcon>
-                <ListItemText primary="SignUp" />
-              </ListItemButton>
-            </ListItem>
             {authContext?.loggedIn ? (
               <ListItem disablePadding>
-                <ListItemButton onClick={() => authContext?.authMethods.logout()}>
+                <ListItemButton
+                  onClick={() => {
+                    authContext?.authMethods.logout();
+                    handleDrawerClose();
+                  }}>
                   <ListItemIcon>
                     <Logout />
                   </ListItemIcon>
@@ -217,20 +213,36 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
                 </ListItemButton>
               </ListItem>
             ) : (
-              <ListItem disablePadding>
-                <ListItemButton component={Link} to="/signin">
-                  <ListItemIcon>
-                    <Login />
-                  </ListItemIcon>
-                  <ListItemText primary="Login" />
-                </ListItemButton>
-              </ListItem>
+              <>
+                <ListItem disablePadding>
+                  <ListItemButton component={Link} to="/signin" onClick={handleDrawerClose}>
+                    <ListItemIcon>
+                      <Login />
+                    </ListItemIcon>
+                    <ListItemText primary="Login" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton component={Link} to="/signup" onClick={handleDrawerClose}>
+                    <ListItemIcon>
+                      <Subscriptions />
+                    </ListItemIcon>
+                    <ListItemText primary="Registrieren" />
+                  </ListItemButton>
+                </ListItem>
+              </>
             )}
           </List>
           <Divider />
           <List>
             <ListItem disablePadding>
-              <ToggleColorMode light={themeContext.light} toggle={() => themeContext.toggleTheme()} />
+              <ToggleColorMode
+                light={themeContext.light}
+                toggle={() => {
+                  themeContext.toggleTheme();
+                  handleDrawerClose();
+                }}
+              />
             </ListItem>
           </List>
         </Drawer>

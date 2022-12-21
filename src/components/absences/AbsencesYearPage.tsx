@@ -13,6 +13,7 @@ import NewAbsence from './NewAbsence';
 import useStore from '../../hooks/useStore';
 import CircleIcon from '@mui/icons-material/Circle';
 import { ReactComponent as AirportSvg } from '../../svg/airport.svg';
+import 'dayjs/locale/de';
 
 type HighlightedDay = {
   date: Dayjs;
@@ -122,7 +123,7 @@ const AbsencesYearPage = () => {
           <Card>
             <CardContent sx={{ width: '100%', p: 0 }}>
               <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start" gap={0}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'de'}>
                   <StaticDatePicker
                     displayStaticWrapperAs="desktop"
                     openTo="day"
