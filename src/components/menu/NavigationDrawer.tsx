@@ -262,13 +262,13 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
         }}>
         <Stack spacing={2} direction="row" alignItems={'flex-start'}>
           <Typography variant="caption" color={'primary'}>
-            <Link2 href="/legal/terms" color={'inherit'}>
+            <Link2 href="/legal/policy" color={'inherit'}>
               Privacy Policy
             </Link2>
           </Typography>
           <Divider orientation="vertical" flexItem />
           <Typography variant="caption" color={'primary'}>
-            <Link2 href="/legal/terms" color={'inherit'}>
+            <Link2 href="/legal/terms " color={'inherit'}>
               Terms & Conditions
             </Link2>
           </Typography>
