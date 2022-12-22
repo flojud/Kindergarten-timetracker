@@ -12,7 +12,7 @@ import { CSVLink } from 'react-csv';
 import DownloadIcon from '@mui/icons-material/Download';
 
 const TimeHistoryPage = () => {
-  const { getTimes } = useStore();
+  const { getTimes, getAbsences } = useStore();
   const [days, setDays] = useState<Dayjs[]>([]);
   const [times, setTimes] = useState<ITime[] | null>(null);
   const [workingTimeGlz, setWorkingTimeGlz] = useState<string | null>(null);
@@ -44,15 +44,20 @@ const TimeHistoryPage = () => {
   or the current month, if nothing selected yet.
   */
   useEffect(() => {
+    let from;
+    let to;
+
     if (days.length > 0) {
-      getTimes(days[0].unix(), days[days.length - 1].unix()).then((res) => {
-        setTimes(res);
-      });
+      from = days[0].unix();
+      to = days[days.length - 1].unix();
     } else {
-      getTimes(dayjs().startOf('month').unix(), dayjs().endOf('month').unix()).then((res) => {
-        setTimes(res);
-      });
+      from = dayjs().startOf('month').unix();
+      to = dayjs().endOf('month').unix();
     }
+
+    getTimes(from, to).then((res) => {
+      setTimes(res);
+    });
   }, [days]);
 
   const headers = [

@@ -2,7 +2,7 @@ import { Card, CardContent, Stack, Typography } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
 import { useContext, useEffect, useState } from 'react';
 import useStore from '../../hooks/useStore';
-import { IProfile } from '../../interfaces/Types';
+import { IAbsence, IProfile } from '../../interfaces/Types';
 import locale from 'dayjs/locale/de';
 import TimeUtils from '../../utils/TimeUtils';
 import HolidayUtils from '../../utils/HolidayUtils';
@@ -16,10 +16,11 @@ const TimeHistoryCard = ({ day }: TimeHistoryCardProps) => {
   const authContext = useContext(AuthContext);
   const profile = authContext!.profile as IProfile;
 
-  const { getTime } = useStore();
+  const { getTime, getAbsence } = useStore();
   const [workingTime, setWorkingTime] = useState<string | null>(null);
   const [availableTime, setAvailableTime] = useState<string | null>(null);
   const [workday, setWorkday] = useState<boolean | null>(null);
+  const [absence, setAbsence] = useState<IAbsence | null>(null);
 
   const title = dayjs(day)
     .locale({ ...locale })
@@ -43,6 +44,13 @@ const TimeHistoryCard = ({ day }: TimeHistoryCardProps) => {
         if (isWorkday == false) setCardBgColor('#C7C7C7');
         setWorkday(isWorkday);
       });
+
+    getAbsence(day.unix()).then((res) => {
+      if (res) {
+        setAbsence(res);
+        setCardBgColor(HolidayUtils.absenceCalendarColor(res.absencetype));
+      }
+    });
   }, []);
 
   /*
@@ -52,22 +60,25 @@ const TimeHistoryCard = ({ day }: TimeHistoryCardProps) => {
   const [absenteeism, setAbsenteeism] = useState<boolean>(false);
   const [cardBgColor, setCardBgColor] = useState<string>('');
   useEffect(() => {
-    if (workday == true && day.isBefore(dayjs(), 'day') && workingTime == null) {
+    if (workday == true && day.isBefore(dayjs(), 'day') && workingTime == null && absence == null) {
       setAbsenteeism(true);
       setCardBgColor('primary.main');
     }
-  }, [workday, workingTime]);
+  }, [workday, workingTime, absence]);
 
   return (
     <>
       <Card
         sx={{ bgcolor: `${cardBgColor}`, width: '100%' }}
         component={Link}
-        to={`/time/edit/${day.locale({ ...locale }).format('YYYY-MM-DD')}`}>
+        to={`/time/edit/${day.locale({ ...locale }).format('YYYY-MM-DD')}`}
+        style={{ textDecoration: 'none', color: 'inherit' }}>
         <CardContent>
           <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
             <Typography variant="subtitle1">{title}</Typography>
             {absenteeism && <Typography variant="body2">Fehlzeit</Typography>}
+
+            {absence && <Typography variant="body2">{absence.absencetype}</Typography>}
 
             {workingTime && (
               <Stack direction="row" spacing={1} alignItems="center">
