@@ -86,7 +86,6 @@ const TimeEditPage = () => {
   }, [workingTime, availableTime, availableTimeNote]);
 
   const save = () => {
-    console.log(time);
     if (time) saveTimes([time]);
   };
 

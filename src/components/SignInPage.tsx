@@ -7,18 +7,19 @@ import Item from './common/Item';
 import MainContainer from './common/MainContainer';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import { ReactComponent as LoginSvg } from '../svg/login.svg';
+import useNotification from '../hooks/useNotification';
 
 const SignInPage = () => {
   const auth = getAuth();
   const navigate = useNavigate();
+  const { notifyContext } = useNotification();
   const authContext = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
   const handleGoogleSignIn = async () => {
     if (!authContext) {
-      setError('Sign in not possible');
+      notifyContext.addNotification('Anmeldung nicht erfolgreich', 'error');
       return;
     }
     authContext.authMethods.googleSignIn();
@@ -27,23 +28,21 @@ const SignInPage = () => {
   const handlsignInWithEmail = async (e: any) => {
     e.preventDefault();
     if (!authContext) {
-      setError('Sign in not possible');
+      notifyContext.addNotification('Anmeldung nicht erfolgreich', 'error');
       return;
     }
-    setError('');
     try {
       await authContext.authMethods.signIn(email, password);
       navigate('/profile');
     } catch (e: any) {
-      setError(e.message);
-      console.log(e.message);
+      notifyContext.addNotification(e.message, 'error');
     }
   };
 
   const handlePasswordResetEmail = () => {
     sendPasswordResetEmail(auth, email)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then((response) => notifyContext.addNotification('Erfolgreich geändert', 'success'))
+      .catch((error) => notifyContext.addNotification(error, 'error'));
   };
 
   return (

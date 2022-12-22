@@ -73,7 +73,6 @@ function useStore() {
         notifyContext.addNotification('Erfoglreich gespeichert', 'success');
       })
       .catch((error) => {
-        console.log(error);
         notifyContext.addNotification('Fehler beim Speichern', 'error');
       });
   };
@@ -152,7 +151,6 @@ function useStore() {
         notifyContext.addNotification('Erfoglreich gespeichert', 'success');
       })
       .catch((error) => {
-        console.log(error);
         notifyContext.addNotification('Fehler beim Speichern', 'error');
       });
   };

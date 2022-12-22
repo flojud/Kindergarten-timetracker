@@ -39,7 +39,6 @@ const UserHomePage = () => {
         .locale({ ...locale })
         .startOf('year');
       if (firstTime.isAfter(firstJanuary)) {
-        console.log('first tracked time in DB ' + firstTime);
         setFrom(firstTime);
       } else {
         setFrom(firstJanuary);
@@ -67,7 +66,6 @@ const UserHomePage = () => {
       let wT = 0;
       let aT = 0;
       getTimes(from.unix(), to.unix()).then((times: ITime[]) => {
-        console.log('received data ...');
         times.forEach((time) => {
           wT += time.workingTime;
           aT += time.availableTime;
@@ -93,7 +91,6 @@ const UserHomePage = () => {
   }, [workingTimeSum]);
 
   useEffect(() => {
-    console.log(availableTimeSum);
     // calculate Available Time
     if (availableTimeSum && profile && from) {
       const days: Dayjs[] = [];

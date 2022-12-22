@@ -4,7 +4,6 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signInWithPopup,
   signInWithRedirect,
   signOut,
   User,
@@ -57,29 +56,17 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         notifyContext.addNotification('(' + errorCode + ') ' + errorMessage, 'error');
-        console.log('errorCode: ' + errorCode + ', errorMessage: ' + errorMessage + ', email:' + email + ', credential:' + credential);
       });
-    /*
-    signInWithPopup(auth, new GoogleAuthProvider())
-      .then((response) => {
-        setUser({ ...response.user });
-        navigate('/profile');
-      })
-      .catch((error) => {
-        console.log(error);
-        notifyContext.addNotification('Fehler beim Anmelden mit Google', 'error');
-      });*/
   };
 
   const logout = () => {
     signOut(auth)
       .then((response) => {
-        console.log(response);
+        notifyContext.addNotification('Erfolgreich abgemeldet', 'success');
         setUser({} as User);
         navigate('/');
       })
       .catch((error) => {
-        console.log(error);
         notifyContext.addNotification('Fehler beim Logout', 'error');
       });
   };
@@ -119,7 +106,6 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
           notifyContext.addNotification('Profil erfoglreich erstellt', 'success');
         })
         .catch((error) => {
-          console.log(error);
           notifyContext.addNotification('Fehler beim Erstellen deines Profils', 'error');
         });
     }
@@ -146,7 +132,6 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
           notifyContext.addNotification('Einstellungen erfoglreich gespeichert', 'success');
         })
         .catch((error) => {
-          console.log(error);
           notifyContext.addNotification('Fehler beim Speichern deines Profils', 'error');
         })
         .finally(() => {

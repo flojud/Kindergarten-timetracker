@@ -14,12 +14,10 @@ export const NotificationContextProvider: FC<Props> = ({ children }: Props) => {
   const [notification, setNotification] = useState<INotification | null>(null);
 
   const removeNotification = () => {
-    //console.log('removeNotification');
     setNotification(null);
   };
 
   const addNotification = (message: string, severity: AlertColor) => {
-    //console.log('addNotification ' + message + ' ' + severity);
     setNotification({ message, severity });
   };
 

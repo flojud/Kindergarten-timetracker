@@ -16,7 +16,6 @@ export const numWorkdays = (workingdays: IWorkingdays): number => {
 };
 
 export const checkWorkday = (day: Dayjs, workingdays: IWorkingdays): boolean => {
-  //console.log(day.format('dddd'));
   if (day.format('dddd') == 'Montag' && workingdays.monday) return true;
   if (day.format('dddd') == 'Dienstag' && workingdays.tuesday) return true;
   if (day.format('dddd') == 'Mittwoch' && workingdays.wednesday) return true;
@@ -42,7 +41,7 @@ export const minutesToTime = (minutes: number): string => {
       .replace(/\b(\d)\b/g, '0$1')
       .replace(/^00:/, '');
   }
-  //console.log("input: " +  minutes + " result: " res);
+
   return res;
 };
 

@@ -5,27 +5,27 @@ import { useNavigate } from 'react-router-dom';
 import Item from './common/Item';
 import MainContainer from './common/MainContainer';
 import { AuthContext } from '../contexts/AuthContextProvider';
+import useNotification from '../hooks/useNotification';
 
 const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
+  const { notifyContext } = useNotification();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (!authContext) {
-      setError('Login not possible.');
+      notifyContext.addNotification('Anmeldung nicht erfolgreich', 'error');
       return;
     }
-    setError('');
+
     try {
       await authContext.authMethods.createUser(email, password);
       navigate('/');
     } catch (e: any) {
-      setError(e.message);
-      console.log(e.message);
+      notifyContext.addNotification(e.message, 'error');
     }
   };
 
