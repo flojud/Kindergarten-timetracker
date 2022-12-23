@@ -5,8 +5,10 @@ import { Props } from '../../interfaces/Types';
 
 const ProtectedRoute: FC<Props> = ({ children }) => {
   const authContext = useContext(AuthContext);
-
   if (authContext !== null) {
+    if (authContext.user?.emailVerified == false) {
+      return <Navigate to="/verifyemail" />;
+    }
     if (authContext.loggedIn) {
       return children;
     } else {

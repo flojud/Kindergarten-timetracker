@@ -7,7 +7,6 @@ const HomePage = () => {
   const authContext = useContext(AuthContext);
   const UserHomePage = lazy(() => import('./UserHomePage'));
   const UnautheticatedHomePage = lazy(() => import('./UnautheticatedHomePage'));
-
   return (
     <>
       <MainContainer>

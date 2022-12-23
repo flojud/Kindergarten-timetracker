@@ -71,6 +71,8 @@ export interface IAuthMethods {
   logout: () => void;
   signIn: (email: string, password: string) => Promise<UserCredential>;
   googleSignIn: () => void;
+  deleteMyUser: () => void;
+  changeMyPassword: (newPassword: string) => void;
 }
 
 export interface IHoliday {

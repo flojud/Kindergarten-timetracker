@@ -1,11 +1,14 @@
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   getRedirectResult,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   signInWithRedirect,
   signOut,
+  updatePassword,
   User,
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -24,7 +27,35 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   const createUser = (email: string, password: string) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password).then((res) => {
+      sendEmailVerification(res.user);
+    });
+  };
+
+  const deleteMyUser = () => {
+    if (user) {
+      deleteUser(user)
+        .then(() => {
+          notifyContext.addNotification('Dein Benutzer wurde erfolgreich gelöscht', 'success');
+        })
+        .catch((error) => {
+          console.log(error);
+          notifyContext.addNotification('Dein Benutzer konnte nicht gelöscht werden', 'error');
+        });
+    }
+  };
+
+  const changeMyPassword = (newPassword: string) => {
+    if (user) {
+      updatePassword(user, newPassword)
+        .then(() => {
+          notifyContext.addNotification('Dein Passwort wurde erfolgreich geändert', 'success');
+        })
+        .catch((error) => {
+          console.log(error);
+          notifyContext.addNotification('Fehler beim Ändern deines Passwort', 'error');
+        });
+    }
   };
 
   const signIn = (email: string, password: string) => {
@@ -158,7 +189,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  const authMethods = { createUser, logout, signIn, googleSignIn };
+  const authMethods = { createUser, logout, signIn, googleSignIn, deleteMyUser, changeMyPassword };
 
   return (
     <AuthContext.Provider value={{ user, profile, updateProfile, loggedIn, authMethods: authMethods }}>{children}</AuthContext.Provider>

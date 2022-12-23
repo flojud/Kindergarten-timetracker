@@ -1,12 +1,13 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import NavigationDrawer from './components/menu/NavigationDrawer';
 import ProtectedRoute from './components/common/ProtectedRoute';
-import { lazy, Suspense, useContext } from 'react';
+import { lazy, Suspense, useCallback, useContext, useEffect } from 'react';
 import { ThemeContext } from './contexts/ThemeContextProvider';
 import { ThemeProvider } from '@emotion/react';
 import { createMuiTheme, createTheme, CssBaseline, LinearProgress } from '@mui/material';
 import { darkThemeOptions, lightThemeOptions } from './utils/MyThemeOptions';
 import TimeEditPage from './components/time/TimeEditPage';
+import AnalyticsTracker from './utils/AnalyticsTracker';
 
 const App = () => {
   const themeContext = useContext(ThemeContext);
@@ -23,6 +24,18 @@ const App = () => {
   const TimeInputPage = lazy(() => import('./components/time/TimeInputPage'));
   const TimeHistoryPage = lazy(() => import('./components/time/TimeHistoryPage'));
   const AbsencesYearPage = lazy(() => import('./components/absences/AbsencesYearPage'));
+  const VerifyemailPage = lazy(() => import('./components/VerifyemailPage'));
+
+  // Google Analytics
+  const { pathname, search } = useLocation();
+
+  const analytics = useCallback(() => {
+    AnalyticsTracker({ path: pathname, search: search, title: pathname.split('/')[1] });
+  }, [pathname, search]);
+
+  useEffect(() => {
+    analytics();
+  }, [analytics]);
 
   return (
     <>
@@ -72,6 +85,14 @@ const App = () => {
               }
             />
             <Route
+              path="/verifyemail"
+              element={
+                <Suspense fallback={<LinearProgress color="secondary" />}>
+                  <VerifyemailPage />
+                </Suspense>
+              }
+            />
+            <Route
               path="/time/view"
               element={
                 <ProtectedRoute>
@@ -91,7 +112,6 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/time/add"
               element={

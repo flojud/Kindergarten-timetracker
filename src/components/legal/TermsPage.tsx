@@ -1,3 +1,4 @@
+import { config } from '../../firebase/config';
 import Item from '../common/Item';
 import MainContainer from '../common/MainContainer';
 
@@ -7,25 +8,12 @@ const Terms = () => {
       <MainContainer>
         <Item>
           <h1>Impressum</h1>
-
-          <h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
+          <p>Angaben gemäß § 5 TMG</p>
+          <p>{config.contact.name}</p>
+          <p>{config.contact.street}</p>
+          <p>{config.contact.city}</p>
           <p>
-            Max Mustermann
-            <br />
-            Musterstra&szlig;e 111
-            <br />
-            Geb&auml;ude 44
-            <br />
-            90210 Musterstadt
-          </p>
-
-          <h2>Kontakt</h2>
-          <p>
-            Telefon: +49 (0) 123 44 55 66
-            <br />
-            Telefax: +49 (0) 123 44 55 99
-            <br />
-            E-Mail: mustermann@musterfirma.de
+            E-Mail: <a href={config.contact.email}>{config.contact.email}</a>
           </p>
         </Item>
       </MainContainer>

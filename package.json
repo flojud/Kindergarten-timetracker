@@ -18,6 +18,7 @@
     "@types/react-dom": "^18.0.6",
     "dayjs": "^1.11.6",
     "firebase": "^9.10.0",
+    "ga-4-react": "^0.1.281",
     "react": "^18.2.0",
     "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
