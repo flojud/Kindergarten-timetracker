@@ -11,6 +11,10 @@
 I developed this small app for my wife to support her in tracking working hours as a kindergarten teacher.\
 Essentially, it differs from other time tacking apps in that a distinction is made between working time on the child and preparation and follow-up time.
 
+
+https://user-images.githubusercontent.com/26573776/209466536-26eb550e-1f2f-4881-a927-301394a3fe23.mp4
+
+
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
@@ -54,7 +58,7 @@ firebase init
 firebase init hosting
 ```
 
-### 2. Developement
+### 3. Developement
 
 Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
@@ -77,7 +81,7 @@ No issues found.
 
 ```
 
-### 3. Build
+### 4. Build
 
 Builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
 
@@ -132,7 +136,7 @@ Find out more about deployment here:
   https://cra.link/deployment
 ```
 
-### 4. Deploy
+### 5. Deploy
 
 To deploy the Firebase project, run the following command from your project directory:
 
@@ -156,7 +160,7 @@ Project Console: https://console.firebase.google.com/project/kindergarten-timetr
 Hosting URL: https://kindergarten-timetracker.web.app
 ```
 
-### 5. Stop hosting
+### 6. Stop hosting
 
 Stops serving Firebase Hosting traffic for the active Firebase project.
 
