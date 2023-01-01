@@ -49,13 +49,13 @@ const UserHomePage = () => {
   useEffect(() => {
     if (profile && from) {
       // calculate left Holidays for this year
-      getHolidays(from.unix(), to.unix()).then((absences: IAbsence[]) => {
-        if (absences) {
-          setNoHolidays(profile.holidays - absences.length);
-        } else {
+      getHolidays(from.unix(), to.unix())
+        .then((absences: IAbsence[]) => {
+          if (absences) setNoHolidays(profile.holidays - absences.length);
+        })
+        .catch(() => {
           setNoHolidays(profile.holidays);
-        }
-      });
+        });
 
       // calculate sickness Days for this year
       getSickDays(from.unix(), to.unix()).then((sickDays: IAbsence[]) => {
