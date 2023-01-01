@@ -160,13 +160,11 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
         state: profile.state,
       })
         .then(() => {
+          setProfile(profile);
           notifyContext.addNotification('Einstellungen erfoglreich gespeichert', 'success');
         })
         .catch((error) => {
           notifyContext.addNotification('Fehler beim Speichern deines Profils', 'error');
-        })
-        .finally(() => {
-          loadProfile();
         });
     }
   };
