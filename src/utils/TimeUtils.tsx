@@ -32,17 +32,11 @@ export const minutesFromTime = (time: string): number => {
 };
 
 export const minutesToTime = (minutes: number): string => {
-  let res = '';
-  if (minutes == 0) {
-    res = '00:00';
-  } else {
-    res = [Math.floor(minutes / 60), minutes % 60]
-      .join(':')
-      .replace(/\b(\d)\b/g, '0$1')
-      .replace(/^00:/, '');
-  }
-
-  return res;
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  const hourString = hours.toString().padStart(2, '0');
+  const minutesString = remainingMinutes.toString().padStart(2, '0');
+  return `${hourString}:${minutesString}`;
 };
 
 export const negativeMinutesToTime = (min: number): string => {

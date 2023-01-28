@@ -12,6 +12,7 @@ import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 import UserHomePageInfoCard from './UserHomePageInfoCard';
 import { ReactComponent as HomeSvg } from '../svg/home.svg';
 import TimeUtils from '../utils/TimeUtils';
+import HolidayUtils from '../utils/HolidayUtils';
 
 const UserHomePage = () => {
   const authContext = useContext(AuthContext);
@@ -31,6 +32,9 @@ const UserHomePage = () => {
   const to = dayjs()
     .locale({ ...locale })
     .endOf('year');
+  const today = dayjs()
+    .locale({ ...locale })
+    .endOf('day');
 
   useEffect(() => {
     // in case you start tracking in the mid of the year
@@ -67,8 +71,8 @@ const UserHomePage = () => {
       let aT = 0;
       getTimes(from.unix(), to.unix()).then((times: ITime[]) => {
         times.forEach((time) => {
-          wT += time.workingTime;
-          aT += time.availableTime;
+          if (!Number.isNaN(time.workingTime)) wT += time.workingTime;
+          if (!Number.isNaN(time.availableTime)) aT += time.availableTime;
         });
         setWorkingTimeSum(wT);
         setAvailableTimeSum(aT);
@@ -80,10 +84,12 @@ const UserHomePage = () => {
     // calculate Saldo Work Time
     if (workingTimeSum && profile && from) {
       const days: Dayjs[] = [];
-      const d = Math.ceil(to.diff(from, 'day', true));
+      const d = Math.ceil(today.diff(from, 'day', true));
       for (let i = 0; i < d; i++) {
-        const nextDay = from.add(i, 'day');
-        days.push(nextDay);
+        const nextDay = from.add(i, 'day').locale({ ...locale });
+        if (HolidayUtils.checkIsWorkday(profile.workingdays, nextDay, profile.state)) {
+          days.push(nextDay);
+        }
       }
       const targetWorkingMinutes = days.length * profile.workingtime;
       setBalanceWorkMinutes(workingTimeSum - targetWorkingMinutes);
@@ -94,10 +100,12 @@ const UserHomePage = () => {
     // calculate Available Time
     if (availableTimeSum && profile && from) {
       const days: Dayjs[] = [];
-      const d = Math.ceil(to.diff(from, 'day', true));
+      const d = Math.ceil(today.diff(from, 'day', true));
       for (let i = 0; i < d; i++) {
-        const nextDay = from.add(i, 'day');
-        days.push(nextDay);
+        const nextDay = from.add(i, 'day').locale({ ...locale });
+        if (HolidayUtils.checkIsWorkday(profile.workingdays, nextDay, profile.state)) {
+          days.push(nextDay);
+        }
       }
       const targetAvailableMinutes = days.length * profile.availabletime;
       setBalanceAvailableMinutes(availableTimeSum - targetAvailableMinutes);
