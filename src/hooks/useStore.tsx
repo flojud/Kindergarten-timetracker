@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { db } from '../firebase/Firebase';
-import { collection, doc, getDocs, limit, orderBy, query, where, writeBatch } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, limit, orderBy, query, where, writeBatch } from 'firebase/firestore';
 import { NotificationContext } from '../contexts/NotificationContextProvider';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import { User } from 'firebase/auth';
@@ -39,11 +39,21 @@ function useStore() {
     return null;
   };
 
+  const deleteTime = async (day: string) => {
+    const response = deleteDoc(doc(db, `${user.uid}/${day}`))
+      .then(() => {
+        notifyContext.addNotification('Erfoglreich gelöscht', 'success');
+      })
+      .catch((error) => {
+        notifyContext.addNotification('Fehler beim Löschen', 'error');
+      });
+  };
+
   const getTimes = async (from: number, to: number) => {
     const result: ITime[] = [];
 
     const ref = collection(db, user.uid);
-    const q = query(ref, where('timestamp', '>', from), where('timestamp', '<', to));
+    const q = query(ref, where('timestamp', '>=', from), where('timestamp', '<=', to));
     const response = await getDocs(q);
     if (response.docs !== undefined) {
       response.docs.forEach((item) => {
@@ -155,7 +165,7 @@ function useStore() {
       });
   };
 
-  return { saveTimes, getTime, getTimes, firstTimeDate, getAbsence, getAbsences, saveAbsence, getHolidays, getSickDays };
+  return { saveTimes, getTime, getTimes, firstTimeDate, getAbsence, getAbsences, saveAbsence, getHolidays, getSickDays, deleteTime };
 }
 
 export default useStore;

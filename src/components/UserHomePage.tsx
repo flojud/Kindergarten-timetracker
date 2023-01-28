@@ -69,7 +69,13 @@ const UserHomePage = () => {
       // get working time and available time for this year
       let wT = 0;
       let aT = 0;
-      getTimes(from.unix(), to.unix()).then((times: ITime[]) => {
+      getTimes(
+        from
+          .locale({ ...locale })
+          .startOf('day')
+          .unix(),
+        to.unix()
+      ).then((times: ITime[]) => {
         times.forEach((time) => {
           if (!Number.isNaN(time.workingTime)) wT += time.workingTime;
           if (!Number.isNaN(time.availableTime)) aT += time.availableTime;

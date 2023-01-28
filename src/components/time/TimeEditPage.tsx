@@ -6,18 +6,19 @@ import TimeUtils from '../../utils/TimeUtils';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import { IProfile, ITime } from '../../interfaces/Types';
 import locale from 'dayjs/locale/de';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useStore from '../../hooks/useStore';
 import HolidayUtils from '../../utils/HolidayUtils';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import { ReactComponent as EditSvg } from '../../svg/edit.svg';
 
 const TimeEditPage = () => {
+  const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const profile = authContext!.profile as IProfile;
 
   const { day } = useParams();
-  const { getTime, saveTimes } = useStore();
+  const { getTime, saveTimes, deleteTime } = useStore();
 
   const [workingTime, setWorkingTime] = useState<string>('');
   const [availableTime, setAvailableTime] = useState<string>('');
@@ -86,7 +87,20 @@ const TimeEditPage = () => {
   }, [workingTime, availableTime, availableTimeNote]);
 
   const save = () => {
-    if (time) saveTimes([time]);
+    if (time) {
+      saveTimes([time]);
+      navigate('/time/view');
+    }
+  };
+
+  const deleteThisItem = () => {
+    if (time)
+      deleteTime(
+        dayjs(day)
+          .locale({ ...locale })
+          .format('YYYY-MM-DD')
+      );
+    navigate('/time/view');
   };
 
   return (
@@ -142,6 +156,11 @@ const TimeEditPage = () => {
         <Button variant="contained" onClick={save} color="secondary">
           <Typography variant="button" display="block" color={'text.primary'}>
             Speichern
+          </Typography>
+        </Button>
+        <Button variant="contained" onClick={deleteThisItem} color="primary">
+          <Typography variant="button" display="block" color={'text.primary'}>
+            Löschen
           </Typography>
         </Button>
       </Stack>
