@@ -60,6 +60,7 @@ const absenceColors = {
   gleittag: '#7EFABC',
   weitere: '#B9FD92',
   keinArbeitstag: '#DEEBE8',
+  schliesstag: '#60A7F3',
 };
 
 const absenceCalendarColor = (absencetype: string): string => {
@@ -68,6 +69,7 @@ const absenceCalendarColor = (absencetype: string): string => {
   if (absencetype == 'Gleittag') return absenceColors.gleittag;
   if (absencetype == 'Unbezahlter Urlaub') return absenceColors.weitere;
   if (absencetype == 'Sonderurlaub') return absenceColors.weitere;
+  if (absencetype == 'Schließtag') return absenceColors.schliesstag;
   return '';
 };
 

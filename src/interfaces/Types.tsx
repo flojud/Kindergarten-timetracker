@@ -3,7 +3,7 @@ import { Dayjs } from 'dayjs';
 import { AlertColor } from '@mui/material';
 import { User, UserCredential } from 'firebase/auth';
 
-export const absenceTypes = ['Urlaub', 'Unbezahlter Urlaub', 'Sonderurlaub', 'Gleittag', 'Krankheit'];
+export const absenceTypes = ['Schließtag', 'Urlaub', 'Unbezahlter Urlaub', 'Sonderurlaub', 'Gleittag', 'Krankheit'];
 
 export interface IAbsence {
   day: string;

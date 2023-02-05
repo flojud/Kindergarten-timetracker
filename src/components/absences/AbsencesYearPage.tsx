@@ -14,6 +14,7 @@ import useStore from '../../hooks/useStore';
 import CircleIcon from '@mui/icons-material/Circle';
 import { ReactComponent as AirportSvg } from '../../svg/airport.svg';
 import 'dayjs/locale/de';
+import AbsencesCard from './AbsencesCard';
 
 type HighlightedDay = {
   date: Dayjs;
@@ -142,6 +143,16 @@ const AbsencesYearPage = () => {
                 <List sx={{ px: 4 }}>
                   <ListItem disablePadding>
                     <ListItemIcon>
+                      <CircleIcon sx={{ color: HolidayUtils.absenceColors.schliesstag }} />
+                    </ListItemIcon>
+                    <ListItemText disableTypography>
+                      <Typography variant="caption" color="text.secondary">
+                        Schließtag
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemIcon>
                       <CircleIcon sx={{ color: HolidayUtils.absenceColors.urlaub }} />
                     </ListItemIcon>
                     <ListItemText disableTypography>
@@ -194,6 +205,7 @@ const AbsencesYearPage = () => {
               </Grid>
             </CardContent>
           </Card>
+          <AbsencesCard days={days} />
           {showAbsenceButton ? (
             <Button variant="contained" fullWidth onClick={() => setShowAbsenceButton(false)} color="secondary">
               <Typography variant="button" display="block" color={'text.primary'}>

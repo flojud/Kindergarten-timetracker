@@ -104,7 +104,13 @@ function useStore() {
     const result: IAbsence[] = [];
 
     const ref = collection(db, `absences-${user.uid}`);
-    const q = query(ref, where('timestamp', '>', from), where('timestamp', '<', to), where('absencetype', '==', 'Urlaub'));
+    const q = query(
+      ref,
+      where('timestamp', '>=', from),
+      where('timestamp', '<=', to),
+      where('absencetype', '==', 'Urlaub'),
+      where('absencetype', '==', 'Schließtag')
+    );
     const response = await getDocs(q);
     if (response.docs !== undefined) {
       response.docs.forEach((item) => {
@@ -119,7 +125,7 @@ function useStore() {
     const result: IAbsence[] = [];
 
     const ref = collection(db, `absences-${user.uid}`);
-    const q = query(ref, where('timestamp', '>', from), where('timestamp', '<', to), where('absencetype', '==', 'Krankheit'));
+    const q = query(ref, where('timestamp', '>=', from), where('timestamp', '<=', to), where('absencetype', '==', 'Krankheit'));
     const response = await getDocs(q);
     if (response.docs !== undefined) {
       response.docs.forEach((item) => {
@@ -134,7 +140,7 @@ function useStore() {
     const result: IAbsence[] = [];
 
     const ref = collection(db, `absences-${user.uid}`);
-    const q = query(ref, where('timestamp', '>', from), where('timestamp', '<', to));
+    const q = query(ref, where('timestamp', '>=', from), where('timestamp', '<=', to));
     const response = await getDocs(q);
     if (response.docs !== undefined) {
       response.docs.forEach((item) => {
@@ -143,6 +149,16 @@ function useStore() {
     }
 
     return result;
+  };
+
+  const deleteAbsence = async (absence: IAbsence) => {
+    const response = deleteDoc(doc(db, `absences-${user.uid}/${absence.day}`))
+      .then(() => {
+        notifyContext.addNotification('Erfoglreich gelöscht', 'success');
+      })
+      .catch((error) => {
+        notifyContext.addNotification('Fehler beim Löschen', 'error');
+      });
   };
 
   const saveAbsence = (absences: IAbsence[]) => {
@@ -165,7 +181,19 @@ function useStore() {
       });
   };
 
-  return { saveTimes, getTime, getTimes, firstTimeDate, getAbsence, getAbsences, saveAbsence, getHolidays, getSickDays, deleteTime };
+  return {
+    saveTimes,
+    getTime,
+    getTimes,
+    firstTimeDate,
+    getAbsence,
+    getAbsences,
+    deleteAbsence,
+    saveAbsence,
+    getHolidays,
+    getSickDays,
+    deleteTime,
+  };
 }
 
 export default useStore;

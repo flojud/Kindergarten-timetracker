@@ -1,18 +1,24 @@
 import { Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
 import { Dayjs } from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useNotification from '../../hooks/useNotification';
 import useStore from '../../hooks/useStore';
-import { absenceTypes, IAbsence } from '../../interfaces/Types';
+import { absenceTypes, IAbsence, IProfile } from '../../interfaces/Types';
 import DateRangePicker from '../common/DateRangePicker';
 import locale from 'dayjs/locale/de';
+import { useNavigate } from 'react-router-dom';
+import HolidayUtils from '../../utils/HolidayUtils';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 
 const NewAbsence = () => {
+  const authContext = useContext(AuthContext);
+  const profile = authContext!.profile as IProfile;
   const [range, setRange] = useState<Dayjs[] | null>(null);
   const [absenceType, setAbsenceType] = useState<string | null>(null);
   const [absences, setAbsences] = useState<IAbsence[]>([]);
   const { notifyContext } = useNotification();
   const { saveAbsence } = useStore();
+  const navigate = useNavigate();
 
   const onChange = (dateRange: Dayjs[]) => setRange(dateRange);
 
@@ -21,7 +27,9 @@ const NewAbsence = () => {
       const res: IAbsence[] = [];
       if (range && absenceType) {
         range.forEach((item) => {
-          res.push({ day: item.locale({ ...locale }).format('YYYY-MM-DD'), absencetype: absenceType } as IAbsence);
+          if (HolidayUtils.checkIsWorkday(profile.workingdays, item.locale({ ...locale }), profile.state)) {
+            res.push({ day: item.locale({ ...locale }).format('YYYY-MM-DD'), absencetype: absenceType } as IAbsence);
+          }
         });
       }
       return res;
@@ -33,6 +41,7 @@ const NewAbsence = () => {
       notifyContext.addNotification('Es wurde keine Abwesenheitsart augewählt', 'error');
     } else {
       if (absences.length > 0) saveAbsence(absences);
+      navigate('/absences/view');
     }
   };
 
