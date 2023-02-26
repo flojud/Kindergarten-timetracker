@@ -108,8 +108,7 @@ function useStore() {
       ref,
       where('timestamp', '>=', from),
       where('timestamp', '<=', to),
-      where('absencetype', '==', 'Urlaub'),
-      where('absencetype', '==', 'Schließtag')
+      where('absencetype', 'in', ['Urlaub', 'Schließtag'])
     );
     const response = await getDocs(q);
     if (response.docs !== undefined) {

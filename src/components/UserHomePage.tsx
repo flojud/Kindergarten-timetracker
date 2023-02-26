@@ -17,10 +17,11 @@ import HolidayUtils from '../utils/HolidayUtils';
 const UserHomePage = () => {
   const authContext = useContext(AuthContext);
   const profile = authContext!.profile as IProfile;
-  const { getHolidays, getSickDays, getTimes, firstTimeDate } = useStore();
+  const { getHolidays, getAbsences, getSickDays, getTimes, firstTimeDate } = useStore();
 
   const [noHolidays, setNoHolidays] = useState<number>(0);
   const [noSickDays, setNoSickDays] = useState<number>(0);
+  const [noAbsences, setNoAbsences] = useState<number>(0);
 
   const [workingTimeSum, setWorkingTimeSum] = useState<number>(0);
   const [balanceWorkMinutes, setBalanceWorkMinutes] = useState<number>(0);
@@ -54,12 +55,17 @@ const UserHomePage = () => {
     if (profile && from) {
       // calculate left Holidays for this year
       getHolidays(from.unix(), to.unix())
-        .then((absences: IAbsence[]) => {
-          if (absences) setNoHolidays(profile.holidays - absences.length);
+        .then((holidays: IAbsence[]) => {
+          if (holidays) setNoHolidays(profile.holidays - holidays.length);
         })
         .catch(() => {
           setNoHolidays(profile.holidays);
         });
+
+      // get all absences
+      getAbsences(from.unix(), today.unix()).then((absences: IAbsence[]) => {
+        if (absences) setNoAbsences(absences.length);
+      });
 
       // calculate sickness Days for this year
       getSickDays(from.unix(), to.unix()).then((sickDays: IAbsence[]) => {
@@ -74,7 +80,7 @@ const UserHomePage = () => {
           .locale({ ...locale })
           .startOf('day')
           .unix(),
-        to.unix()
+        today.unix()
       ).then((times: ITime[]) => {
         times.forEach((time) => {
           if (!Number.isNaN(time.workingTime)) wT += time.workingTime;
@@ -97,7 +103,8 @@ const UserHomePage = () => {
           days.push(nextDay);
         }
       }
-      const targetWorkingMinutes = days.length * profile.workingtime;
+      const targetWorkingDays = days.length - noAbsences;
+      const targetWorkingMinutes = targetWorkingDays * profile.workingtime;
       setBalanceWorkMinutes(workingTimeSum - targetWorkingMinutes);
     }
   }, [workingTimeSum]);
@@ -113,7 +120,8 @@ const UserHomePage = () => {
           days.push(nextDay);
         }
       }
-      const targetAvailableMinutes = days.length * profile.availabletime;
+      const targetAvailableDays = days.length - noAbsences;
+      const targetAvailableMinutes = targetAvailableDays * profile.availabletime;
       setBalanceAvailableMinutes(availableTimeSum - targetAvailableMinutes);
     }
   }, [availableTimeSum]);
