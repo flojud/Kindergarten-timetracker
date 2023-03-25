@@ -2,6 +2,8 @@ import dayjs, { Dayjs } from 'dayjs';
 import { IProfile, IWorkingdays } from '../interfaces/Types';
 import { ITime } from '../interfaces/Types';
 import HolidayUtils from './HolidayUtils';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+import locale from 'dayjs/locale/de';
 
 export const numWorkdays = (workingdays: IWorkingdays): number => {
   let num = 0;
@@ -55,6 +57,19 @@ export const dateStringToTimestamp = (date: string): number => {
   return dayjs(date).unix();
 };
 
+export const dateStringToWeek = (date: string): number => {
+  dayjs.extend(weekOfYear);
+  return dayjs(date)
+    .locale({ ...locale })
+    .week();
+};
+
+export const dateStringToMonthYear = (date: string): string => {
+  return dayjs(date)
+    .locale({ ...locale })
+    .format('MMMM  YYYY');
+};
+
 export const defaultTime = (day: Dayjs, profile: IProfile): ITime => {
   const time: ITime = {} as ITime;
   time.day = day.format('YYYY-MM-DD');
@@ -72,4 +87,14 @@ export const defaultTime = (day: Dayjs, profile: IProfile): ITime => {
 
   return time;
 };
-export default { numWorkdays, checkWorkday, minutesFromTime, minutesToTime, dateStringToTimestamp, defaultTime, negativeMinutesToTime };
+export default {
+  numWorkdays,
+  checkWorkday,
+  minutesFromTime,
+  minutesToTime,
+  dateStringToTimestamp,
+  defaultTime,
+  negativeMinutesToTime,
+  dateStringToWeek,
+  dateStringToMonthYear,
+};

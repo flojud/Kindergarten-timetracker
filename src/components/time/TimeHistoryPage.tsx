@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Button, Paper, Stack, Typography } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
 import MonthPicker from '../common/MonthPicker';
 import MainContainer from '../common/MainContainer';
 import ViewDate from './TimeHistoryCard';
 import useStore from '../../hooks/useStore';
-import { ITime } from '../../interfaces/Types';
+import { IProfile, ITime, ITimeCsv } from '../../interfaces/Types';
 import TimeUtils from '../../utils/TimeUtils';
 import { ReactComponent as TimesSvg } from '../../svg/times.svg';
 import { CSVLink } from 'react-csv';
 import DownloadIcon from '@mui/icons-material/Download';
+import { AuthContext } from '../../contexts/AuthContextProvider';
+import { exportPdf } from '../../utils/PDFExport';
 
 const TimeHistoryPage = () => {
   const { getTimes, getAbsences } = useStore();
@@ -20,6 +22,37 @@ const TimeHistoryPage = () => {
 
   const handleDateRangePicker = (dates: Dayjs[]) => {
     setDays(dates);
+  };
+
+  const authContext = useContext(AuthContext);
+  const profile = authContext!.profile as IProfile;
+  const [timesExport, setTimesExport] = useState<ITimeCsv[] | null>(null);
+  const prepareExportData = () => {
+    if (times) {
+      const data: ITimeCsv[] = [];
+      times.forEach((time) => {
+        let workingTimeBalance = 0;
+        let availableTimeBalance = 0;
+        if (time.workday) {
+          workingTimeBalance = time.workingTime - profile.workingtime;
+          availableTimeBalance = time.availableTime - profile.availabletime;
+        } else {
+          workingTimeBalance = time.workingTime;
+          availableTimeBalance = time.availableTime;
+        }
+
+        data.push({
+          week: TimeUtils.dateStringToWeek(time.day),
+          day: time.day,
+          workingTime: time.workingTime,
+          workingTimeBalance: workingTimeBalance,
+          availableTime: time.availableTime,
+          availableTimeBalance: availableTimeBalance,
+          notes: time.notes,
+        });
+      });
+      setTimesExport(data);
+    }
   };
 
   /*
@@ -36,6 +69,7 @@ const TimeHistoryPage = () => {
       });
       setWorkingTimeGlz(TimeUtils.minutesToTime(workingTimeSum));
       setAvailableTimeGlz(TimeUtils.minutesToTime(availableTimeSum));
+      prepareExportData();
     }
   }, [times]);
 
@@ -60,16 +94,6 @@ const TimeHistoryPage = () => {
     });
   }, [days]);
 
-  const headers = [
-    { label: 'Datum', key: 'day' },
-    { label: 'Arbeitszeit', key: 'workingTime' },
-    { label: 'Verfügungszeit', key: 'availableTime' },
-    { label: 'Notizen', key: 'notes' },
-    { label: 'Zeitstempel', key: 'timestamp' },
-    { label: 'Arbeitstag', key: 'workday' },
-  ];
-  const handleDownload = () => {};
-
   return (
     <>
       <MainContainer>
@@ -91,11 +115,9 @@ const TimeHistoryPage = () => {
             </Paper>
           )}
           {days && days.map((day) => <ViewDate key={day.toISOString()} day={day} />)}
-          {times && (
-            <Button variant="contained" endIcon={<DownloadIcon />}>
-              <CSVLink data={times} headers={headers} filename={'Arbeitszeiten.csv'} style={{ textDecoration: 'none', color: 'inherit' }}>
-                Download
-              </CSVLink>
+          {timesExport && (
+            <Button variant="contained" endIcon={<DownloadIcon />} onClick={() => exportPdf(timesExport)}>
+              Download
             </Button>
           )}
         </Stack>

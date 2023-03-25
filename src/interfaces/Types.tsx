@@ -26,6 +26,16 @@ export interface ITime {
   workday: boolean;
 }
 
+export interface ITimeCsv {
+  week: number;
+  day: string;
+  workingTime: number;
+  workingTimeBalance: number;
+  availableTime: number;
+  availableTimeBalance: number;
+  notes: string;
+}
+
 export type Props = { children: ReactNode | any };
 
 export interface IProfile {
