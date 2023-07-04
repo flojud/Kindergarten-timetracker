@@ -22,11 +22,13 @@ const UserHomePage = () => {
   const [noHolidays, setNoHolidays] = useState<number>(0);
   const [noSickDays, setNoSickDays] = useState<number>(0);
   const [noAbsences, setNoAbsences] = useState<number>(0);
+  const [noAbsencesInMonth, setNoAbsencesInMonth] = useState<number>(0);
 
   const [workingTimeSum, setWorkingTimeSum] = useState<number>(0);
   const [balanceWorkMinutes, setBalanceWorkMinutes] = useState<number>(0);
 
   const [availableTimeSum, setAvailableTimeSum] = useState<number>(0);
+  const [availableTimeSumInMonth, setAvailableTimeSumInMonth] = useState<number>(0);
   const [balanceAvailableMinutes, setBalanceAvailableMinutes] = useState<number>(0);
 
   const [from, setFrom] = useState<Dayjs | null>(null);
@@ -36,6 +38,7 @@ const UserHomePage = () => {
   const today = dayjs()
     .locale({ ...locale })
     .endOf('day');
+  const firstDayOfMonth = today.locale({ ...locale }).startOf('month');
 
   useEffect(() => {
     // in case you start tracking in the mid of the year
@@ -67,6 +70,11 @@ const UserHomePage = () => {
         if (absences) setNoAbsences(absences.length);
       });
 
+      // absences in this month
+      getAbsences(firstDayOfMonth.unix(), today.unix()).then((absences: IAbsence[]) => {
+        if (absences) setNoAbsencesInMonth(absences.length);
+      });
+
       // calculate sickness Days for this year
       getSickDays(from.unix(), to.unix()).then((sickDays: IAbsence[]) => {
         setNoSickDays(sickDays.length);
@@ -88,6 +96,21 @@ const UserHomePage = () => {
         });
         setWorkingTimeSum(wT);
         setAvailableTimeSum(aT);
+      });
+
+      // get available time for this month only
+      let aTInMonth = 0;
+      getTimes(
+        firstDayOfMonth
+          .locale({ ...locale })
+          .startOf('day')
+          .unix(),
+        today.unix()
+      ).then((times: ITime[]) => {
+        times.forEach((time) => {
+          if (!Number.isNaN(time.availableTime)) aTInMonth += time.availableTime;
+        });
+        setAvailableTimeSumInMonth(aTInMonth);
       });
     }
   }, [profile, from]);
@@ -111,20 +134,20 @@ const UserHomePage = () => {
 
   useEffect(() => {
     // calculate Available Time
-    if (availableTimeSum && profile && from) {
+    if (availableTimeSumInMonth && profile) {
       const days: Dayjs[] = [];
-      const d = Math.ceil(today.diff(from, 'day', true));
+      const d = Math.ceil(today.diff(firstDayOfMonth, 'day', true));
       for (let i = 0; i < d; i++) {
-        const nextDay = from.add(i, 'day').locale({ ...locale });
+        const nextDay = firstDayOfMonth.add(i, 'day').locale({ ...locale });
         if (HolidayUtils.checkIsWorkday(profile.workingdays, nextDay, profile.state)) {
           days.push(nextDay);
         }
       }
-      const targetAvailableDays = days.length - noAbsences;
+      const targetAvailableDays = days.length - noAbsencesInMonth;
       const targetAvailableMinutes = targetAvailableDays * profile.availabletime;
-      setBalanceAvailableMinutes(availableTimeSum - targetAvailableMinutes);
+      setBalanceAvailableMinutes(availableTimeSumInMonth - targetAvailableMinutes);
     }
-  }, [availableTimeSum]);
+  }, [availableTimeSumInMonth]);
 
   return (
     <>
