@@ -6,7 +6,7 @@ import {
   onAuthStateChanged,
   sendEmailVerification,
   signInWithEmailAndPassword,
-  signInWithRedirect,
+  signInWithPopup,
   signOut,
   updatePassword,
   User,
@@ -63,7 +63,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
   };
 
   const googleSignIn = async () => {
-    signInWithRedirect(auth, new GoogleAuthProvider());
+    await signInWithPopup(auth, new GoogleAuthProvider());
     getRedirectResult(auth)
       .then((result) => {
         if (result) {
