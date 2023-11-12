@@ -1,12 +1,12 @@
 import { Box, TextField } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import React, { useEffect } from 'react';
-import { Dayjs } from 'dayjs';
 import * as dayjs from 'dayjs';
-import locale from 'dayjs/locale/de';
-import useStore from '../../hooks/useStore';
+import { Dayjs } from 'dayjs';
 import 'dayjs/locale/de';
+import locale from 'dayjs/locale/de';
+import React, { useEffect } from 'react';
+import useStore from '../../hooks/useStore';
 
 interface MonthPickerProps {
   onChange: (dates: Dayjs[]) => void;
@@ -30,6 +30,7 @@ const MonthPicker = ({ onChange }: MonthPickerProps) => {
       .finally(() => {
         calcDays(startOfMonth, endOfMonth);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /*
@@ -40,6 +41,7 @@ const MonthPicker = ({ onChange }: MonthPickerProps) => {
     if (pickedMonth) {
       calcDays(pickedMonth.locale({ ...locale }).startOf('month'), pickedMonth.endOf('month'));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pickedMonth]);
 
   const calcDays = (from: Dayjs, to: Dayjs) => {
@@ -56,6 +58,7 @@ const MonthPicker = ({ onChange }: MonthPickerProps) => {
   */
   useEffect(() => {
     onChange(days);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days]);
 
   return (
@@ -67,7 +70,7 @@ const MonthPicker = ({ onChange }: MonthPickerProps) => {
           gap: 2,
           width: '100%',
         }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'de'}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
           <DatePicker
             views={['year', 'month']}
             label="Monat"

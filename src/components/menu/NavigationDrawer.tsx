@@ -1,40 +1,40 @@
 import {
+  AccessTime,
+  Add,
+  BeachAccess,
+  ChevronLeft,
+  ChevronRight,
+  Home,
+  Login,
+  Logout,
+  Menu,
+  Person,
+  Subscriptions,
+} from '@mui/icons-material';
+import {
   Box,
+  CssBaseline,
+  Divider,
   Drawer,
-  Toolbar,
+  IconButton,
+  Link as Link2,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Typography,
-  Divider,
-  IconButton,
   Stack,
-  Link as Link2,
-  CssBaseline,
+  Toolbar,
+  Typography,
 } from '@mui/material';
-import {
-  BeachAccess,
-  Menu,
-  ChevronLeft,
-  ChevronRight,
-  Home,
-  Person,
-  AccessTime,
-  Add,
-  Logout,
-  Login,
-  Subscriptions,
-} from '@mui/icons-material';
-import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { Props } from '../../interfaces/Types';
+import { styled, useTheme } from '@mui/material/styles';
 import { FC, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContextProvider';
-import ToggleColorMode from '../common/ToggleColorMode';
 import { ThemeContext } from '../../contexts/ThemeContextProvider';
+import { Props } from '../../interfaces/Types';
+import ToggleColorMode from '../common/ToggleColorMode';
 
 const drawerWidth = 240;
 
@@ -260,15 +260,15 @@ const NavigationDrawer: FC<Props> = ({ children }) => {
           mt: 2,
           width: '100%',
         }}>
-        <Stack spacing={2} direction="row" alignItems={'flex-start'}>
-          <Typography variant="caption" color={'primary'}>
-            <Link2 href="/legal/policy" color={'inherit'}>
+        <Stack spacing={2} direction="row" alignItems="flex-start">
+          <Typography variant="caption" color="primary">
+            <Link2 href="/legal/policy" color="inherit">
               Datenschutz&shy;erkl&auml;rung
             </Link2>
           </Typography>
           <Divider orientation="vertical" flexItem />
-          <Typography variant="caption" color={'primary'}>
-            <Link2 href="/legal/terms " color={'inherit'}>
+          <Typography variant="caption" color="primary">
+            <Link2 href="/legal/terms " color="inherit">
               Impressum
             </Link2>
           </Typography>

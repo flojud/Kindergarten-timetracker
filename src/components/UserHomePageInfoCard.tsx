@@ -13,18 +13,18 @@ const UserHomePageInfoCard = ({ title, value, subtitle, SvgIcon }: UserHomePageI
     <>
       <Card sx={{ minWidth: 256 }}>
         <CardContent>
-          <Stack direction="column" justifyContent="flex-start" alignItems="flex-start" gap={2} width={'100%'}>
-            <Stack direction="row" justifyContent="space-between" alignItems="flex-start" gap={2} width={'100%'}>
-              <Typography variant="body1" color={'text.secondary'}>
+          <Stack direction="column" justifyContent="flex-start" alignItems="flex-start" gap={2} width="100%">
+            <Stack direction="row" justifyContent="space-between" alignItems="flex-start" gap={2} width="100%">
+              <Typography variant="body1" color="text.secondary">
                 {title}
               </Typography>
-              <SvgIcon color={'secondary'} />
+              <SvgIcon color="secondary" />
             </Stack>
 
-            <Typography variant="h4" color={'text.primary'}>
+            <Typography variant="h4" color="text.primary">
               {value}
             </Typography>
-            <Typography variant="body2" color={'text.disabled'}>
+            <Typography variant="body2" color="text.disabled">
               {subtitle}
             </Typography>
           </Stack>

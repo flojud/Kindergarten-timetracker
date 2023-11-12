@@ -1,29 +1,25 @@
 import {
+  Button,
   Card,
-  CardHeader,
+  CardActions,
   CardContent,
-  FormControlLabel,
-  Switch,
-  TextField,
+  CardHeader,
   FormControl,
+  FormControlLabel,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
-  FormHelperText,
-  Button,
-  CardActions,
-  Typography,
   Stack,
+  Switch,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import { IProfile, IWorkingdays } from '../../interfaces/Types';
-import TimeUtils from '../../utils/TimeUtils';
 import { ReactComponent as MyDataSvg } from '../../svg/mydata.svg';
-
-function valuetext(value: number) {
-  return `${value}%`;
-}
+import TimeUtils from '../../utils/TimeUtils';
 
 const TabMyDataCard = () => {
   const authContext = useContext(AuthContext);
@@ -165,7 +161,7 @@ const TabMyDataCard = () => {
               gap: 2,
             }}>
             <Button variant="contained" onClick={save} color="secondary">
-              <Typography variant="button" display="block" color={'text.primary'}>
+              <Typography variant="button" display="block" color="text.primary">
                 Speichern
               </Typography>
             </Button>

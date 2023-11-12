@@ -1,10 +1,10 @@
-import dayjs, { Dayjs } from 'dayjs';
-import useStore from '../../hooks/useStore';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Card, CardContent, CardHeader, IconButton, List, ListItem, ListItemText } from '@mui/material';
+import { Dayjs } from 'dayjs';
 import locale from 'dayjs/locale/de';
 import { useEffect, useState } from 'react';
+import useStore from '../../hooks/useStore';
 import { IAbsence } from '../../interfaces/Types';
-import { List, ListItem, IconButton, ListItemText, Card, CardContent, CardHeader } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 type AbsencesCardProperties = {
   days: Dayjs[] | null;
@@ -22,6 +22,7 @@ const AbsencesCard = ({ days }: AbsencesCardProperties) => {
       getAbsences(from, to).then((a) => setAbsences(a));
       setMonth(days[0].locale({ ...locale }).format('MMMM'));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days]);
 
   const remove = (absence: IAbsence) => {
@@ -48,7 +49,7 @@ const AbsencesCard = ({ days }: AbsencesCardProperties) => {
                   sx={{ paddingLeft: '0px' }}
                   key={index}
                   secondaryAction={
-                    <IconButton edge="end" size={'small'} onClick={() => remove(absence)}>
+                    <IconButton edge="end" size="small" onClick={() => remove(absence)}>
                       <DeleteIcon />
                     </IconButton>
                   }>

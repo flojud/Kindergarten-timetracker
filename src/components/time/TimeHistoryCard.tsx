@@ -1,13 +1,13 @@
 import { Card, CardContent, Stack, Typography } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
+import locale from 'dayjs/locale/de';
 import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 import useStore from '../../hooks/useStore';
 import { IAbsence, IProfile } from '../../interfaces/Types';
-import locale from 'dayjs/locale/de';
-import TimeUtils from '../../utils/TimeUtils';
 import HolidayUtils from '../../utils/HolidayUtils';
-import { AuthContext } from '../../contexts/AuthContextProvider';
-import { Link } from 'react-router-dom';
+import TimeUtils from '../../utils/TimeUtils';
 
 interface TimeHistoryCardProps {
   day: Dayjs;
@@ -51,6 +51,7 @@ const TimeHistoryCard = ({ day }: TimeHistoryCardProps) => {
         setCardBgColor(HolidayUtils.absenceCalendarColor(res.absencetype));
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /*
@@ -64,6 +65,7 @@ const TimeHistoryCard = ({ day }: TimeHistoryCardProps) => {
       setAbsenteeism(true);
       setCardBgColor('primary.main');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workday, workingTime, absence]);
 
   return (

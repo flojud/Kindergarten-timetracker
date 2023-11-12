@@ -1,12 +1,12 @@
-import { useContext } from 'react';
-import { db } from '../firebase/Firebase';
-import { collection, deleteDoc, doc, getDocs, limit, orderBy, query, where, writeBatch } from 'firebase/firestore';
-import { NotificationContext } from '../contexts/NotificationContextProvider';
-import { AuthContext } from '../contexts/AuthContextProvider';
+import dayjs, { Dayjs } from 'dayjs';
 import { User } from 'firebase/auth';
+import { collection, deleteDoc, doc, getDocs, limit, orderBy, query, where, writeBatch } from 'firebase/firestore';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContextProvider';
+import { NotificationContext } from '../contexts/NotificationContextProvider';
+import { db } from '../firebase/Firebase';
 import { IAbsence, ITime } from '../interfaces/Types';
 import TimeUtils from '../utils/TimeUtils';
-import dayjs, { Dayjs } from 'dayjs';
 
 function useStore() {
   const notifyContext = useContext(NotificationContext);
@@ -40,11 +40,12 @@ function useStore() {
   };
 
   const deleteTime = async (day: string) => {
-    const response = deleteDoc(doc(db, `${user.uid}/${day}`))
+    deleteDoc(doc(db, `${user.uid}/${day}`))
       .then(() => {
         notifyContext.addNotification('Erfoglreich gelöscht', 'success');
       })
       .catch((error) => {
+        console.log(error);
         notifyContext.addNotification('Fehler beim Löschen', 'error');
       });
   };
@@ -83,6 +84,7 @@ function useStore() {
         notifyContext.addNotification('Erfoglreich gespeichert', 'success');
       })
       .catch((error) => {
+        console.log(error);
         notifyContext.addNotification('Fehler beim Speichern', 'error');
       });
   };
@@ -151,11 +153,12 @@ function useStore() {
   };
 
   const deleteAbsence = async (absence: IAbsence) => {
-    const response = deleteDoc(doc(db, `absences-${user.uid}/${absence.day}`))
+    deleteDoc(doc(db, `absences-${user.uid}/${absence.day}`))
       .then(() => {
         notifyContext.addNotification('Erfoglreich gelöscht', 'success');
       })
       .catch((error) => {
+        console.log(error);
         notifyContext.addNotification('Fehler beim Löschen', 'error');
       });
   };
@@ -176,6 +179,7 @@ function useStore() {
         notifyContext.addNotification('Erfoglreich gespeichert', 'success');
       })
       .catch((error) => {
+        console.log(error);
         notifyContext.addNotification('Fehler beim Speichern', 'error');
       });
   };

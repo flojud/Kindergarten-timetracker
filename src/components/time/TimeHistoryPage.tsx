@@ -1,20 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
+import DownloadIcon from '@mui/icons-material/Download';
 import { Button, Paper, Stack, Typography } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
-import MonthPicker from '../common/MonthPicker';
-import MainContainer from '../common/MainContainer';
-import ViewDate from './TimeHistoryCard';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 import useStore from '../../hooks/useStore';
 import { IProfile, ITime, ITimeCsv } from '../../interfaces/Types';
-import TimeUtils from '../../utils/TimeUtils';
 import { ReactComponent as TimesSvg } from '../../svg/times.svg';
-import { CSVLink } from 'react-csv';
-import DownloadIcon from '@mui/icons-material/Download';
-import { AuthContext } from '../../contexts/AuthContextProvider';
 import { exportPdf } from '../../utils/PDFExport';
+import TimeUtils from '../../utils/TimeUtils';
+import MainContainer from '../common/MainContainer';
+import MonthPicker from '../common/MonthPicker';
+import ViewDate from './TimeHistoryCard';
 
 const TimeHistoryPage = () => {
-  const { getTimes, getAbsences } = useStore();
+  const { getTimes } = useStore();
   const [days, setDays] = useState<Dayjs[]>([]);
   const [times, setTimes] = useState<ITime[] | null>(null);
   const [workingTimeGlz, setWorkingTimeGlz] = useState<string | null>(null);
@@ -71,6 +70,7 @@ const TimeHistoryPage = () => {
       setAvailableTimeGlz(TimeUtils.minutesToTime(availableTimeSum));
       prepareExportData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [times]);
 
   /* 
@@ -92,6 +92,7 @@ const TimeHistoryPage = () => {
     getTimes(from, to).then((res) => {
       setTimes(res);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days]);
 
   return (

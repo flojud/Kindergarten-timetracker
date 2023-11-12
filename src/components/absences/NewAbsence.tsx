@@ -1,14 +1,14 @@
 import { Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
 import { Dayjs } from 'dayjs';
+import locale from 'dayjs/locale/de';
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 import useNotification from '../../hooks/useNotification';
 import useStore from '../../hooks/useStore';
-import { absenceTypes, IAbsence, IProfile } from '../../interfaces/Types';
-import DateRangePicker from '../common/DateRangePicker';
-import locale from 'dayjs/locale/de';
-import { useNavigate } from 'react-router-dom';
+import { IAbsence, IProfile, absenceTypes } from '../../interfaces/Types';
 import HolidayUtils from '../../utils/HolidayUtils';
-import { AuthContext } from '../../contexts/AuthContextProvider';
+import DateRangePicker from '../common/DateRangePicker';
 
 const NewAbsence = () => {
   const authContext = useContext(AuthContext);
@@ -34,6 +34,7 @@ const NewAbsence = () => {
       }
       return res;
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [range, absenceType]);
 
   const requestAbsence = () => {
@@ -63,7 +64,7 @@ const NewAbsence = () => {
               </Select>
             </FormControl>
             <Button variant="contained" onClick={requestAbsence} color="secondary">
-              <Typography variant="button" display="block" color={'text.primary'}>
+              <Typography variant="button" display="block" color="text.primary">
                 Beantragen
               </Typography>
             </Button>

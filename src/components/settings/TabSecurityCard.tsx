@@ -1,8 +1,8 @@
-import { Card, CardHeader, CardContent, TextField, Button, CardActions, Typography, Stack } from '@mui/material';
-import { Key, ErrorOutlineOutlined } from '@mui/icons-material';
-import { ReactComponent as MySecuritySvg } from '../../svg/security.svg';
+import { ErrorOutlineOutlined, Key } from '@mui/icons-material';
+import { Button, Card, CardActions, CardContent, CardHeader, Stack, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContextProvider';
+import { ReactComponent as MySecuritySvg } from '../../svg/security.svg';
 
 const TabSecurityCard = () => {
   const authContext = useContext(AuthContext);
@@ -56,7 +56,7 @@ const TabSecurityCard = () => {
               gap: 2,
             }}>
             <Button variant="contained" startIcon={<Key sx={{ color: 'text.primary' }} />} color="secondary" onClick={changePassword}>
-              <Typography variant="button" display="block" color={'text.primary'}>
+              <Typography variant="button" display="block" color="text.primary">
                 Speichern
               </Typography>
             </Button>
@@ -87,7 +87,7 @@ const TabSecurityCard = () => {
               startIcon={<ErrorOutlineOutlined sx={{ color: 'text.primary' }} />}
               color="secondary"
               onClick={deleteAccount}>
-              <Typography variant="button" display="block" color={'text.primary'}>
+              <Typography variant="button" display="block" color="text.primary">
                 Löschen
               </Typography>
             </Button>

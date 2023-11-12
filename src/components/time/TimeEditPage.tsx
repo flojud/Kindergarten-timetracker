@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from 'react';
-import dayjs from 'dayjs';
-import { Button, Card, CardContent, Stack, TextField, Typography } from '@mui/material';
-import TimeUtils from '../../utils/TimeUtils';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import { IProfile, ITime } from '../../interfaces/Types';
+import { Button, Card, CardContent, Stack, TextField, Typography } from '@mui/material';
+import dayjs from 'dayjs';
 import locale from 'dayjs/locale/de';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import useStore from '../../hooks/useStore';
-import HolidayUtils from '../../utils/HolidayUtils';
 import { AuthContext } from '../../contexts/AuthContextProvider';
+import useStore from '../../hooks/useStore';
+import { IProfile, ITime } from '../../interfaces/Types';
 import { ReactComponent as EditSvg } from '../../svg/edit.svg';
+import HolidayUtils from '../../utils/HolidayUtils';
+import TimeUtils from '../../utils/TimeUtils';
 
 const TimeEditPage = () => {
   const navigate = useNavigate();
@@ -105,12 +105,12 @@ const TimeEditPage = () => {
 
   return (
     <>
-      <Stack direction="column" alignItems="center" spacing={2} height={'80vh'}>
+      <Stack direction="column" alignItems="center" spacing={2} height="80vh">
         <EditSvg width="150px" height="150px" />
         <Card sx={{ width: '100%' }}>
           <CardContent>
             <Stack spacing={2}>
-              <Stack spacing={2} direction="row" alignItems={'center'}>
+              <Stack spacing={2} direction="row" alignItems="center">
                 <Typography variant="subtitle1">{title}</Typography>
                 {!workday && (
                   <>
@@ -154,12 +154,12 @@ const TimeEditPage = () => {
           </CardContent>
         </Card>
         <Button variant="contained" onClick={save} color="secondary">
-          <Typography variant="button" display="block" color={'text.primary'}>
+          <Typography variant="button" display="block" color="text.primary">
             Speichern
           </Typography>
         </Button>
         <Button variant="contained" onClick={deleteThisItem} color="primary">
-          <Typography variant="button" display="block" color={'text.primary'}>
+          <Typography variant="button" display="block" color="text.primary">
             Löschen
           </Typography>
         </Button>

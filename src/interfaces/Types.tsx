@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { Dayjs } from 'dayjs';
 import { AlertColor } from '@mui/material';
+import { Dayjs } from 'dayjs';
 import { User, UserCredential } from 'firebase/auth';
+import { ReactNode } from 'react';
 
 export const absenceTypes = ['Schließtag', 'Urlaub', 'Unbezahlter Urlaub', 'Sonderurlaub', 'Gleittag', 'Krankheit'];
 
@@ -106,4 +106,13 @@ export interface IHoliday {
   sh: string;
   th: string;
   comment: string;
+}
+
+export interface IBeforeInstallPromptEvent extends Event {
+  readonly platforms: string[];
+  readonly userChoice: Promise<{
+    outcome: 'accepted' | 'dismissed';
+    platform: string;
+  }>;
+  prompt(): Promise<void>;
 }

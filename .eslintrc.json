@@ -1,27 +1,32 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended", "plugin:react/jsx-runtime"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended", "plugin:react-hooks/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": false
+      "jsx": true
     },
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "import"],
   "rules": {
-    "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "off"
+    "@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }], // Prevents declaring vars and not using them
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+    "react/jsx-curly-brace-presence": ["error", "never"], // Checks unneccessary use of brackets in JSX
+    "react/no-unknown-property": ["error", { "ignore": ["about"] }], // Prevents the usage of unkown properties on react elements
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }], // Prevents multiple empty lines
+    "no-useless-return": "error", // Prevents unneccessary return statements
+    "react/react-in-jsx-scope": "off" // Starting from React v17 we no longer need the explicit React import in JSX
   },
   "settings": {
     "react": {

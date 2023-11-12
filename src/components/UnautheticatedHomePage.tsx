@@ -1,11 +1,11 @@
-import { Box, Button, Link, Stack, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import Item from './common/Item';
 import EmailIcon from '@mui/icons-material/Email';
 import GoogleIcon from '@mui/icons-material/Google';
-import { AuthContext } from '../contexts/AuthContextProvider';
+import { Box, Button, Link, Stack, Typography } from '@mui/material';
 import { useContext } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContextProvider';
 import { ReactComponent as HomeSvg } from '../svg/home.svg';
+import Item from './common/Item';
 
 const UnautheticatedHomePage = () => {
   const authContext = useContext(AuthContext);
@@ -36,7 +36,7 @@ const UnautheticatedHomePage = () => {
               startIcon={<GoogleIcon sx={{ color: 'text.primary' }} />}
               onClick={handleGoogleSignup}
               color="secondary">
-              <Typography variant="button" display="block" color={'text.primary'}>
+              <Typography variant="button" display="block" color="text.primary">
                 Mit Google registrieren
               </Typography>
             </Button>
@@ -49,7 +49,7 @@ const UnautheticatedHomePage = () => {
               component={RouterLink}
               to="/signup"
               color="secondary">
-              <Typography variant="button" display="block" color={'text.primary'}>
+              <Typography variant="button" display="block" color="text.primary">
                 Meine Email verwenden
               </Typography>
             </Button>

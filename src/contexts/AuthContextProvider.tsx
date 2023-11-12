@@ -16,7 +16,7 @@ import { createContext, FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase/Firebase';
 import useNotification from '../hooks/useNotification';
-import { Props, IProfile, IUserContext as IAuthContext } from '../interfaces/Types';
+import { IUserContext as IAuthContext, IProfile, Props } from '../interfaces/Types';
 
 export const AuthContext = createContext<IAuthContext | null>(null);
 
@@ -71,6 +71,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           if (credential) {
             const token = credential.accessToken;
+            console.log(token);
             // The signed-in user info.
             setUser({ ...result.user });
             navigate('/profile');
@@ -84,8 +85,10 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
         const errorMessage = error.message;
         // The email of the user's account used.
         const email = error.customData.email;
+        console.log(email);
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(credential);
         notifyContext.addNotification('(' + errorCode + ') ' + errorMessage, 'error');
       });
   };
@@ -93,11 +96,13 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
   const logout = () => {
     signOut(auth)
       .then((response) => {
+        console.log(response);
         notifyContext.addNotification('Erfolgreich abgemeldet', 'success');
         setUser({} as User);
         navigate('/');
       })
       .catch((error) => {
+        console.log(error);
         notifyContext.addNotification('Fehler beim Logout', 'error');
       });
   };
@@ -137,6 +142,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
           notifyContext.addNotification('Profil erfoglreich erstellt', 'success');
         })
         .catch((error) => {
+          console.log(error);
           notifyContext.addNotification('Fehler beim Erstellen deines Profils', 'error');
         });
     }
@@ -164,6 +170,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
           notifyContext.addNotification('Einstellungen erfoglreich gespeichert', 'success');
         })
         .catch((error) => {
+          console.log(error);
           notifyContext.addNotification('Fehler beim Speichern deines Profils', 'error');
         });
     }
@@ -176,6 +183,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
     } else {
       setLoggedIn(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   useEffect(() => {

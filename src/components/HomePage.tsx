@@ -1,7 +1,7 @@
-import MainContainer from './common/MainContainer';
-import { AuthContext } from '../contexts/AuthContextProvider';
-import { lazy, Suspense, useContext } from 'react';
 import { LinearProgress } from '@mui/material';
+import { lazy, Suspense, useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContextProvider';
+import MainContainer from './common/MainContainer';
 
 const HomePage = () => {
   const authContext = useContext(AuthContext);

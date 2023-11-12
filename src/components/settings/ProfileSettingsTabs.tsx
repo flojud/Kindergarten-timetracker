@@ -1,6 +1,5 @@
-import { Box, Typography, Tabs, Tab, LinearProgress } from '@mui/material';
-import React, { Suspense } from 'react';
-import { lazy } from 'react';
+import { Box, LinearProgress, Tab, Tabs, Typography } from '@mui/material';
+import React, { Suspense, lazy } from 'react';
 
 interface TabPanelProps {
   children?: React.ReactNode;

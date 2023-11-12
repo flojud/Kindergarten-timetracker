@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, useEffect } from 'react';
 import { Box } from '@mui/material';
-import { Dayjs } from 'dayjs';
-import * as dayjs from 'dayjs';
-import locale from 'dayjs/locale/de';
 import TextField from '@mui/material/TextField';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers/';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import * as dayjs from 'dayjs';
+import { Dayjs } from 'dayjs';
 import 'dayjs/locale/de';
+import locale from 'dayjs/locale/de';
+import React, { FC, useEffect } from 'react';
 
 interface DateRangePickerProps {
   onChange: (dateRange: Dayjs[]) => void;
@@ -56,7 +56,7 @@ const DateRangePicker: FC<DateRangePickerProps> = ({ onChange }: DateRangePicker
           flexDirection: 'row',
           gap: 2,
         }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'de'}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
           <DatePicker
             label="Von"
             value={from}
@@ -66,7 +66,7 @@ const DateRangePicker: FC<DateRangePickerProps> = ({ onChange }: DateRangePicker
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'de'}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
           <DatePicker
             label="Bis"
             value={to}

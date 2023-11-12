@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import MainContainer from '../common/MainContainer';
-import DateRangePicker from '../common/DateRangePicker';
-import { useContext, useEffect, useState } from 'react';
+import { Button, Stack, Typography } from '@mui/material';
 import { Dayjs } from 'dayjs';
 import locale from 'dayjs/locale/de';
-import TimeInputCard from './TimeInputCard';
-import { Button, Stack, Typography } from '@mui/material';
-import { ITime, IProfile } from '../../interfaces/Types';
-import useStore from '../../hooks/useStore';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContextProvider';
-import TimeUtils from '../../utils/TimeUtils';
+import useStore from '../../hooks/useStore';
+import { IProfile, ITime } from '../../interfaces/Types';
 import { ReactComponent as TimeSvg } from '../../svg/time.svg';
+import TimeUtils from '../../utils/TimeUtils';
+import DateRangePicker from '../common/DateRangePicker';
+import MainContainer from '../common/MainContainer';
+import TimeInputCard from './TimeInputCard';
 
 const TimeInputPage = () => {
   const authContext = useContext(AuthContext);
@@ -100,7 +100,7 @@ const TimeInputPage = () => {
             <TimeInputCard key={item.day} data={item} onChange={handleAddDate} />
           ))}
           <Button variant="contained" onClick={save} color="secondary">
-            <Typography variant="button" display="block" color={'text.primary'}>
+            <Typography variant="button" display="block" color="text.primary">
               Speichern
             </Typography>
           </Button>

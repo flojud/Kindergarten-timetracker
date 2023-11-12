@@ -1,41 +1,32 @@
 {
-  "github-enterprise.uri": "https://git.daimler.com",
   "redhat.telemetry.enabled": false,
   "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.formatOnSave": true,
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.colorCustomizations": {
-    "activityBar.activeBackground": "#0c0cc9",
-    "activityBar.background": "#0c0cc9",
-    "activityBar.foreground": "#e7e7e7",
-    "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#d30d0d",
-    "activityBarBadge.foreground": "#e7e7e7",
-    "commandCenter.border": "#e7e7e799",
-    "sash.hoverBorder": "#0c0cc9",
-    "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#0c0cc9",
-    "statusBarItem.remoteBackground": "#090999",
-    "statusBarItem.remoteForeground": "#e7e7e7",
-    "titleBar.activeBackground": "#090999",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#09099999",
-    "titleBar.inactiveForeground": "#e7e7e799"
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "peacock.color": "#090999",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "eslint.lintTask.enable": true,
   "triggerTaskOnSave.tasks": {
-    "eslint: lint whole folder": ["*.tsx"]
+    "eslint: lint whole folder": ["*.tsx", "*.ts"]
   },
   "triggerTaskOnSave.showStatusBarToggle": true,
-  //"triggerTaskOnSave.resultIndicator": "statusBar.background",
-  //"triggerTaskOnSave.failureColour": "#7f0000",
-  //"triggerTaskOnSave.successColour": "#007f00",
-  //"triggerTaskOnSave.resultIndicatorResetTimeout": 5,
-  "task.allowAutomaticTasks": "on"
+  "task.allowAutomaticTasks": "on",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
 }

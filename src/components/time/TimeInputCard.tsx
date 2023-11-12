@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-import dayjs from 'dayjs';
-import { Card, CardContent, Stack, TextField, Typography } from '@mui/material';
-import TimeUtils from '../../utils/TimeUtils';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import { ITime } from '../../interfaces/Types';
+import { Card, CardContent, Stack, TextField, Typography } from '@mui/material';
+import dayjs from 'dayjs';
 import locale from 'dayjs/locale/de';
+import { useEffect, useState } from 'react';
+import { ITime } from '../../interfaces/Types';
+import TimeUtils from '../../utils/TimeUtils';
 
 interface TimeInputCardProps {
   data: ITime;
@@ -49,7 +49,7 @@ const TimeInputCard = ({ data, onChange }: TimeInputCardProps) => {
       <Card sx={{ width: '100%' }}>
         <CardContent>
           <Stack spacing={2}>
-            <Stack spacing={2} direction="row" alignItems={'center'}>
+            <Stack spacing={2} direction="row" alignItems="center">
               <Typography variant="subtitle1">{title}</Typography>
               {!data.workday && (
                 <>

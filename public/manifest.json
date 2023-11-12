@@ -1,35 +1,32 @@
 {
   "short_name": "KAT",
   "name": "Kindergarten Arbeitszeit Timetracker",
-  "start_url": ".",
-  "display": "standalone",
+  "scope": "https://kindergarten-timetracker.web.app/",
+  "start_url": "https://kindergarten-timetracker.web.app/",
+  "display": "fullscreen",
   "theme_color": "#000000",
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "favicon-16.png",
-      "type": "image/png",
-      "sizes": "16x16"
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
     },
     {
-      "src": "favicon-32.png",
-      "type": "image/png",
-      "sizes": "32x32"
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
     },
     {
-      "src": "favicon-48.png",
-      "type": "image/png",
-      "sizes": "48x48"
-    },
-    {
-      "src": "favicon-32.png",
-      "type": "image/png",
-      "sizes": "96x96"
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }

@@ -1,13 +1,14 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
-import NavigationDrawer from './components/menu/NavigationDrawer';
-import ProtectedRoute from './components/common/ProtectedRoute';
-import { lazy, Suspense, useCallback, useContext, useEffect } from 'react';
-import { ThemeContext } from './contexts/ThemeContextProvider';
 import { ThemeProvider } from '@emotion/react';
-import { createMuiTheme, createTheme, CssBaseline, LinearProgress } from '@mui/material';
-import { darkThemeOptions, lightThemeOptions } from './utils/MyThemeOptions';
+import { CssBaseline, LinearProgress, createTheme } from '@mui/material';
+import { Suspense, lazy, useCallback, useContext, useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import ProtectedRoute from './components/common/ProtectedRoute';
+import NavigationDrawer from './components/menu/NavigationDrawer';
 import TimeEditPage from './components/time/TimeEditPage';
+import { ThemeContext } from './contexts/ThemeContextProvider';
+import A2HSInstaller from './utils/A2HSInstaller';
 import AnalyticsTracker from './utils/AnalyticsTracker';
+import { darkThemeOptions, lightThemeOptions } from './utils/MyThemeOptions';
 
 const App = () => {
   const themeContext = useContext(ThemeContext);
@@ -144,6 +145,7 @@ const App = () => {
             />
           </Routes>
         </NavigationDrawer>
+        <A2HSInstaller />
       </ThemeProvider>
     </>
   );

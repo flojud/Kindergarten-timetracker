@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import CircleIcon from '@mui/icons-material/Circle';
 import { Button, Card, CardContent, Grid, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography } from '@mui/material';
 import { LocalizationProvider, PickersDay, PickersDayProps, StaticDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useContext, useEffect, useState } from 'react';
-import locale from 'dayjs/locale/de';
-import HolidayUtils from '../../utils/HolidayUtils';
-import { AuthContext } from '../../contexts/AuthContextProvider';
-import { IProfile } from '../../interfaces/Types';
-import MainContainer from '../common/MainContainer';
-import NewAbsence from './NewAbsence';
-import useStore from '../../hooks/useStore';
-import CircleIcon from '@mui/icons-material/Circle';
-import { ReactComponent as AirportSvg } from '../../svg/airport.svg';
 import 'dayjs/locale/de';
+import locale from 'dayjs/locale/de';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContextProvider';
+import useStore from '../../hooks/useStore';
+import { IProfile } from '../../interfaces/Types';
+import { ReactComponent as AirportSvg } from '../../svg/airport.svg';
+import HolidayUtils from '../../utils/HolidayUtils';
+import MainContainer from '../common/MainContainer';
 import AbsencesCard from './AbsencesCard';
+import NewAbsence from './NewAbsence';
 
 type HighlightedDay = {
   date: Dayjs;
@@ -124,7 +124,7 @@ const AbsencesYearPage = () => {
           <Card>
             <CardContent sx={{ width: '100%', p: 0 }}>
               <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start" gap={0}>
-                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'de'}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
                   <StaticDatePicker
                     displayStaticWrapperAs="desktop"
                     openTo="day"
@@ -208,7 +208,7 @@ const AbsencesYearPage = () => {
           <AbsencesCard days={days} />
           {showAbsenceButton ? (
             <Button variant="contained" fullWidth onClick={() => setShowAbsenceButton(false)} color="secondary">
-              <Typography variant="button" display="block" color={'text.primary'}>
+              <Typography variant="button" display="block" color="text.primary">
                 Neue Abwesenheit
               </Typography>
             </Button>

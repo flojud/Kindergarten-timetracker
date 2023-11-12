@@ -1,7 +1,6 @@
 import jsPDF from 'jspdf';
 import autoTable, { CellDef } from 'jspdf-autotable';
 import { ITimeCsv } from '../interfaces/Types';
-import { dateStringToMonthYear } from './TimeUtils';
 
 const header = [
   ['Kalenderwoche', 'Datum', 'Arbeitszeit (h)', 'Arbeitszeit Saldo (h)', 'Verfügungszeit (min)', 'Verfügungszeit Saldo (min)', 'Notizen'],

@@ -2,10 +2,10 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { Box, Button, Link, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Item from './common/Item';
-import MainContainer from './common/MainContainer';
 import { AuthContext } from '../contexts/AuthContextProvider';
 import useNotification from '../hooks/useNotification';
+import Item from './common/Item';
+import MainContainer from './common/MainContainer';
 
 const SignUpPage = () => {
   const [email, setEmail] = useState('');
@@ -55,7 +55,7 @@ const SignUpPage = () => {
               startIcon={<PersonAddAltIcon sx={{ color: 'text.primary' }} />}
               onClick={handleSubmit}
               color="secondary">
-              <Typography variant="button" display="block" color={'text.primary'}>
+              <Typography variant="button" display="block" color="text.primary">
                 Registrieren
               </Typography>
             </Button>

@@ -1,18 +1,18 @@
-import { Divider, Grid, Stack, Typography } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../contexts/AuthContextProvider';
-import dayjs, { Dayjs } from 'dayjs';
-import locale from 'dayjs/locale/de';
-import { IAbsence, IProfile, ITime } from '../interfaces/Types';
-import useStore from '../hooks/useStore';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 import PsychologyAltOutlinedIcon from '@mui/icons-material/PsychologyAltOutlined';
 import SickOutlinedIcon from '@mui/icons-material/SickOutlined';
-import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
-import UserHomePageInfoCard from './UserHomePageInfoCard';
+import { Divider, Grid, Stack, Typography } from '@mui/material';
+import dayjs, { Dayjs } from 'dayjs';
+import locale from 'dayjs/locale/de';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../contexts/AuthContextProvider';
+import useStore from '../hooks/useStore';
+import { IAbsence, IProfile, ITime } from '../interfaces/Types';
 import { ReactComponent as HomeSvg } from '../svg/home.svg';
-import TimeUtils from '../utils/TimeUtils';
 import HolidayUtils from '../utils/HolidayUtils';
+import TimeUtils from '../utils/TimeUtils';
+import UserHomePageInfoCard from './UserHomePageInfoCard';
 
 const UserHomePage = () => {
   const authContext = useContext(AuthContext);
@@ -27,6 +27,7 @@ const UserHomePage = () => {
   const [workingTimeSum, setWorkingTimeSum] = useState<number>(0);
   const [balanceWorkMinutes, setBalanceWorkMinutes] = useState<number>(0);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [availableTimeSum, setAvailableTimeSum] = useState<number>(0);
   const [availableTimeSumInMonth, setAvailableTimeSumInMonth] = useState<number>(0);
   const [balanceAvailableMinutes, setBalanceAvailableMinutes] = useState<number>(0);
@@ -52,6 +53,7 @@ const UserHomePage = () => {
         setFrom(firstJanuary);
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -113,6 +115,7 @@ const UserHomePage = () => {
         setAvailableTimeSumInMonth(aTInMonth);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile, from]);
 
   useEffect(() => {
@@ -130,6 +133,7 @@ const UserHomePage = () => {
       const targetWorkingMinutes = targetWorkingDays * profile.workingtime;
       setBalanceWorkMinutes(workingTimeSum - targetWorkingMinutes);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workingTimeSum]);
 
   useEffect(() => {
@@ -147,6 +151,7 @@ const UserHomePage = () => {
       const targetAvailableMinutes = targetAvailableDays * profile.availabletime;
       setBalanceAvailableMinutes(availableTimeSumInMonth - targetAvailableMinutes);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableTimeSumInMonth]);
 
   return (
@@ -163,29 +168,24 @@ const UserHomePage = () => {
         <Divider sx={{ my: 2 }} />
         <Grid direction="row" justifyContent="center" alignItems="center" gap={4} container>
           <UserHomePageInfoCard
-            title={'Freie Urlaubstage'}
+            title="Freie Urlaubstage"
             value={`${noHolidays} Tg.`}
-            subtitle={'In diesem Jahr'}
+            subtitle="In diesem Jahr"
             SvgIcon={AirplanemodeActiveIcon}
           />
           <UserHomePageInfoCard
-            title={'Arbeitszeit am Kind Saldo'}
+            title="Arbeitszeit am Kind Saldo"
             value={`${TimeUtils.negativeMinutesToTime(balanceWorkMinutes)} h`}
-            subtitle={'Seit Start der Erfassung'}
+            subtitle="Seit Start der Erfassung"
             SvgIcon={AccessTimeOutlinedIcon}
           />
           <UserHomePageInfoCard
-            title={'Verfügungszeit Saldo'}
+            title="Verfügungszeit Saldo"
             value={`${TimeUtils.negativeMinutesToTime(balanceAvailableMinutes)} h`}
-            subtitle={'Im aktuellen Monat'}
+            subtitle="Im aktuellen Monat"
             SvgIcon={PsychologyAltOutlinedIcon}
           />
-          <UserHomePageInfoCard
-            title={'Krankheitstage'}
-            value={`${noSickDays} Tg.`}
-            subtitle={'In diesem Jahr'}
-            SvgIcon={SickOutlinedIcon}
-          />
+          <UserHomePageInfoCard title="Krankheitstage" value={`${noSickDays} Tg.`} subtitle="In diesem Jahr" SvgIcon={SickOutlinedIcon} />
         </Grid>
       </Stack>
     </>

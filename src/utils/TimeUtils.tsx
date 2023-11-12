@@ -1,9 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { IProfile, IWorkingdays } from '../interfaces/Types';
-import { ITime } from '../interfaces/Types';
-import HolidayUtils from './HolidayUtils';
-import weekOfYear from 'dayjs/plugin/weekOfYear';
 import locale from 'dayjs/locale/de';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+import { IProfile, ITime, IWorkingdays } from '../interfaces/Types';
+import HolidayUtils from './HolidayUtils';
 
 export const numWorkdays = (workingdays: IWorkingdays): number => {
   let num = 0;
@@ -42,9 +41,7 @@ export const minutesToTime = (minutes: number): string => {
 };
 
 export const negativeMinutesToTime = (min: number): string => {
-  let isNegative = false;
   if (min.toString().includes('-')) {
-    isNegative = true;
     const m = min * -1;
     return '-' + minutesToTime(m);
   } else {
